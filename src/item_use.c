@@ -77,6 +77,10 @@ static void Task_UseRepel(u8);
 static void Task_CloseCantUseKeyItemMessage(u8);
 static void SetDistanceOfClosestHiddenItem(u8, s16, s16);
 static void CB2_OpenPokeblockFromBag(void);
+static void ItemUseOnFieldCB_TeleportTool(u8);
+static void SetUpFieldAndUseTeleportTool(u8 taskId);
+static void UseTeleportToolYesNo(u8 taskId);
+static void AskPlayerTeleportTool(u8 taskId);
 
 // EWRAM variables
 EWRAM_DATA static void(*sItemUseOnFieldCB)(u8 taskId) = NULL;
@@ -1154,7 +1158,6 @@ void ItemUseOutOfBattle_CannotUse(u8 taskId)
 // Start qol_field_moves
 void ItemUseOutOfBattle_CutTool(u8 taskId)
 {
-    //if (SetUpFieldMove_UseCutTool())
     if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUTTABLE_TREE))
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_CutTool;
@@ -1292,20 +1295,50 @@ void ItemUseOnFieldCB_DiveTool(u8 taskId)
     ScriptContext_SetupScript(EventScript_UseDiveTool);
     DestroyTask(taskId);
 }
+
+static const struct YesNoFuncTable sUseTeleportToolFuncTable =
+{
+    .yesFunc = SetUpFieldAndUseTeleportTool,
+    .noFunc = CloseItemMessage,
+};
+
 void ItemUseOutOfBattle_TeleportTool(u8 taskId)
 {
     if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
-    {
-        sItemUseOnFieldCB = ItemUseOnFieldCB_TeleportTool;
-        SetUpItemUseOnFieldCallback(taskId);
-    }
+        AskPlayerTeleportTool(taskId);
     else
         DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+}
+static void AskPlayerTeleportTool(u8 taskId)
+{
+    const struct MapHeader *mapHeader;
+    mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->lastHealLocation.mapGroup, gSaveBlock1Ptr->lastHealLocation.mapNum);
+    GetMapNameGeneric(gStringVar1, mapHeader->regionMapSectionId);
+    StringExpandPlaceholders(gStringVar4, gText_ReturnToHealingSpot);
+
+    if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
+        DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, UseTeleportToolYesNo);
+    else
+        ItemUseOnFieldCB_TeleportTool(taskId);
+}
+static void UseTeleportToolYesNo(u8 taskId)
+{
+    BagMenu_YesNo(taskId, ITEMWIN_YESNO_HIGH, &sUseTeleportToolFuncTable);
+}
+static void SetUpFieldAndUseTeleportTool(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TeleportTool;
+    SetUpItemUseOnFieldCallback(taskId);
 }
 void ItemUseOnFieldCB_TeleportTool(u8 taskId)
 {
     LockPlayerFieldControls();
-    FldEff_UseTeleportTool();
+
+    if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
+        FldEff_UseTeleportTool();
+    else
+        ScriptContext_SetupScript(EventScript_AskTeleportTool);
+
     DestroyTask(taskId);
 }
 void ItemUseOutOfBattle_SweetScentTool(u8 taskId)
