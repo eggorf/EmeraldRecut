@@ -1154,7 +1154,8 @@ void ItemUseOutOfBattle_CannotUse(u8 taskId)
 // Start qol_field_moves
 void ItemUseOutOfBattle_CutTool(u8 taskId)
 {
-    if (SetUpFieldMove_UseCutTool())
+    //if (SetUpFieldMove_UseCutTool())
+    if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUTTABLE_TREE))
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_CutTool;
 		SetUpItemUseOnFieldCallback(taskId);
