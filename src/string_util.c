@@ -299,6 +299,7 @@ u8 *ConvertIntToHexStringN(u8 *dest, s32 value, enum StringConvertMode mode, u8 
         if (state == WRITING_DIGITS)
         {
             u8 *out = dest++;
+<<<<<<< HEAD:src/string_util.c
 
             if (digit <= 0xF)
                 c = sDigits[digit];
@@ -359,6 +360,8 @@ u8 *ConvertUIntToHexStringN(u8 *dest, u32 value, enum StringConvertMode mode, u8
         if (state == WRITING_DIGITS)
         {
             char *out = dest++;
+=======
+>>>>>>> 289528e589 (Merge branch 'pret:master' into qol_field_moves):gflib/string_util.c
 
             if (digit <= 0xF)
                 c = sDigits[digit];
@@ -369,7 +372,7 @@ u8 *ConvertUIntToHexStringN(u8 *dest, u32 value, enum StringConvertMode mode, u8
         }
         else if (digit != 0 || powerOfSixteen == 1)
         {
-            char *out;
+            u8 *out;
             state = WRITING_DIGITS;
             out = dest++;
 

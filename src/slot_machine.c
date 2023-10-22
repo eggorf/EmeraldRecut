@@ -7013,8 +7013,17 @@ static const struct Subsprite sSubsprites_DigitalDisplay_SmokeSmall[] =
 
 static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Smoke[] =
 {
+<<<<<<< HEAD
     {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeBig),   sSubsprites_DigitalDisplay_SmokeBig},
     {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeSmall), sSubsprites_DigitalDisplay_SmokeSmall}
+=======
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Smoke), sSubsprites_DigitalDisplay_Smoke}
+};
+
+static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Unused2[] =
+{
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Unused2), sSubsprites_DigitalDisplay_Unused2}
+>>>>>>> 289528e589 (Merge branch 'pret:master' into qol_field_moves)
 };
 
 /*

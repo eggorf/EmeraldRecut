@@ -728,7 +728,11 @@ static void Task_TitleScreenPhase1(u8 taskId)
 #undef sParentTaskId
 #undef sAlphaBlendIdx
 
+<<<<<<< HEAD
 // Create "Press Start" and copyright banners, and slide Pokémon logo up
+=======
+// Create "Press Start" and copyright banners, and slide Pokemon logo up
+>>>>>>> 289528e589 (Merge branch 'pret:master' into qol_field_moves)
 static void Task_TitleScreenPhase2(u8 taskId)
 {
     u32 yPos;
@@ -767,7 +771,11 @@ static void Task_TitleScreenPhase2(u8 taskId)
     if (!(gTasks[taskId].tCounter & 1) && gTasks[taskId].tBg2Y != 0)
         gTasks[taskId].tBg2Y++;
 
+<<<<<<< HEAD
     // Slide Pokémon logo up
+=======
+    // Slide Pokemon logo up
+>>>>>>> 289528e589 (Merge branch 'pret:master' into qol_field_moves)
     yPos = gTasks[taskId].tBg2Y * 256;
     SetGpuReg(REG_OFFSET_BG2Y_L, yPos);
     SetGpuReg(REG_OFFSET_BG2Y_H, yPos / 0x10000);

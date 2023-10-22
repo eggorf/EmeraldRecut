@@ -741,10 +741,21 @@ u8 GetFactoryMonFixedIV(u8 challengeNum, bool8 isLastBattle)
     u8 ivSet;
     bool8 useHigherIV = isLastBattle ? TRUE : FALSE;
 
+<<<<<<< HEAD
 // The Factory has an out-of-bounds access when generating the rental draft for round 9 (challengeNum==8),
 // or the "elevated" rentals from round 8 (challengeNum+1==8)
 // This happens to land on a number higher than 31, which is interpreted as "random IVs"
     if (challengeNum >= ARRAY_COUNT(sFixedIVTable))
+=======
+// The Factory has an out-of-bounds access when generating the rental draft for round 9 (challengeNum==8), 
+// or the "elevated" rentals from round 8 (challengeNum+1==8)
+// This happens to land on a number higher than 31, which is interpreted as "random IVs"
+#ifdef BUGFIX
+    if (challengeNum >= ARRAY_COUNT(sFixedIVTable))
+#else
+    if (challengeNum > ARRAY_COUNT(sFixedIVTable))
+#endif
+>>>>>>> 289528e589 (Merge branch 'pret:master' into qol_field_moves)
         ivSet = ARRAY_COUNT(sFixedIVTable) - 1;
     else
         ivSet = challengeNum;
