@@ -55,7 +55,7 @@ AI_CheckBadMove:
 	get_how_powerful_move_is
 	if_equal MOVE_POWER_OTHER, AI_CheckBadMove_CheckSoundproof
 AI_CBM_CheckIfNegatesType:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_VOLT_ABSORB, CheckIfVoltAbsorbCancelsElectric
 	if_equal ABILITY_WATER_ABSORB, CheckIfWaterAbsorbCancelsWater
@@ -222,7 +222,7 @@ AI_CBM_Sleep:
 	end
 
 AI_CBM_Explosion:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_DAMP, Score_Minus10
 	count_usable_party_mons AI_USER
@@ -241,7 +241,7 @@ AI_CBM_Nightmare:
 
 AI_CBM_DreamEater:
 	if_not_status AI_TARGET, STATUS1_SLEEP, Score_Minus8
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	end
 
 AI_CBM_BellyDrum:
@@ -356,7 +356,7 @@ AI_CBM_LightScreen:
 	end
 
 AI_CBM_OneHitKO:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_STURDY, Score_Minus10
 	if_level_cond 1, Score_Minus10
@@ -366,7 +366,7 @@ AI_CBM_Magnitude:
 	get_ability AI_TARGET
 	if_equal ABILITY_LEVITATE, Score_Minus10
 AI_CBM_HighRiskForDamage:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_not_equal ABILITY_WONDER_GUARD, AI_CBM_HighRiskForDamage_End
 	if_type_effectiveness AI_EFFECTIVENESS_x2, AI_CBM_HighRiskForDamage_End
@@ -395,7 +395,7 @@ AI_CBM_Reflect:
 	end
 
 AI_CBM_Paralyze:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_LIMBER, Score_Minus10
 	if_status AI_TARGET, STATUS1_ANY, Score_Minus10
@@ -514,7 +514,7 @@ AI_CBM_Stockpile:
 	end
 
 AI_CBM_SpitUpAndSwallow:
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_stockpile_count AI_USER
 	if_equal 0, Score_Minus10
 	end
@@ -530,12 +530,10 @@ AI_CBM_Torment:
 
 AI_CBM_WillOWisp:
 	get_ability AI_TARGET
-	if_equal ABILITY_WATER_VEIL, Score_Minus10
-	if_status AI_TARGET, STATUS1_ANY, Score_Minus10
-	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
-	if_type_effectiveness AI_EFFECTIVENESS_x0_5, Score_Minus10
-	if_type_effectiveness AI_EFFECTIVENESS_x0_25, Score_Minus10
-	if_side_affecting AI_TARGET, SIDE_STATUS_SAFEGUARD, Score_Minus10
+	if_equal ABILITY_WATER_VEIL, Score_Minus30
+	if_status AI_TARGET, STATUS1_ANY, Score_Minus30
+	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
+	if_side_affecting AI_TARGET, SIDE_STATUS_SAFEGUARD, Score_Minus30
 	end
 
 AI_CBM_HelpingHand:
@@ -1115,6 +1113,9 @@ AI_CV_AttackDown_End:
 AI_CV_AttackDown_PhysicalTypeList:
 	.byte TYPE_NORMAL
 	.byte TYPE_FIGHTING
+	.byte TYPE_POISON
+	.byte TYPE_FLYING
+	.byte TYPE_GHOST
 	.byte TYPE_GROUND
 	.byte TYPE_ROCK
 	.byte TYPE_BUG
@@ -1647,18 +1648,11 @@ AI_CV_Counter5:
 	if_random_less_than 100, AI_CV_Counter6
 	score +1
 AI_CV_Counter6:
-#ifdef BUGFIX
 	get_target_type1
 	if_in_bytes AI_CV_Counter_PhysicalTypeList, AI_CV_Counter7
 	get_target_type2
 	if_in_bytes AI_CV_Counter_PhysicalTypeList, AI_CV_Counter7
 	goto AI_CV_Counter_End
-#else
-	get_target_type1
-	if_in_bytes AI_CV_Counter_PhysicalTypeList, AI_CV_Counter_End
-	get_target_type2
-	if_in_bytes AI_CV_Counter_PhysicalTypeList, AI_CV_Counter_End
-#endif
 AI_CV_Counter7:
 	if_random_less_than 50, AI_CV_Counter_End
 AI_CV_Counter8:
@@ -1935,22 +1929,14 @@ AI_CV_Protect_ScoreDown2:
 AI_CV_Protect_End:
 	end
 
-@ BUG: Foresight is only encouraged if the user is Ghost type or
-@      has high evasion, but should check target instead
+@ BUGFIX: Foresight is only encouraged if the user is Ghost type or
+@      has high evasion, but should check target instead FIXED
 AI_CV_Foresight:
-#ifdef BUGFIX
 	get_target_type1
 	if_equal TYPE_GHOST, AI_CV_Foresight2
 	get_target_type2
 	if_equal TYPE_GHOST, AI_CV_Foresight2
 	if_stat_level_more_than AI_TARGET, STAT_EVASION, 8, AI_CV_Foresight3
-#else
-	get_user_type1
-	if_equal TYPE_GHOST, AI_CV_Foresight2
-	get_user_type2
-	if_equal TYPE_GHOST, AI_CV_Foresight2
-	if_stat_level_more_than AI_USER, STAT_EVASION, 8, AI_CV_Foresight3
-#endif
 	score -2
 	goto AI_CV_Foresight_End
 
@@ -2112,7 +2098,7 @@ AI_CV_PsychUp_End:
 	end
 
 @ BUG: The original script would score up Mirror Coat when the target's types were not special
-@      This is incorrect since Mirror Coat only deals double the damage received if hit by a special attack
+@      This is incorrect since Mirror Coat only deals double the damage received if hit by a special attack FIXED
 AI_CV_MirrorCoat:
 	if_status AI_TARGET, STATUS1_SLEEP, AI_CV_MirrorCoat_ScoreDown1
 	if_status2 AI_TARGET, STATUS2_INFATUATION, AI_CV_MirrorCoat_ScoreDown1
@@ -2145,18 +2131,11 @@ AI_CV_MirrorCoat5:
 	if_random_less_than 100, AI_CV_MirrorCoat6
 	score +1
 AI_CV_MirrorCoat6:
-#ifdef BUGFIX
 	get_target_type1
 	if_in_bytes AI_CV_MirrorCoat_SpecialTypeList, AI_CV_MirrorCoat7
 	get_target_type2
 	if_in_bytes AI_CV_MirrorCoat_SpecialTypeList, AI_CV_MirrorCoat7
 	goto AI_CV_MirrorCoat_End
-#else
-	get_target_type1
-	if_in_bytes AI_CV_MirrorCoat_SpecialTypeList, AI_CV_MirrorCoat_End
-	get_target_type2
-	if_in_bytes AI_CV_MirrorCoat_SpecialTypeList, AI_CV_MirrorCoat_End
-#endif
 AI_CV_MirrorCoat7:
 	if_random_less_than 50, AI_CV_MirrorCoat_End
 AI_CV_MirrorCoat_ScoreUp4:
@@ -2200,19 +2179,14 @@ AI_CV_SemiInvulnerable:
 	goto AI_CV_SemiInvulnerable_End
 
 @ BUG: The scripts for checking type-resistance to weather for semi-invulnerable moves are swapped
-@      The result is that the AI is encouraged to stall while taking damage from weather
+@      The result is that the AI is encouraged to stall while taking damage from weather FIXED
 AI_CV_SemiInvulnerable2:
 	if_status AI_TARGET, STATUS1_TOXIC_POISON, AI_CV_SemiInvulnerable_TryEncourage
 	if_status2 AI_TARGET, STATUS2_CURSED, AI_CV_SemiInvulnerable_TryEncourage
 	if_status3 AI_TARGET, STATUS3_LEECHSEED, AI_CV_SemiInvulnerable_TryEncourage
 	get_weather
-#ifdef BUGFIX
 	if_equal AI_WEATHER_HAIL, AI_CV_SemiInvulnerable_CheckIceType
 	if_equal AI_WEATHER_SANDSTORM, AI_CV_SemiInvulnerable_CheckSandstormTypes
-#else
-	if_equal AI_WEATHER_HAIL, AI_CV_SemiInvulnerable_CheckSandstormTypes
-	if_equal AI_WEATHER_SANDSTORM, AI_CV_SemiInvulnerable_CheckIceType
-#endif
 	goto AI_CV_SemiInvulnerable5
 
 AI_CV_SemiInvulnerable_CheckSandstormTypes:
@@ -2275,13 +2249,9 @@ AI_CV_Hail_ScoreDown1:
 AI_CV_Hail_End:
 	end
 
-@ BUG: Facade score is increased if the target is statused, but should be if the user is
+@ BUG: Facade score is increased if the target is statused, but should be if the user is FIXED
 AI_CV_Facade:
-#ifdef BUGFIX
 	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, AI_CV_Facade_End
-#else
-	if_not_status AI_TARGET, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, AI_CV_Facade_End
-#endif
 	score +1
 AI_CV_Facade_End:
 	end
@@ -2876,7 +2846,7 @@ AI_TryStatusMoveOnAlly:
 	if_move MOVE_TOXIC, AI_TryStatusOnAlly
 	if_move MOVE_HELPING_HAND, AI_TryHelpingHandOnAlly
 	if_move MOVE_SWAGGER, AI_TrySwaggerOnAlly
-	goto Score_Minus30_
+	goto Score_Minus30
 
 AI_TrySkillSwapOnAlly:
 	get_ability AI_TARGET
@@ -2884,7 +2854,7 @@ AI_TrySkillSwapOnAlly:
 	get_ability AI_USER
 	if_not_equal ABILITY_LEVITATE, AI_TrySkillSwapOnAlly2
 	get_ability AI_TARGET
-	if_equal ABILITY_LEVITATE, Score_Minus30_
+	if_equal ABILITY_LEVITATE, Score_Minus30
 	get_target_type1
 	if_not_equal TYPE_ELECTRIC, AI_TrySkillSwapOnAlly2
 	score +1
@@ -2894,7 +2864,7 @@ AI_TrySkillSwapOnAlly:
 	end
 
 AI_TrySkillSwapOnAlly2:
-	if_not_equal ABILITY_COMPOUND_EYES, Score_Minus30_
+	if_not_equal ABILITY_COMPOUND_EYES, Score_Minus30
 	if_has_move AI_USER_PARTNER, MOVE_FIRE_BLAST, AI_TrySkillSwapOnAllyPlus3
 	if_has_move AI_USER_PARTNER, MOVE_THUNDER, AI_TrySkillSwapOnAllyPlus3
 	if_has_move AI_USER_PARTNER, MOVE_CROSS_CHOP, AI_TrySkillSwapOnAllyPlus3
@@ -2902,16 +2872,16 @@ AI_TrySkillSwapOnAlly2:
 	if_has_move AI_USER_PARTNER, MOVE_DYNAMIC_PUNCH, AI_TrySkillSwapOnAllyPlus3
 	if_has_move AI_USER_PARTNER, MOVE_BLIZZARD, AI_TrySkillSwapOnAllyPlus3
 	if_has_move AI_USER_PARTNER, MOVE_MEGAHORN, AI_TrySkillSwapOnAllyPlus3
-	goto Score_Minus30_
+	goto Score_Minus30
 
 AI_TrySkillSwapOnAllyPlus3:
 	goto Score_Plus3
 
 AI_TryStatusOnAlly:
 	get_ability AI_TARGET
-	if_not_equal ABILITY_GUTS, Score_Minus30_
-	if_status AI_TARGET, STATUS1_ANY, Score_Minus30_
-	if_hp_less_than AI_USER, 91, Score_Minus30_
+	if_not_equal ABILITY_GUTS, Score_Minus30
+	if_status AI_TARGET, STATUS1_ANY, Score_Minus30
+	if_hp_less_than AI_USER, 91, Score_Minus30
 	goto Score_Plus5
 
 AI_TryHelpingHandOnAlly:
@@ -2920,16 +2890,12 @@ AI_TryHelpingHandOnAlly:
 
 AI_TrySwaggerOnAlly:
 	if_holds_item AI_TARGET, ITEM_PERSIM_BERRY, AI_TrySwaggerOnAlly2
-	goto Score_Minus30_
+	goto Score_Minus30
 
 AI_TrySwaggerOnAlly2:
 	if_stat_level_more_than AI_TARGET, STAT_ATK, 7, AI_TrySwaggerOnAlly_End
 	score +3
 AI_TrySwaggerOnAlly_End:
-	end
-
-Score_Minus30_:
-	score -30
 	end
 
 AI_HPAware:
@@ -3154,7 +3120,7 @@ AI_HPAware_DiscouragedEffectsWhenTargetLowHP:
 	.byte EFFECT_TOXIC
 	.byte EFFECT_LIGHT_SCREEN
 	.byte EFFECT_OHKO
-	.byte EFFECT_SUPER_FANG //Maybe supposed to be EFFECT_RAZOR_WIND
+	.byte EFFECT_RAZOR_WIND
 	.byte EFFECT_SUPER_FANG
 	.byte EFFECT_MIST
 	.byte EFFECT_FOCUS_ENERGY
