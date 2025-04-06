@@ -6,6 +6,7 @@
 !data/*.gba
 *.sgm
 *.sa1
+*.sav
 *.ss[0-9]
 *.sg1
 *.1bpp
