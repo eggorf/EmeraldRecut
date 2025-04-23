@@ -504,14 +504,7 @@ static void Task_TryBecomeLinkLeader(u8 taskId)
         }
         break;
     case LL_STATE_MEMBER_LEFT:
-        // BUG: sPlayerActivityGroupSize was meant below, not gPlayerCurrActivity
-        //      This will be false for all but ACTIVITY_BATTLE_DOUBLE and ACTIVITY_DECLINE
-        //      All this changes is which of two texts gets printed
-    #ifdef BUGFIX
         id = (GROUP_MAX(sPlayerActivityGroupSize) == 2) ? 0 : 1;
-    #else
-        id = (GROUP_MAX(gPlayerCurrActivity) == 2) ? 1 : 0;
-    #endif
         if (PrintOnTextbox(&data->textState, sPlayerUnavailableTexts[id]))
         {
             data->playerCount = LeaderPrunePlayerList(data->playerList);

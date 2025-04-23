@@ -1929,8 +1929,6 @@ AI_CV_Protect_ScoreDown2:
 AI_CV_Protect_End:
 	end
 
-@ BUGFIX: Foresight is only encouraged if the user is Ghost type or
-@      has high evasion, but should check target instead FIXED
 AI_CV_Foresight:
 	get_target_type1
 	if_equal TYPE_GHOST, AI_CV_Foresight2
