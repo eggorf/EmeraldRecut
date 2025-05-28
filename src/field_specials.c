@@ -2495,9 +2495,9 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
     },
     [SCROLL_MULTI_BF_MOVE_TUTOR_1] =
     {
-        gText_Softboiled16BP,
+        gText_DreamEater16BP,
+        gText_WillOWisp24BP,
         gText_SeismicToss24BP,
-        gText_DreamEater24BP,
         gText_MegaPunch24BP,
         gText_MegaKick48BP,
         gText_BodySlam48BP,
@@ -3058,9 +3058,9 @@ static void HideFrontierExchangeCornerItemIcon(u16 menu, u16 unused)
 
 static const u16 sBattleFrontier_TutorMoves1[] =
 {
-    MOVE_SOFT_BOILED,
-    MOVE_SEISMIC_TOSS,
     MOVE_DREAM_EATER,
+    MOVE_WILL_O_WISP,
+    MOVE_SEISMIC_TOSS,
     MOVE_MEGA_PUNCH,
     MOVE_MEGA_KICK,
     MOVE_BODY_SLAM,
@@ -3120,9 +3120,9 @@ static void ShowBattleFrontierTutorMoveDescription(u8 menu, u16 selection)
 {
     static const u8 *const sBattleFrontier_TutorMoveDescriptions1[] =
     {
-        BattleFrontier_Lounge7_Text_SoftboiledDesc,
-        BattleFrontier_Lounge7_Text_SeismicTossDesc,
         BattleFrontier_Lounge7_Text_DreamEaterDesc,
+        BattleFrontier_Lounge7_Text_WillOWispDesc,
+        BattleFrontier_Lounge7_Text_SeismicTossDesc,
         BattleFrontier_Lounge7_Text_MegaPunchDesc,
         BattleFrontier_Lounge7_Text_MegaKickDesc,
         BattleFrontier_Lounge7_Text_BodySlamDesc,

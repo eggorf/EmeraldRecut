@@ -27,7 +27,7 @@ BattleFrontier_Lounge7_EventScript_ChooseLeftTutorMove::
 	waitstate
 	copyvar VAR_TEMP_FRONTIER_TUTOR_SELECTION, VAR_RESULT
 	switch VAR_RESULT
-	case 0, BattleFrontier_Lounge7_EventScript_Softboiled
+	case 0, BattleFrontier_Lounge7_EventScript_WillOWisp
 	case 1, BattleFrontier_Lounge7_EventScript_SeismicToss
 	case 2, BattleFrontier_Lounge7_EventScript_DreamEater
 	case 3, BattleFrontier_Lounge7_EventScript_MegaPunch
@@ -51,7 +51,7 @@ BattleFrontier_Lounge7_EventScript_ChooseNewLeftTutorMove::
 	waitstate
 	copyvar VAR_TEMP_FRONTIER_TUTOR_SELECTION, VAR_RESULT
 	switch VAR_RESULT
-	case 0, BattleFrontier_Lounge7_EventScript_Softboiled
+	case 0, BattleFrontier_Lounge7_EventScript_WillOWisp
 	case 1, BattleFrontier_Lounge7_EventScript_SeismicToss
 	case 2, BattleFrontier_Lounge7_EventScript_DreamEater
 	case 3, BattleFrontier_Lounge7_EventScript_MegaPunch
@@ -65,17 +65,17 @@ BattleFrontier_Lounge7_EventScript_ChooseNewLeftTutorMove::
 	case MULTI_B_PRESSED, BattleFrontier_Lounge7_EventScript_ExitTutorMoveSelect
 	end
 
-BattleFrontier_Lounge7_EventScript_Softboiled::
+BattleFrontier_Lounge7_EventScript_DreamEater::
 	setvar VAR_0x8008, 16
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
-BattleFrontier_Lounge7_EventScript_SeismicToss::
+BattleFrontier_Lounge7_EventScript_WillOWisp::
 	setvar VAR_0x8008, 24
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
-BattleFrontier_Lounge7_EventScript_DreamEater::
+BattleFrontier_Lounge7_EventScript_SeismicToss::
 	setvar VAR_0x8008, 24
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
@@ -378,10 +378,10 @@ BattleFrontier_Lounge7_Text_LadiesWereStrongAndBeautiful:
 	.string "but feel this…\p"
 	.string "Time is so cruel…$"
 
-BattleFrontier_Lounge7_Text_SoftboiledDesc::
-	.string "Recovers up to\n"
-	.string "half the user's\n"
-	.string "maximum HP.$"
+BattleFrontier_Lounge7_Text_WillOWispDesc::
+	.string "Inflicts a burn\n"
+	.string "on the foe with\n"
+	.string "intense fire.$"
 
 BattleFrontier_Lounge7_Text_SeismicTossDesc::
 	.string "Inflicts damage\n"
