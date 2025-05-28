@@ -224,13 +224,8 @@ SootopolisCity_Gym_1F_Text_JuanDefeat:
 	.string "of skill that will overcome all.\p"
 	.string "However, compared with me or even\n"
 	.string "WALLACE, you are lacking in elegance.\p"
-	.string "Perhaps I should make you a loan\n"
-	.string "of my outfit?\p"
-	.string "… … … … … …\n"
-	.string "… … … … … …\p"
-	.string "Hahaha, I merely jest!\p"
-	.string "Rather than my clothes, I shall reward\n"
-	.string "you with this, the RAIN BADGE!$"
+	.string "… … … Hahaha, I merely jest! I shall\n"
+	.string "reward you with this, the RAIN BADGE!$"
 
 SootopolisCity_Gym_1F_Text_ReceivedRainBadge:
 	.string "{PLAYER} received the RAIN BADGE\n"
