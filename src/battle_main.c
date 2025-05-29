@@ -671,11 +671,10 @@ static void CB2_InitBattleInternal(void)
     gBattle_BG3_Y = 0;
 
 #if TX_DEBUG_SYSTEM_ENABLE == FALSE 
-    
-    gBattleTerrain = BattleSetup_GetTerrainId();
+    gBattleEnvironment = BattleSetup_GetEnvironmentId();
 #else
     if (!gIsDebugBattle)
-        gBattleTerrain = BattleSetup_GetTerrainId();
+        gBattleEnvironment = BattleSetup_GetEnvironmentId();
 #endif
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
         gBattleEnvironment = BATTLE_ENVIRONMENT_BUILDING;

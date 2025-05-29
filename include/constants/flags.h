@@ -41,6 +41,7 @@
 #define FLAG_TEMP_1E     (TEMP_FLAGS_START + 0x1E)
 #define FLAG_TEMP_1F     (TEMP_FLAGS_START + 0x1F)
 #define TEMP_FLAGS_END   FLAG_TEMP_1F
+#define NUM_TEMP_FLAGS   (TEMP_FLAGS_END - TEMP_FLAGS_START + 1)
         
 #define FLAG_SYS_NO_COLLISION       0x20 // Unused Flag //DEBUG
 #define FLAG_SYS_NO_ENCOUNTER       0x21 // Unused Flag //DEBUG

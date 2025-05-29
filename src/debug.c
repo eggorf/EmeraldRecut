@@ -258,7 +258,7 @@ struct DebugBattleData
 {
     u8 submenu;
     u8 battleType;
-    u8 battleTerrain;
+    u8 BattleEnvironment;
 #ifdef BATTLE_ENGINE
     bool8 aiFlags[17];
 #else
@@ -1185,7 +1185,7 @@ static void Debug_InitDebugBattleData(void)
     u32 i;
     sDebugBattleData->submenu       = 0;
     sDebugBattleData->battleType    = 0xFF;
-    sDebugBattleData->battleTerrain = 0xFF;
+    sDebugBattleData->BattleEnvironment = 0xFF;
     
 #ifdef BATTLE_ENGINE
     for (i = 0; i < 17; i++)
@@ -1467,7 +1467,7 @@ static void DebugTask_HandleMenuInput_Battle(u8 taskId)
             break;
         case 2: // Terrain
             sDebugBattleData->submenu++;
-            sDebugBattleData->battleTerrain = idx;
+            sDebugBattleData->BattleEnvironment = idx;
             Debug_DestroyMenu(taskId);
             Debug_ShowMenu(DebugTask_HandleMenuInput_Battle, gMultiuseListMenuTemplate);
             break;
@@ -1541,10 +1541,10 @@ static void Debug_InitializeBattle(u8 taskId)
     }
     
     // Set terrain
-    gBattleTerrain = sDebugBattleData->battleTerrain;
+    gBattleEnvironment = sDebugBattleData->BattleEnvironment;
 
     // Set AI flags
-    for (i = 0; i < ARRAY_COUNT(sDebugBattleData->aiFlags); i++)
+    for(i = 0; i < ARRAY_COUNT(sDebugBattleData->aiFlags); i++)
     {
         if (sDebugBattleData->aiFlags[i])
             gDebugAIFlags |= (1 << i);
@@ -1903,8 +1903,8 @@ static void DebugAction_Util_PoisonMons(u8 taskId)
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, 0)
-            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_NONE
-            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
         {
             u32 curStatus = STATUS1_POISON;
             SetMonData(&gPlayerParty[i], MON_DATA_STATUS, &curStatus);
@@ -3560,7 +3560,7 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     }
 
     if (i >= PARTY_SIZE)
-        sentToPc = SendMonToPC(&mon);
+        sentToPc = CopyMonToPC(&mon);
     else
     {
         sentToPc = MON_GIVEN_TO_PARTY;

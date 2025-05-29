@@ -27,9 +27,9 @@ BattleFrontier_Lounge7_EventScript_ChooseLeftTutorMove::
 	waitstate
 	copyvar VAR_TEMP_FRONTIER_TUTOR_SELECTION, VAR_RESULT
 	switch VAR_RESULT
-	case 0, BattleFrontier_Lounge7_EventScript_WillOWisp
+	case 0, BattleFrontier_Lounge7_EventScript_DreamEater
 	case 1, BattleFrontier_Lounge7_EventScript_SeismicToss
-	case 2, BattleFrontier_Lounge7_EventScript_DreamEater
+	case 2, BattleFrontier_Lounge7_EventScript_WillOWisp
 	case 3, BattleFrontier_Lounge7_EventScript_MegaPunch
 	case 4, BattleFrontier_Lounge7_EventScript_MegaKick
 	case 5, BattleFrontier_Lounge7_EventScript_BodySlam
@@ -51,9 +51,9 @@ BattleFrontier_Lounge7_EventScript_ChooseNewLeftTutorMove::
 	waitstate
 	copyvar VAR_TEMP_FRONTIER_TUTOR_SELECTION, VAR_RESULT
 	switch VAR_RESULT
-	case 0, BattleFrontier_Lounge7_EventScript_WillOWisp
+	case 0, BattleFrontier_Lounge7_EventScript_DreamEater
 	case 1, BattleFrontier_Lounge7_EventScript_SeismicToss
-	case 2, BattleFrontier_Lounge7_EventScript_DreamEater
+	case 2, BattleFrontier_Lounge7_EventScript_WillOWisp
 	case 3, BattleFrontier_Lounge7_EventScript_MegaPunch
 	case 4, BattleFrontier_Lounge7_EventScript_MegaKick
 	case 5, BattleFrontier_Lounge7_EventScript_BodySlam
