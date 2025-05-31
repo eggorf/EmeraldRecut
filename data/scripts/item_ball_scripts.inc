@@ -478,6 +478,10 @@ SafariZone_Northeast_EventScript_ItemNugget::
 	finditem ITEM_NUGGET
 	end
 
+SafariZone_Northeast_EventScript_ItemCarbos::
+	finditem ITEM_CARBOS
+	end
+
 SafariZone_Southeast_EventScript_ItemBigPearl::
 	finditem ITEM_BIG_PEARL
 	end
