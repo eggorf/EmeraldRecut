@@ -3634,7 +3634,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_Isabel1),
+        .party = ITEM_CUSTOM_MOVES(sParty_Isabel1),
     },
 
     [TRAINER_ISABEL_2] =
@@ -3658,7 +3658,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_Isabel3),
+        .party = ITEM_CUSTOM_MOVES(sParty_Isabel3),
     },
 
     [TRAINER_ISABEL_4] =
@@ -3670,7 +3670,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_Isabel4),
+        .party = ITEM_CUSTOM_MOVES(sParty_Isabel4),
     },
 
     [TRAINER_ISABEL_5] =
@@ -3682,7 +3682,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = ITEM_DEFAULT_MOVES(sParty_Isabel5),
+        .party = ITEM_CUSTOM_MOVES(sParty_Isabel5),
     },
 
     [TRAINER_TIMOTHY_1] =

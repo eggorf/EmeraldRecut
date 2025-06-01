@@ -4010,78 +4010,86 @@ static const struct TrainerMonItemDefaultMoves sParty_Bethany[] = {
     }
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_Isabel1[] = {
+static const struct TrainerMonItemCustomMoves sParty_Isabel1[] = {
     {
     .iv = 0,
-    .lvl = 14,
-    .species = SPECIES_PLUSLE,
-    .heldItem = ITEM_ORAN_BERRY
+    .lvl = 16,
+    .species = SPECIES_PICHU,
+    .heldItem = ITEM_ORAN_BERRY,
+    .moves = {MOVE_THUNDER_SHOCK, MOVE_CHARM, MOVE_THUNDER_WAVE, MOVE_SWEET_KISS}
     },
     {
     .iv = 0,
     .lvl = 14,
-    .species = SPECIES_MINUN,
-    .heldItem = ITEM_ORAN_BERRY
+    .species = SPECIES_SKITTY,
+    .heldItem = ITEM_ORAN_BERRY,
+    .moves = {MOVE_GROWL, MOVE_TACKLE, MOVE_TAIL_WHIP, MOVE_ATTRACT}
     }
 };
 
 static const struct TrainerMonItemDefaultMoves sParty_Isabel2[] = {
-    {
-    .iv = 10,
+{
+    .iv = 0,
     .lvl = 26,
-    .species = SPECIES_PLUSLE,
+    .species = SPECIES_PIKACHU,
     .heldItem = ITEM_ORAN_BERRY
     },
     {
-    .iv = 10,
+    .iv = 0,
     .lvl = 26,
-    .species = SPECIES_MINUN,
+    .species = SPECIES_SKITTY,
     .heldItem = ITEM_ORAN_BERRY
     }
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_Isabel3[] = {
+static const struct TrainerMonItemCustomMoves sParty_Isabel3[] = {
     {
     .iv = 20,
     .lvl = 29,
-    .species = SPECIES_PLUSLE,
-    .heldItem = ITEM_ORAN_BERRY
+    .species = SPECIES_PIKACHU,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_QUICK_ATTACK, MOVE_DOUBLE_TEAM, MOVE_SLAM, MOVE_THUNDERBOLT}
     },
     {
     .iv = 20,
     .lvl = 29,
-    .species = SPECIES_MINUN,
-    .heldItem = ITEM_ORAN_BERRY
+    .species = SPECIES_DELCATTY,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_FAINT_ATTACK, MOVE_CHARM, MOVE_ASSIST, MOVE_DOUBLE_SLAP}
     }
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_Isabel4[] = {
+static const struct TrainerMonItemCustomMoves sParty_Isabel4[] = {
     {
     .iv = 30,
     .lvl = 32,
-    .species = SPECIES_PLUSLE,
-    .heldItem = ITEM_ORAN_BERRY
+    .species = SPECIES_RAICHU,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SHOCK_WAVE, MOVE_DOUBLE_TEAM, MOVE_QUICK_ATTACK, MOVE_THUNDERBOLT}
     },
     {
     .iv = 30,
     .lvl = 32,
-    .species = SPECIES_MINUN,
-    .heldItem = ITEM_ORAN_BERRY
+    .species = SPECIES_DELCATTY,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_FAINT_ATTACK, MOVE_ATTRACT, MOVE_ASSIST, MOVE_DOUBLE_SLAP}
     }
 };
 
-static const struct TrainerMonItemDefaultMoves sParty_Isabel5[] = {
+static const struct TrainerMonItemCustomMoves sParty_Isabel5[] = {
     {
     .iv = 40,
     .lvl = 35,
-    .species = SPECIES_PLUSLE,
-    .heldItem = ITEM_SITRUS_BERRY
+    .species = SPECIES_RAICHU,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SHOCK_WAVE, MOVE_DOUBLE_TEAM, MOVE_QUICK_ATTACK, MOVE_THUNDER}
     },
     {
     .iv = 40,
     .lvl = 35,
-    .species = SPECIES_MINUN,
-    .heldItem = ITEM_SITRUS_BERRY
+    .species = SPECIES_DELCATTY,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_FAINT_ATTACK, MOVE_ATTRACT, MOVE_ASSIST, MOVE_DOUBLE_EDGE}
     }
 };
 
