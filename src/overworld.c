@@ -3238,3 +3238,12 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
         sprite->data[7]++;
     }
 }
+
+bool8 InTomb(void)
+{
+    return gMapHeader.mapLayoutId == LAYOUT_ANCIENT_TOMB;
+}
+bool8 InRuins(void)
+{
+    return gMapHeader.mapLayoutId == LAYOUT_DESERT_RUINS;
+}

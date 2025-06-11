@@ -17,11 +17,6 @@ void StartEscalator(bool8 var);
 void StopEscalator(void);
 bool8 IsEscalatorMoving(void);
 
-// soft-boiled
-bool8 SetUpFieldMove_SoftBoiled(void);
-void Task_TryUseSoftboiledOnPartyMon(u8 taskId);
-void ChooseMonForSoftboiled(u8 taskId);
-
 // flash
 bool8 SetUpFieldMove_Flash(void);
 void CB2_DoChangeMap(void);
