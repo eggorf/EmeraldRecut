@@ -154,5 +154,7 @@ bool32 Overworld_RecvKeysFromLinkIsRunning(void);
 bool32 Overworld_SendKeysToLinkIsRunning(void);
 bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
+bool8 InTomb(void); //for hm use checks
+bool8 InRuins(void); //for hm use checks
 
 #endif // GUARD_OVERWORLD_H

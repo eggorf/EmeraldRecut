@@ -257,7 +257,6 @@ SECTIONS {
         src/fldeff_sweetscent.o(.text);
         src/battle_anim_effects_3.o(.text);
         src/move_relearner.o(.text);
-        src/fldeff_softboiled.o(.text);
         src/decoration_inventory.o(.text);
         src/roamer.o(.text);
         src/battle_tower.o(.text);

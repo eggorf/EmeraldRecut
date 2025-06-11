@@ -687,10 +687,12 @@ struct
     [MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT] = {gMoveNames[MOVE_TELEPORT], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_DIG] = {gMoveNames[MOVE_DIG], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SECRET_POWER] = {gMoveNames[MOVE_SECRET_POWER], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_MILK_DRINK] = {gMoveNames[MOVE_MILK_DRINK], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED] = {gMoveNames[MOVE_SOFT_BOILED], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT] = {gMoveNames[MOVE_SWEET_SCENT], CursorCb_FieldMove},
 };
+
+bool32 PartyHasMonLearnsKnowsFieldMove(u16);
+bool32 PartyCanLearnMoveLevelUp(u16, u16);
+u32 CanSpeciesLearnLevelUp(u16, u16);
 
 static const u8 sPartyMenuAction_SummarySwitchCancel[] = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
 static const u8 sPartyMenuAction_ShiftSummaryCancel[] = {MENU_SHIFT, MENU_SUMMARY, MENU_CANCEL1};
@@ -744,23 +746,21 @@ static const u8 sPartyMenuActionCounts[] =
 
 static const u16 sFieldMoves[FIELD_MOVES_COUNT + 1] =
 {
-    [FIELD_MOVE_CUT]          = MOVE_CUT,
-    [FIELD_MOVE_FLASH]        = MOVE_FLASH,
-    [FIELD_MOVE_ROCK_SMASH]   = MOVE_ROCK_SMASH,
-    [FIELD_MOVE_STRENGTH]     = MOVE_STRENGTH,
-    [FIELD_MOVE_SURF]         = MOVE_SURF,
-    [FIELD_MOVE_FLY]          = MOVE_FLY,
-    [FIELD_MOVE_DIVE]         = MOVE_DIVE,
-    [FIELD_MOVE_WATERFALL]    = MOVE_WATERFALL,
-    [FIELD_MOVE_TELEPORT]     = MOVE_TELEPORT,
-    [FIELD_MOVE_DIG]          = MOVE_DIG,
-    [FIELD_MOVE_SECRET_POWER] = MOVE_SECRET_POWER,
-    [FIELD_MOVE_MILK_DRINK]   = MOVE_MILK_DRINK,
-    [FIELD_MOVE_SOFT_BOILED]  = MOVE_SOFT_BOILED,
-    [FIELD_MOVE_SWEET_SCENT]  = MOVE_SWEET_SCENT,
+    [FIELD_MOVE_CUT]          = MOVE_CUT,           //0
+    [FIELD_MOVE_FLASH]        = MOVE_FLASH,         //1
+    [FIELD_MOVE_ROCK_SMASH]   = MOVE_ROCK_SMASH,    //2
+    [FIELD_MOVE_STRENGTH]     = MOVE_STRENGTH,      //3
+    [FIELD_MOVE_SURF]         = MOVE_SURF,          //4
+    [FIELD_MOVE_FLY]          = MOVE_FLY,           //5
+    [FIELD_MOVE_DIVE]         = MOVE_DIVE,          //6
+    [FIELD_MOVE_WATERFALL]    = MOVE_WATERFALL,     //7
+    [FIELD_MOVE_TELEPORT]     = MOVE_TELEPORT,      //8
+    [FIELD_MOVE_DIG]          = MOVE_DIG,           //9
+    [FIELD_MOVE_SECRET_POWER] = MOVE_SECRET_POWER,  //10
+    [FIELD_MOVE_SWEET_SCENT]  = MOVE_SWEET_SCENT,   //11
     // NOTE: This value is used as the terminal value for the table. There's no reason to do this, as the size of the table is known.
     //       Whichever move shares this value (MOVE_SWORDS_DANCE by default) if present will be treated as the end of the array rather than a field move.
-    [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT
+    [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT   //12
 };
 
 struct
@@ -780,8 +780,6 @@ struct
     [FIELD_MOVE_TELEPORT]     = {SetUpFieldMove_Teleport,    PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_DIG]          = {SetUpFieldMove_Dig,         PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_SECRET_POWER] = {SetUpFieldMove_SecretPower, PARTY_MSG_CANT_USE_HERE},
-    [FIELD_MOVE_MILK_DRINK]   = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
-    [FIELD_MOVE_SOFT_BOILED]  = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
     [FIELD_MOVE_SWEET_SCENT]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
 };
 

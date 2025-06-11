@@ -75,11 +75,10 @@
 #define PARTY_ACTION_GIVE_MAILBOX_MAIL  7
 #define PARTY_ACTION_SWITCH             8
 #define PARTY_ACTION_SWITCHING          9
-#define PARTY_ACTION_SOFTBOILED         10
-#define PARTY_ACTION_CHOOSE_AND_CLOSE   11
-#define PARTY_ACTION_MOVE_TUTOR         12
-#define PARTY_ACTION_MINIGAME           13
-#define PARTY_ACTION_REUSABLE_ITEM      14  // Unused. The only reusable items are handled separately
+#define PARTY_ACTION_CHOOSE_AND_CLOSE   10
+#define PARTY_ACTION_MOVE_TUTOR         11
+#define PARTY_ACTION_MINIGAME           12
+#define PARTY_ACTION_REUSABLE_ITEM      13  // Unused. The only reusable items are handled separately
 
 // IDs for DisplayPartyMenuStdMessage, to display the message at the bottom of the party menu
 #define PARTY_MSG_CHOOSE_MON                0
