@@ -2008,7 +2008,7 @@ static void Task_HandleCancelParticipationYesNoInput(u8 taskId)
     }
 }
 
-u32 CanSpeciesLearnLevelUp(u16 species, u16 moveId)
+u8 CanSpeciesLearnLevelUp(u16 species, u16 moveId)
 {
     const u16 *learnset;
     u8 numLearnsetMoves, j;
@@ -2019,17 +2019,11 @@ u32 CanSpeciesLearnLevelUp(u16 species, u16 moveId)
     learnset = gLevelUpLearnsets[species];
     for (j = 0; learnset[j] != LEVEL_UP_END; j++)
     {
-        if ((learnset[j] & LEVEL_UP_MOVE_LV) > (99 << 9))
-            break;
-    }
-    numLearnsetMoves = j;
-    for (j = 0; j < numLearnsetMoves; j++)
+        if ((learnset[j] & LEVEL_UP_MOVE_ID) == moveId)
         {
-            if ((learnset[j] & LEVEL_UP_MOVE_ID) == moveId)
-            {
-                return TRUE;
-            }
+            return TRUE;
         }
+    }
     return FALSE;
 }
 

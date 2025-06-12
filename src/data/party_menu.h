@@ -692,7 +692,7 @@ struct
 
 bool32 PartyHasMonLearnsKnowsFieldMove(u16);
 bool32 PartyCanLearnMoveLevelUp(u16, u16);
-u32 CanSpeciesLearnLevelUp(u16, u16);
+u8 CanSpeciesLearnLevelUp(u16, u16);
 
 static const u8 sPartyMenuAction_SummarySwitchCancel[] = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
 static const u8 sPartyMenuAction_ShiftSummaryCancel[] = {MENU_SHIFT, MENU_SUMMARY, MENU_CANCEL1};
