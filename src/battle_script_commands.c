@@ -605,7 +605,7 @@ static const struct StatFractions sAccuracyStageRatios[] =
 };
 
 // The chance is 1/N for each stage.
-static const u16 sCriticalHitChance[] = {16, 8, 4, 3, 2};
+static const u16 sCriticalHitChance[] = {16, 8, 3, 2, 1};
 
 static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
 {
@@ -1282,7 +1282,7 @@ static void Cmd_critcalc(void)
      && !(gStatuses3[gBattlerAttacker] & STATUS3_CANT_SCORE_A_CRIT)
      && !(gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE))
      && !(Random() % sCriticalHitChance[critChance]))
-        gCritMultiplier = 2;
+        gCritMultiplier = 1.5;
     else
         gCritMultiplier = 1;
 
@@ -1999,7 +1999,7 @@ static void Cmd_critmessage(void)
 {
     if (gBattleControllerExecFlags == 0)
     {
-        if (gCritMultiplier == 2 && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+        if (gCritMultiplier == 1.5 && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
             PrepareStringBattle(STRINGID_CRITICALHIT, gBattlerAttacker);
             gBattleCommunication[MSG_DISPLAY] = 1;
@@ -7302,7 +7302,6 @@ static void Cmd_forcerandomswitch(void)
         }
         else
         {
-            #ifdef BUGFIX
             if (TryDoForceSwitchOut())
             {
                 do
@@ -7333,38 +7332,6 @@ static void Cmd_forcerandomswitch(void)
                 if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
                     SwitchPartyOrderInGameMulti(gBattlerTarget, i);
             }
-            #else
-            if (TryDoForceSwitchOut())
-            {
-                do
-                {
-                    do
-                    {
-                        i = Random() % monsCount;
-                        i += firstMonId;
-                    }
-                    while (i == battler2PartyId || i == battler1PartyId);
-                } while (GetMonData(&party[i], MON_DATA_SPECIES) == SPECIES_NONE
-                       || GetMonData(&party[i], MON_DATA_IS_EGG) == TRUE
-                       || GetMonData(&party[i], MON_DATA_HP) == 0); //should be one while loop, but that doesn't match.
-            }
-            *(gBattleStruct->monToSwitchIntoId + gBattlerTarget) = i;
-
-            if (!IsMultiBattle())
-                SwitchPartyOrder(gBattlerTarget);
-
-            if ((gBattleTypeFlags & BATTLE_TYPE_LINK && gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-                || (gBattleTypeFlags & BATTLE_TYPE_LINK && gBattleTypeFlags & BATTLE_TYPE_MULTI)
-                || (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-                || (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && gBattleTypeFlags & BATTLE_TYPE_MULTI))
-            {
-                SwitchPartyOrderLinkMulti(gBattlerTarget, i, 0);
-                SwitchPartyOrderLinkMulti(BATTLE_PARTNER(gBattlerTarget), i, 1);
-            }
-
-            if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
-                SwitchPartyOrderInGameMulti(gBattlerTarget, i);
-            #endif
         }
     }
     else

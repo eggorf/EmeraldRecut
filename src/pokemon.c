@@ -3223,7 +3223,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     if (IS_TYPE_PHYSICAL(type))
     {
-        if (gCritMultiplier == 2)
+        if (gCritMultiplier == 1.5)
         {
             // Critical hit, if attacker has lost attack stat stages then ignore stat drop
             if (attacker->statStages[STAT_ATK] > DEFAULT_STAT_STAGE)
@@ -3237,7 +3237,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         damage = damage * gBattleMovePower;
         damage *= (2 * attacker->level / 5 + 2);
 
-        if (gCritMultiplier == 2)
+        if (gCritMultiplier == 1.5)
         {
             // Critical hit, if defender has gained defense stat stages then ignore stat increase
             if (defender->statStages[STAT_DEF] < DEFAULT_STAT_STAGE)
@@ -3278,7 +3278,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     if (IS_TYPE_SPECIAL(type))
     {
-        if (gCritMultiplier == 2)
+        if (gCritMultiplier == 1.5)
         {
             // Critical hit, if attacker has lost sp. attack stat stages then ignore stat drop
             if (attacker->statStages[STAT_SPATK] > DEFAULT_STAT_STAGE)
@@ -3292,7 +3292,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         damage = damage * gBattleMovePower;
         damage *= (2 * attacker->level / 5 + 2);
 
-        if (gCritMultiplier == 2)
+        if (gCritMultiplier == 1.5)
         {
             // Critical hit, if defender has gained sp. defense stat stages then ignore stat increase
             if (defender->statStages[STAT_SPDEF] < DEFAULT_STAT_STAGE)
@@ -5860,11 +5860,7 @@ u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex)
 // Neither occur in the base game, but this can happen if
 // any Nature-affected base stat is increased to a value
 // above 248. The closest by default is Shuckle at 230.
-#ifdef BUGFIX
     u32 retVal;
-#else
-    u16 retVal;
-#endif
 
     // Don't modify HP, Accuracy, or Evasion by nature
     if (statIndex <= STAT_HP || statIndex > NUM_NATURE_STATS)

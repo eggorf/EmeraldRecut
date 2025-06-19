@@ -1614,8 +1614,6 @@ AI_CV_Disable2:
 AI_CV_Disable_End:
 	end
 
-@ BUG: The original script would score up Counter when the target's types were not physical
-@      This is incorrect since Counter only deals double the damage received if hit by a physical attack
 AI_CV_Counter:
 	if_status AI_TARGET, STATUS1_SLEEP, AI_CV_Counter_ScoreDown1
 	if_status2 AI_TARGET, STATUS2_INFATUATION, AI_CV_Counter_ScoreDown1
@@ -2095,8 +2093,6 @@ AI_CV_PsychUp_ScoreDown2:
 AI_CV_PsychUp_End:
 	end
 
-@ BUG: The original script would score up Mirror Coat when the target's types were not special
-@      This is incorrect since Mirror Coat only deals double the damage received if hit by a special attack FIXED
 AI_CV_MirrorCoat:
 	if_status AI_TARGET, STATUS1_SLEEP, AI_CV_MirrorCoat_ScoreDown1
 	if_status2 AI_TARGET, STATUS2_INFATUATION, AI_CV_MirrorCoat_ScoreDown1
@@ -2176,8 +2172,7 @@ AI_CV_SemiInvulnerable:
 	score -1
 	goto AI_CV_SemiInvulnerable_End
 
-@ BUG: The scripts for checking type-resistance to weather for semi-invulnerable moves are swapped
-@      The result is that the AI is encouraged to stall while taking damage from weather FIXED
+
 AI_CV_SemiInvulnerable2:
 	if_status AI_TARGET, STATUS1_TOXIC_POISON, AI_CV_SemiInvulnerable_TryEncourage
 	if_status2 AI_TARGET, STATUS2_CURSED, AI_CV_SemiInvulnerable_TryEncourage
@@ -2247,7 +2242,6 @@ AI_CV_Hail_ScoreDown1:
 AI_CV_Hail_End:
 	end
 
-@ BUG: Facade score is increased if the target is statused, but should be if the user is FIXED
 AI_CV_Facade:
 	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, AI_CV_Facade_End
 	score +1

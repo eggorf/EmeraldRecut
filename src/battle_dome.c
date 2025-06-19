@@ -2831,12 +2831,7 @@ static int GetTypeEffectivenessPoints(int move, int targetSpecies, int mode)
             }
             if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
             {
-                // BUG: the value of TYPE_x2 does not exist in gTypeEffectiveness, so if defAbility is ABILITY_WONDER_GUARD, the conditional always fails
-                #ifndef BUGFIX
-                    #define WONDER_GUARD_EFFECTIVENESS TYPE_x2
-                #else
-                    #define WONDER_GUARD_EFFECTIVENESS TYPE_MUL_SUPER_EFFECTIVE
-                #endif
+                #define WONDER_GUARD_EFFECTIVENESS TYPE_MUL_SUPER_EFFECTIVE
                 if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
                     if ((defAbility == ABILITY_WONDER_GUARD && TYPE_EFFECT_MULTIPLIER(i) == WONDER_GUARD_EFFECTIVENESS) || defAbility != ABILITY_WONDER_GUARD)
                         typePower = (typePower * TYPE_EFFECT_MULTIPLIER(i)) / 10;

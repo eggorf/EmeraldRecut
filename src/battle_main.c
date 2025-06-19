@@ -351,6 +351,7 @@ const u8 gTypeEffectiveness[336] =
     TYPE_WATER, TYPE_GROUND, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_WATER, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_WATER, TYPE_DRAGON, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_WATER, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_WATER, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_GRASS, TYPE_MUL_NOT_EFFECTIVE,
@@ -428,7 +429,6 @@ const u8 gTypeEffectiveness[336] =
     TYPE_GHOST, TYPE_NORMAL, TYPE_MUL_NO_EFFECT,
     TYPE_GHOST, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_GHOST, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE,
-    TYPE_GHOST, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_GHOST, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_DRAGON, TYPE_DRAGON, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_DRAGON, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
@@ -436,7 +436,6 @@ const u8 gTypeEffectiveness[336] =
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_DARK, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_DARK, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE,
-    TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
@@ -499,7 +498,7 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {TRAINER_CLASS_PSYCHIC, 6},
     {TRAINER_CLASS_GENTLEMAN, 20},
     {TRAINER_CLASS_ELITE_FOUR, 25},
-    {TRAINER_CLASS_LEADER, 25},
+    {TRAINER_CLASS_LEADER, 30},
     {TRAINER_CLASS_SCHOOL_KID, 5},
     {TRAINER_CLASS_SR_AND_JR, 4},
     {TRAINER_CLASS_POKEFAN, 20},
@@ -742,15 +741,9 @@ static void CB2_InitBattleInternal(void)
         if (species != SPECIES_EGG && hp != 0 && status == 0)               \
             (flags) |= 1 << (i) * 2;                                        \
                                                                             \
-        if (species == SPECIES_NONE) /* Redundant */                        \
-            continue;                                                       \
-                                                                            \
         /* Is Egg or statused? */                                           \
         if (hp != 0 && (species == SPECIES_EGG || status != 0))             \
             (flags) |= 2 << (i) * 2;                                        \
-                                                                            \
-        if (species == SPECIES_NONE) /* Redundant */                        \
-            continue;                                                       \
                                                                             \
         /* Is fainted? */                                                   \
         if (species != SPECIES_EGG && hp == 0)                              \

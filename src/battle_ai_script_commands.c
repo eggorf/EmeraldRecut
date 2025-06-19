@@ -454,16 +454,12 @@ static u8 ChooseMoveOrAction_Doubles(void)
 {
     s32 i;
     s32 j;
-#ifndef BUGFIX
-    s32 scriptsToRun;
-#else
+    u32 scriptsToRun;
     // the value assigned to this is a u32 (aiFlags)
     // this becomes relevant because aiFlags can have bit 31 set
     // and scriptsToRun is shifted
     // this never happens in the vanilla game because bit 31 is
     // only set when it's the first battle
-    u32 scriptsToRun;
-#endif
     s16 bestMovePointsForTarget[MAX_BATTLERS_COUNT];
     s8 mostViableTargetsArray[MAX_BATTLERS_COUNT];
     u8 actionOrMoveIndex[MAX_BATTLERS_COUNT];
@@ -1774,11 +1770,9 @@ static void Cmd_if_cant_faint(void)
 
     gBattleMoveDamage = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[AI_THINKING_STRUCT->movesetIndex] / 100;
 
-#ifdef BUGFIX
     // Moves always do at least 1 damage.
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = 1;
-#endif
 
     if (gBattleMons[gBattlerTarget].hp > gBattleMoveDamage)
         gAIScriptPtr = T1_READ_PTR(gAIScriptPtr + 1);
