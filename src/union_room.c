@@ -341,14 +341,8 @@ static void GetAwaitingCommunicationText(u8 *dst, u8 activity)
     case ACTIVITY_CONTEST_CUTE:
     case ACTIVITY_CONTEST_SMART:
     case ACTIVITY_CONTEST_TOUGH:
-        // BUG: argument *dst isn't used, instead it always prints to gStringVar4
-        // not an issue in practice since Gamefreak never used any other arguments here besides gStringVar4
-    #ifndef BUGFIX
-        StringExpandPlaceholders(gStringVar4, sText_AwaitingCommunication);
-    #else
-        StringExpandPlaceholders(dst, sText_AwaitingCommunication);
-    #endif
-        break;
+    StringExpandPlaceholders(dst, sText_AwaitingCommunication);
+    break;
     }
 }
 
@@ -1350,11 +1344,7 @@ static bool32 IsPartnerActivityAcceptable(u32 activity, u32 linkGroup)
     if (linkGroup == 0xFF)
         return TRUE;
 
-    #ifdef UBFIX
     if (linkGroup < ARRAY_COUNT(sAcceptedActivityIds))
-    #else
-    if (linkGroup <= ARRAY_COUNT(sAcceptedActivityIds))
-    #endif
     {
         const u8 *bytes = sAcceptedActivityIds[linkGroup];
 

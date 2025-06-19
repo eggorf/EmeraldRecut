@@ -30,11 +30,6 @@
 #include "constants/region_map_sections.h"
 #include "constants/songs.h"
 
-// gFrontierPassBg_Pal has 8*16 colors, but they attempt to load 13*16 colors.
-// As a result it goes out of bounds and interprets 160 bytes of whatever comes
-// after gFrontierPassBg_Pal (by default, gFrontierPassBg_Gfx) as a palette.
-// Nothing uses these colors (except the Trainer Card, which correctly writes them)
-// so in practice this bug has no effect on the game.
 #define NUM_BG_PAL_SLOTS 8
 
 // All windows displayed in the frontier pass.
