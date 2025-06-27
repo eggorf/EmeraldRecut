@@ -987,7 +987,7 @@ static const struct InGameTrade sIngameTrades[] =
     [INGAME_TRADE_SEEDOT] =
     {
         .nickname = _("DOTS"),
-        .species = SPECIES_SEEDOT,
+        .species = SPECIES_SEEDOT, //CHANGE
         .ivs = {5, 4, 5, 4, 4, 4},
         .abilityNum = 1,
         .otId = 38726,
@@ -1003,7 +1003,7 @@ static const struct InGameTrade sIngameTrades[] =
     [INGAME_TRADE_PLUSLE] =
     {
         .nickname = _("PLUSES"),
-        .species = SPECIES_PLUSLE,
+        .species = SPECIES_PLUSLE, //CHANGE
         .ivs = {4, 4, 4, 5, 5, 4},
         .abilityNum = 0,
         .otId = 73996,
@@ -1019,30 +1019,34 @@ static const struct InGameTrade sIngameTrades[] =
     [INGAME_TRADE_HORSEA] =
     {
         .nickname = _("SEASOR"),
-        .species = SPECIES_HORSEA,
-        .ivs = {5, 4, 4, 4, 5, 4},
+        .species = SPECIES_SEADRA,
+        .ivs = {15, 5, 25, 20, 30, 10},
+        //ORDER HP ATK DEF SPEED SPATK SPDEF
+        //atk spdef hp spe def spa
         .abilityNum = 0,
         .otId = 46285,
         .conditions = {5, 5, 5, 5, 30},
         .personality = 0x7F,
-        .heldItem = ITEM_WAVE_MAIL,
-        .mailNum = 1,
+        .heldItem = ITEM_DRAGON_SCALE,
+        .mailNum = -1,
         .otName = _("SKYLAR"),
         .otGender = MALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_BAGON
+        .requestedSpecies = SPECIES_SHELGON
     },
     [INGAME_TRADE_MEOWTH] =
     {
         .nickname = _("MEOWOW"),
         .species = SPECIES_MEOWTH,
-        .ivs = {4, 5, 4, 5, 4, 4},
+        .ivs = {20, 25, 5, 30, 10, 15},
+        //ORDER HP ATK DEF SPEED SPATK SPDEF
+        //def spatk spdef hp atk speed
         .abilityNum = 0,
         .otId = 91481,
         .conditions = {5, 5, 5, 30, 5},
         .personality = 0x8B,
-        .heldItem = ITEM_RETRO_MAIL,
-        .mailNum = 2,
+        .heldItem = ITEM_SALAC_BERRY,
+        .mailNum = -1,
         .otName = _("ISIS"),
         .otGender = FEMALE,
         .sheen = 10,

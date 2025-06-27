@@ -312,7 +312,6 @@ static EWRAM_DATA struct Roulette
     bool8 ballRolling:1; // Never read
     u8 tableId:2;
     u8 unused:5;
-    bool8 isSpecialRate:1;
     u32 hitFlags;
     u8 hitSquares[BALLS_PER_ROUND];
     u8 pokeHits[NUM_BOARD_POKES];
@@ -1119,12 +1118,9 @@ static void InitRouletteTableData(void)
 
     sRoulette->tableId = (gSpecialVar_0x8004 & 1);
 
-    if (gSpecialVar_0x8004 & ROULETTE_SPECIAL_RATE)
-        sRoulette->isSpecialRate = TRUE;
-
     sRoulette->wheelSpeed = sRouletteTables[sRoulette->tableId].wheelSpeed;
     sRoulette->wheelDelay = sRouletteTables[sRoulette->tableId].wheelDelay;
-    sRoulette->minBet = sTableMinBets[sRoulette->tableId + sRoulette->isSpecialRate * 2];
+    sRoulette->minBet = sTableMinBets[sRoulette->tableId * 2];
     sRoulette->unk1 = 1;
 
     // Left table (with min bet of 1) has red background, other table has green
@@ -3437,23 +3433,12 @@ static void Task_PrintRouletteEntryMsg(u8 taskId)
 
     if (gTasks[taskId].tCoins >= minBet)
     {
-        if ((gSpecialVar_0x8004 & ROULETTE_SPECIAL_RATE) && (gSpecialVar_0x8004 & 1))
-        {
-            // Special rate for Game Corner service day (only at second table)
-            DrawStdWindowFrame(0, FALSE);
-            AddTextPrinterParameterized(0, FONT_NORMAL, Roulette_Text_SpecialRateTable, 0, 1, TEXT_SKIP_DRAW, NULL);
-            CopyWindowToVram(0, COPYWIN_FULL);
-            gTasks[taskId].func = Task_PrintMinBet;
-        }
-        else
-        {
-            // Print minimum bet
-            StringExpandPlaceholders(gStringVar4, Roulette_Text_PlayMinimumWagerIsX);
-            DrawStdWindowFrame(0, FALSE);
-            AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
-            CopyWindowToVram(0, COPYWIN_FULL);
-            gTasks[taskId].func = Task_ShowMinBetYesNo;
-        }
+        // Print minimum bet
+        StringExpandPlaceholders(gStringVar4, Roulette_Text_PlayMinimumWagerIsX);
+        DrawStdWindowFrame(0, FALSE);
+        AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
+        CopyWindowToVram(0, COPYWIN_FULL);
+        gTasks[taskId].func = Task_ShowMinBetYesNo;
     }
     else
     {

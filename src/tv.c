@@ -260,7 +260,6 @@ static const u16 sNumberOneVarsAndThresholds[][2] = {
 static const u8 *const sPokeNewsTextGroup_Upcoming[NUM_POKENEWS_TYPES + 1] = {
     [POKENEWS_NONE]        = NULL,
     [POKENEWS_SLATEPORT]   = gPokeNewsTextSlateport_Upcoming,
-    [POKENEWS_GAME_CORNER] = gPokeNewsTextGameCorner_Upcoming,
     [POKENEWS_LILYCOVE]    = gPokeNewsTextLilycove_Upcoming,
     [POKENEWS_BLENDMASTER] = gPokeNewsTextBlendMaster_Upcoming
 };
@@ -268,7 +267,6 @@ static const u8 *const sPokeNewsTextGroup_Upcoming[NUM_POKENEWS_TYPES + 1] = {
 static const u8 *const sPokeNewsTextGroup_Ongoing[NUM_POKENEWS_TYPES + 1] = {
     [POKENEWS_NONE]        = NULL,
     [POKENEWS_SLATEPORT]   = gPokeNewsTextSlateport_Ongoing,
-    [POKENEWS_GAME_CORNER] = gPokeNewsTextGameCorner_Ongoing,
     [POKENEWS_LILYCOVE]    = gPokeNewsTextLilycove_Ongoing,
     [POKENEWS_BLENDMASTER] = gPokeNewsTextBlendMaster_Ongoing
 };
@@ -276,7 +274,6 @@ static const u8 *const sPokeNewsTextGroup_Ongoing[NUM_POKENEWS_TYPES + 1] = {
 static const u8 *const sPokeNewsTextGroup_Ending[NUM_POKENEWS_TYPES + 1] = {
     [POKENEWS_NONE]        = NULL,
     [POKENEWS_SLATEPORT]   = gPokeNewsTextSlateport_Ending,
-    [POKENEWS_GAME_CORNER] = gPokeNewsTextGameCorner_Ending,
     [POKENEWS_LILYCOVE]    = gPokeNewsTextLilycove_Ending,
     [POKENEWS_BLENDMASTER] = gPokeNewsTextBlendMaster_Ending
 };

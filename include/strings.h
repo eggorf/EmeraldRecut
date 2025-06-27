@@ -94,7 +94,6 @@ extern const u8 Roulette_Text_BoardWillBeCleared[];
 extern const u8 Roulette_Text_CoinCaseIsFull[];
 extern const u8 Roulette_Text_NoCoinsLeft[];
 extern const u8 Roulette_Text_PlayMinimumWagerIsX[];
-extern const u8 Roulette_Text_SpecialRateTable[];
 extern const u8 Roulette_Text_NotEnoughCoins[];
 
 extern const u8 gText_Slots[];
@@ -1202,8 +1201,8 @@ extern const u8 gText_TM29AndPrice[];
 extern const u8 gText_TM35AndPrice[];
 extern const u8 gText_TM24AndPrice[];
 extern const u8 gText_TM13AndPrice[];
-extern const u8 gText_50CoinsAndPrice[];
-extern const u8 gText_500CoinsAndPrice[];
+extern const u8 gText_100CoinsAndPrice[];
+extern const u8 gText_1200CoinsAndPrice[];
 extern const u8 gText_Excellent2[];
 extern const u8 gText_NotSoGood[];
 extern const u8 gText_LilycoveCity[];
