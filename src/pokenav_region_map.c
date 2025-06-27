@@ -1,6 +1,7 @@
 #include "global.h"
 #include "bg.h"
 #include "decompress.h"
+//#include "event_data.h"
 #include "landmark.h"
 #include "main.h"
 #include "menu.h"
@@ -533,6 +534,8 @@ static bool32 TryFreeTempTileDataBuffers(void)
 static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
 {
     struct RegionMap *regionMap = GetSubstructPtr(POKENAV_SUBSTRUCT_REGION_MAP);
+    if (regionMap->mapSecType == MAPSECTYPE_SECRET_BASE)
+        regionMap->mapSecType = MAPSECTYPE_NONE;
     switch (regionMap->mapSecType)
     {
     case MAPSECTYPE_CITY_CANFLY:
@@ -552,6 +555,17 @@ static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
         SetCityZoomTextInvisibility(TRUE);
         break;
     case MAPSECTYPE_ROUTE:
+
+    //on zoom, add city sprite, add text of the base's route and entrance type
+    /*case MAPSECTYPE_SECRET_BASE:
+        FillWindowPixelBuffer(state->infoWindowId, PIXEL_FILL(1));
+        PutWindowRectTilemap(state->infoWindowId, 0, 0, 12, 2);
+        AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, regionMap->mapSecName, 0, 1, TEXT_SKIP_DRAW, NULL);
+        FillBgTilemapBufferRect(1, 0x1041, 17, 6, 12, 11, 17);
+        CopyWindowToVram(state->infoWindowId, COPYWIN_FULL);
+        SetCityZoomTextInvisibility(TRUE);
+        break;*/
+        
     case MAPSECTYPE_BATTLE_FRONTIER:
         FillWindowPixelBuffer(state->infoWindowId, PIXEL_FILL(1));
         PutWindowTilemap(state->infoWindowId);

@@ -812,6 +812,7 @@ void ClearAndLeaveSecretBase(void)
     u16 temp = gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived;
     ClearSecretBase(&gSaveBlock1Ptr->secretBases[0]);
     gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived = temp;
+    FlagClear(FLAG_SECRET_BASE_CREATED);
     WarpOutOfSecretBase();
 }
 
@@ -862,6 +863,7 @@ void MoveOutOfSecretBaseFromOutside(void)
     temp = gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived;
     ClearSecretBase(&gSaveBlock1Ptr->secretBases[0]);
     gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived = temp;
+    FlagClear(FLAG_SECRET_BASE_CREATED);
 }
 
 static u8 GetNumRegisteredSecretBases(void)

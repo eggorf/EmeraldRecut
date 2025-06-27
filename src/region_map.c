@@ -1211,6 +1211,8 @@ static u8 GetMapsecType(u16 mapSecId)
         return FlagGet(FLAG_LANDMARK_BATTLE_FRONTIER) ? MAPSECTYPE_BATTLE_FRONTIER : MAPSECTYPE_NONE;
     case MAPSEC_SOUTHERN_ISLAND:
         return FlagGet(FLAG_LANDMARK_SOUTHERN_ISLAND) ? MAPSECTYPE_ROUTE : MAPSECTYPE_NONE;
+    case MAPSEC_DYNAMIC:
+        return FlagGet(FLAG_SECRET_BASE_CREATED) ? MAPSECTYPE_SECRET_BASE : MAPSECTYPE_NONE; //MAPSECTYPE_SECRET_BASE
     default:
         return MAPSECTYPE_ROUTE;
     }
@@ -1873,6 +1875,16 @@ static void CreateFlyDestIcons(void)
         }
         canFlyFlag++;
     }
+
+    if (FlagGet(FLAG_SECRET_BASE_CREATED))
+    {
+        mapSecId = MAPSEC_DYNAMIC;
+        GetMapSecDimensions(mapSecId, &x, &y, &width, &height);
+        x = (x + MAPCURSOR_X_MIN) * 8 + 4;
+        y = (y + MAPCURSOR_Y_MIN) * 8 + 4;
+
+        spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
+    }
 }
 
 // Draw a red outline box on the mapsec if its corresponding flag has been set
@@ -1903,6 +1915,22 @@ static void TryCreateRedOutlineFlyDestIcons(void)
                 StartSpriteAnim(&gSprites[spriteId], FLYDESTICON_RED_OUTLINE);
                 gSprites[spriteId].sIconMapSec = mapSecId;
             }
+        }
+    }
+
+    if (FlagGet(FLAG_SECRET_BASE_CREATED))
+    {
+        mapSecId = MAPSEC_DYNAMIC;
+        GetMapSecDimensions(mapSecId, &x, &y, &width, &height);
+        x = (x + MAPCURSOR_X_MIN) * 8;
+        y = (y + MAPCURSOR_Y_MIN) * 8;
+        spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
+        if (spriteId != MAX_SPRITES)
+        {
+            gSprites[spriteId].oam.size = SPRITE_SIZE(16x16);
+            gSprites[spriteId].callback = SpriteCB_FlyDestIcon;
+            StartSpriteAnim(&gSprites[spriteId], FLYDESTICON_RED_OUTLINE);
+            gSprites[spriteId].sIconMapSec = mapSecId; //the flicker is triggered by matching mapsec 
         }
     }
 }
@@ -1959,7 +1987,15 @@ static void CB_HandleFlyMapInput(void)
             DrawFlyDestTextWindow();
             break;
         case MAP_INPUT_A_BUTTON:
-            if (sFlyMap->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY || sFlyMap->regionMap.mapSecType == MAPSECTYPE_BATTLE_FRONTIER)
+            if (sFlyMap->regionMap.mapSecId == MAPSEC_DYNAMIC && FlagGet(FLAG_SECRET_BASE_CREATED))
+            {
+                sFlyMap->regionMap.mapSecId = VarGet(VAR_SECRET_BASE_MAP);
+                m4aSongNumStart(SE_SELECT);
+                sFlyMap->choseFlyLocation = TRUE;
+                SetFlyMapCallback(CB_ExitFlyMap);
+                break;
+            }
+            if (sFlyMap->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY || sFlyMap->regionMap.mapSecType == MAPSECTYPE_BATTLE_FRONTIER) //sFlyMap->regionMap.mapSecId == VarGet(VAR_SECRET_BASE_MAP)
             {
                 m4aSongNumStart(SE_SELECT);
                 sFlyMap->choseFlyLocation = TRUE;
@@ -1989,27 +2025,35 @@ static void CB_ExitFlyMap(void)
             FreeRegionMapIconResources();
             if (sFlyMap->choseFlyLocation)
             {
-                switch (sFlyMap->regionMap.mapSecId)
+                if (sFlyMap->regionMap.mapSecId == VarGet(VAR_SECRET_BASE_MAP))
                 {
-                case MAPSEC_SOUTHERN_ISLAND:
-                    SetWarpDestinationToHealLocation(HEAL_LOCATION_SOUTHERN_ISLAND_EXTERIOR);
-                    break;
-                case MAPSEC_BATTLE_FRONTIER:
-                    SetWarpDestinationToHealLocation(HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST);
-                    break;
-                case MAPSEC_LITTLEROOT_TOWN:
-                    SetWarpDestinationToHealLocation(gSaveBlock2Ptr->playerGender == MALE ? HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE : HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE);
-                    break;
-                case MAPSEC_EVER_GRANDE_CITY:
-                    SetWarpDestinationToHealLocation(FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && sFlyMap->regionMap.posWithinMapSec == 0 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
-                    break;
-                default:
-                    if (sMapHealLocations[sFlyMap->regionMap.mapSecId][2] != HEAL_LOCATION_NONE)
-                        SetWarpDestinationToHealLocation(sMapHealLocations[sFlyMap->regionMap.mapSecId][2]);
-                    else
-                        SetWarpDestinationToMapWarp(sMapHealLocations[sFlyMap->regionMap.mapSecId][0], sMapHealLocations[sFlyMap->regionMap.mapSecId][1], WARP_ID_NONE);
-                    break;
+                    SetWarpDestinationToDynamicWarp(WARP_ID_SECRET_BASE);
                 }
+                else
+                {
+                    switch (sFlyMap->regionMap.mapSecId)
+                    {
+                    case MAPSEC_SOUTHERN_ISLAND:
+                        SetWarpDestinationToHealLocation(HEAL_LOCATION_SOUTHERN_ISLAND_EXTERIOR);
+                        break;
+                    case MAPSEC_BATTLE_FRONTIER:
+                        SetWarpDestinationToHealLocation(HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST);
+                        break;
+                    case MAPSEC_LITTLEROOT_TOWN:
+                        SetWarpDestinationToHealLocation(gSaveBlock2Ptr->playerGender == MALE ? HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE : HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE);
+                        break;
+                    case MAPSEC_EVER_GRANDE_CITY:
+                        SetWarpDestinationToHealLocation(FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && sFlyMap->regionMap.posWithinMapSec == 0 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
+                        break;
+                    default:
+                        if (sMapHealLocations[sFlyMap->regionMap.mapSecId][2] != HEAL_LOCATION_NONE)
+                            SetWarpDestinationToHealLocation(sMapHealLocations[sFlyMap->regionMap.mapSecId][2]);
+                        else
+                            SetWarpDestinationToMapWarp(sMapHealLocations[sFlyMap->regionMap.mapSecId][0], sMapHealLocations[sFlyMap->regionMap.mapSecId][1], WARP_ID_NONE);
+                        break;
+                    }
+                }
+
             // Start qol_field_moves
                 if (IsFlyToolUsed())
                     ReturnToFieldFromFlyToolMapSelect();
