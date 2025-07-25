@@ -456,9 +456,9 @@ static void SetPlayerAndOpponentParties(void)
             }
 
             CalculateMonStats(&gPlayerParty[i]);
-            friendship = 0;
+            friendship = MAX_FRIENDSHIP;
             for (k = 0; k < MAX_MON_MOVES; k++)
-                SetMonMoveAvoidReturn(&gPlayerParty[i], gFacilityTrainerMons[monId].moves[k], k);
+                SetMonMoveSlot(&gPlayerParty[i], gFacilityTrainerMons[monId].moves[k], k);
             SetMonData(&gPlayerParty[i], MON_DATA_FRIENDSHIP, &friendship);
             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
             SetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM, &gSaveBlock2Ptr->frontier.rentalMons[i].abilityNum);
@@ -498,7 +498,7 @@ static void SetPlayerAndOpponentParties(void)
 
             CalculateMonStats(&gEnemyParty[i]);
             for (k = 0; k < MAX_MON_MOVES; k++)
-                SetMonMoveAvoidReturn(&gEnemyParty[i], gFacilityTrainerMons[monId].moves[k], k);
+                SetMonMoveSlot(&gEnemyParty[i], gFacilityTrainerMons[monId].moves[k], k);
             SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
             SetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM, &gSaveBlock2Ptr->frontier.rentalMons[i + FRONTIER_PARTY_SIZE].abilityNum);
         }
@@ -813,9 +813,9 @@ void FillFactoryBrainParty(void)
                                              gFacilityTrainerMons[monId].evSpread,
                                              otId);
 
-        friendship = 0;
+        friendship = MAX_FRIENDSHIP;
         for (k = 0; k < MAX_MON_MOVES; k++)
-            SetMonMoveAvoidReturn(&gEnemyParty[i], gFacilityTrainerMons[monId].moves[k], k);
+            SetMonMoveSlot(&gEnemyParty[i], gFacilityTrainerMons[monId].moves[k], k);
         SetMonData(&gEnemyParty[i], MON_DATA_FRIENDSHIP, &friendship);
         SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
         i++;

@@ -2710,7 +2710,7 @@ const struct FacilityMon gFallarborBattleTentMons[NUM_FALLARBOR_TENT_MONS] =
     },
     [FALLARBOR_TENT_MON_POOCHYENA] = {
         .species = SPECIES_POOCHYENA,
-        .moves = {MOVE_YAWN, MOVE_ODOR_SLEUTH, MOVE_HOWL, MOVE_FRUSTRATION},
+        .moves = {MOVE_YAWN, MOVE_ODOR_SLEUTH, MOVE_HOWL, MOVE_RETURN},
         .itemTableId = BATTLE_FRONTIER_ITEM_LEPPA_BERRY,
         .evSpread = F_EV_SPREAD_SPEED | F_EV_SPREAD_ATTACK,
         .nature = NATURE_NAUGHTY

@@ -1718,7 +1718,7 @@ static void CreateFrontierFactorySelectableMons(u8 firstMonId)
     u8 i, j = 0;
     u8 ivs = 0;
     u8 level = 0;
-    u8 friendship = 0;
+    u8 friendship = MAX_FRIENDSHIP;
     u32 otId = 0;
     u8 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
     u8 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
@@ -1749,9 +1749,9 @@ static void CreateFrontierFactorySelectableMons(u8 firstMonId)
                                              ivs,
                                              gFacilityTrainerMons[monId].evSpread,
                                              otId);
-        friendship = 0;
+        friendship = MAX_FRIENDSHIP;
         for (j = 0; j < MAX_MON_MOVES; j++)
-            SetMonMoveAvoidReturn(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
+            SetMonMoveSlot(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &friendship);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
     }
@@ -1762,7 +1762,7 @@ static void CreateSlateportTentSelectableMons(u8 firstMonId)
     u8 i, j;
     u8 ivs = 0;
     u8 level = TENT_MIN_LEVEL;
-    u8 friendship = 0;
+    u8 friendship = MAX_FRIENDSHIP;
     u32 otId = 0;
 
     gFacilityTrainerMons = gSlateportBattleTentMons;
@@ -1779,9 +1779,9 @@ static void CreateSlateportTentSelectableMons(u8 firstMonId)
                                              ivs,
                                              gFacilityTrainerMons[monId].evSpread,
                                              otId);
-        friendship = 0;
+        friendship = MAX_FRIENDSHIP;
         for (j = 0; j < MAX_MON_MOVES; j++)
-            SetMonMoveAvoidReturn(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
+            SetMonMoveSlot(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &friendship);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
     }
@@ -2328,7 +2328,7 @@ static void CopySwappedMonData(void)
     u8 friendship;
 
     gPlayerParty[sFactorySwapScreen->playerMonId] = gEnemyParty[sFactorySwapScreen->enemyMonId];
-    friendship = 0;
+    friendship = MAX_FRIENDSHIP;
     SetMonData(&gPlayerParty[sFactorySwapScreen->playerMonId], MON_DATA_FRIENDSHIP, &friendship);
     gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].monId = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + FRONTIER_PARTY_SIZE].monId;
     gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].ivs = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + FRONTIER_PARTY_SIZE].ivs;

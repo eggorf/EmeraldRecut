@@ -1108,7 +1108,7 @@ static const struct TrainerHillFloor sFloors_Normal[] =
                     {
                         .species = SPECIES_STANTLER,
                         .heldItem = ITEM_SHELL_BELL,
-                        .moves = {MOVE_PSYCH_UP, MOVE_RETURN, MOVE_EARTHQUAKE, MOVE_SHADOW_BALL},
+                        .moves = {MOVE_PSYCH_UP, MOVE_FRUSTRATION, MOVE_EARTHQUAKE, MOVE_SHADOW_BALL},
                         .hpEV = 252,
                         .attackEV = 252,
                         .speedEV = 6,
@@ -4065,7 +4065,7 @@ static const struct TrainerHillFloor sFloors_Expert[] = {
                                         {
                                             .species = SPECIES_KINGLER,
                                             .heldItem = ITEM_PERSIM_BERRY,
-                                            .moves = {MOVE_RETURN, MOVE_PROTECT, MOVE_CRABHAMMER, MOVE_ATTRACT},
+                                            .moves = {MOVE_FRUSTRATION, MOVE_PROTECT, MOVE_CRABHAMMER, MOVE_ATTRACT},
                                             .hpEV = 252,
                                             .attackEV = 252,
                                             .spDefenseEV = 6,
@@ -4079,7 +4079,7 @@ static const struct TrainerHillFloor sFloors_Expert[] = {
                                             .abilityNum = 0,
                                             .personality = 0x80,
                                             .nickname = _("KINGLER"),
-                                            .friendship = MAX_FRIENDSHIP,
+                                            .friendship = 0,
                                         },
                                     [4] =
                                         {
@@ -4344,7 +4344,7 @@ static const struct TrainerHillFloor sFloors_Expert[] = {
                                         {
                                             .species = SPECIES_DUGTRIO,
                                             .heldItem = ITEM_BRIGHT_POWDER,
-                                            .moves = {MOVE_DOUBLE_TEAM, MOVE_PROTECT, MOVE_RETURN, MOVE_SLUDGE_BOMB},
+                                            .moves = {MOVE_DOUBLE_TEAM, MOVE_PROTECT, MOVE_FRUSTRATION, MOVE_SLUDGE_BOMB},
                                             .hpEV = 6,
                                             .attackEV = 252,
                                             .speedEV = 252,
@@ -4358,7 +4358,7 @@ static const struct TrainerHillFloor sFloors_Expert[] = {
                                             .abilityNum = 1,
                                             .personality = 0xD,
                                             .nickname = _("DUGTRIO"),
-                                            .friendship = MAX_FRIENDSHIP,
+                                            .friendship = 0,
                                         },
                                     [4] =
                                         {
