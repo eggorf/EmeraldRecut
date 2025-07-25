@@ -919,6 +919,7 @@ u8 GetSpecialBattleTransition(s32 id)
     u16 var;
     u8 enemyLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
     u8 playerLevel = GetSumOfPlayerPartyLevel(1);
+    u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
 
     if (enemyLevel < playerLevel)
     {
@@ -934,7 +935,7 @@ u8 GetSpecialBattleTransition(s32 id)
             return RANDOM_TRANSITION(sBattleTransitionTable_BattleDome);
         }
 
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) != FRONTIER_MODE_LINK_MULTIS)
+        if (battleMode != FRONTIER_MODE_LINK_MULTIS)
             return RANDOM_TRANSITION(sBattleTransitionTable_BattleFrontier);
     }
     else
@@ -951,7 +952,7 @@ u8 GetSpecialBattleTransition(s32 id)
             return RANDOM_TRANSITION(sBattleTransitionTable_BattleDome);
         }
 
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) != FRONTIER_MODE_LINK_MULTIS)
+        if (battleMode != FRONTIER_MODE_LINK_MULTIS)
             return RANDOM_TRANSITION(sBattleTransitionTable_BattleFrontier);
     }
 

@@ -2186,7 +2186,7 @@ static void GetDomeData(void)
         gSpecialVar_Result = gSaveBlock2Ptr->frontier.domeHasWonSinglesOpen;
         break;
     case DOME_DATA_ATTEMPTED_CHALLENGE:
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) == FRONTIER_MODE_DOUBLES)
+        if (battleMode == FRONTIER_MODE_DOUBLES)
         {
             if (lvlMode != FRONTIER_LVL_50)
                 gSpecialVar_Result = gSaveBlock2Ptr->frontier.domeAttemptedDoublesOpen;
@@ -2202,7 +2202,7 @@ static void GetDomeData(void)
         }
         break;
     case DOME_DATA_HAS_WON_CHALLENGE:
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) == FRONTIER_MODE_DOUBLES)
+        if (battleMode == FRONTIER_MODE_DOUBLES)
         {
             if (lvlMode != FRONTIER_LVL_50)
                 gSpecialVar_Result = gSaveBlock2Ptr->frontier.domeHasWonDoublesOpen;
@@ -2257,7 +2257,7 @@ static void SetDomeData(void)
         gSaveBlock2Ptr->frontier.domeHasWonSinglesOpen = gSpecialVar_0x8006;
         break;
     case DOME_DATA_ATTEMPTED_CHALLENGE:
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) == FRONTIER_MODE_DOUBLES)
+        if (battleMode == FRONTIER_MODE_DOUBLES)
         {
             if (lvlMode != FRONTIER_LVL_50)
                 gSaveBlock2Ptr->frontier.domeAttemptedDoublesOpen = gSpecialVar_0x8006;
@@ -2273,7 +2273,7 @@ static void SetDomeData(void)
         }
         break;
     case DOME_DATA_HAS_WON_CHALLENGE:
-        if (VarGet(VAR_FRONTIER_BATTLE_MODE) == FRONTIER_MODE_DOUBLES)
+        if (battleMode == FRONTIER_MODE_DOUBLES)
         {
             if (lvlMode != FRONTIER_LVL_50)
                 gSaveBlock2Ptr->frontier.domeHasWonDoublesOpen = gSpecialVar_0x8006;
