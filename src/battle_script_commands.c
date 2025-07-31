@@ -9703,33 +9703,7 @@ static void Cmd_trycastformdatachange(void)
 
 // Water and Mud Sport
 static void Cmd_settypebasedhalvers(void)
-{
-    bool8 worked = FALSE;
-
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_MUD_SPORT)
-    {
-        if (!(gStatuses3[gBattlerAttacker] & STATUS3_MUDSPORT))
-        {
-            gStatuses3[gBattlerAttacker] |= STATUS3_MUDSPORT;
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
-            worked = TRUE;
-        }
-    }
-    else // Water Sport
-    {
-        if (!(gStatuses3[gBattlerAttacker] & STATUS3_WATERSPORT))
-        {
-            gStatuses3[gBattlerAttacker] |= STATUS3_WATERSPORT;
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
-            worked = TRUE;
-        }
-    }
-
-    if (worked)
-        gBattlescriptCurrInstr += 5;
-    else
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-}
+{}
 
 static void Cmd_setweatherballtype(void)
 {

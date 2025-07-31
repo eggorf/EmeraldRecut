@@ -32,8 +32,6 @@ enum {
     PTS_STATUS_DMG,
     PTS_STATUS,
     PTS_SPIKES,
-    PTS_WATER_SPORT,
-    PTS_MUD_SPORT,
     PTS_REFLECT,
     PTS_LIGHT_SCREEN,
     PTS_SAFEGUARD,
@@ -287,7 +285,6 @@ static const u16 sPoints_MoveEffect[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_DOUBLE_EDGE] = 2,
     [EFFECT_TEETER_DANCE] = 6,
     [EFFECT_BLAZE_KICK] = 1,
-    [EFFECT_MUD_SPORT] = 4,
     [EFFECT_POISON_FANG] = 1,
     [EFFECT_WEATHER_BALL] = 1,
     [EFFECT_OVERHEAT] = 3,
@@ -296,7 +293,6 @@ static const u16 sPoints_MoveEffect[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_SKY_UPPERCUT] = 1,
     [EFFECT_BULK_UP] = 1,
     [EFFECT_POISON_TAIL] = 1,
-    [EFFECT_WATER_SPORT] = 4,
     [EFFECT_CALM_MIND] = 1,
     [EFFECT_DRAGON_DANCE] = 1,
     [EFFECT_CAMOUFLAGE] = 3
@@ -334,7 +330,6 @@ static const u16 sPoints_RainMoves[] =
     MOVE_HYDRO_CANNON, 3,
     MOVE_HYDRO_PUMP, 3,
     MOVE_BUBBLE_BEAM, 3,
-    MOVE_WATER_SPORT, 0, // Unnecessary, unlisted moves are already given 0 points
     MOVE_WATER_GUN, 3,
     MOVE_WATER_PULSE, 3,
     MOVE_WEATHER_BALL, 3,
@@ -421,8 +416,6 @@ static const u16 sPoints_Status[] =
 };
 
 static const u16 sPoints_Spikes[] = { 4 };
-static const u16 sPoints_WaterSport[] = { 5 };
-static const u16 sPoints_MudSport[] = { 5 };
 static const u16 sPoints_Reflect[] = { 3 };
 static const u16 sPoints_LightScreen[] = { 3 };
 static const u16 sPoints_Safeguard[] = { 4 };
@@ -506,8 +499,6 @@ static const u16 *const sPointsArray[] =
     [PTS_STATUS_DMG]             = sPoints_StatusDmg,
     [PTS_STATUS]                 = sPoints_Status,
     [PTS_SPIKES]                 = sPoints_Spikes,
-    [PTS_WATER_SPORT]            = sPoints_WaterSport,
-    [PTS_MUD_SPORT]              = sPoints_MudSport,
     [PTS_REFLECT]                = sPoints_Reflect,
     [PTS_LIGHT_SCREEN]           = sPoints_LightScreen,
     [PTS_SAFEGUARD]              = sPoints_Safeguard,
@@ -849,40 +840,12 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         tvPtr->side[atkSide].spikesMonId = 0;
         tvPtr->side[atkSide].spikesMoveSlot = 0;
         break;
-    case STRINGID_FIREWEAKENED:
-        tvPtr->pos[atkSide][atkFlank].waterSportMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
-        tvPtr->pos[atkSide][atkFlank].waterSportMoveSlot = moveSlot;
-        break;
-    case STRINGID_ELECTRICITYWEAKENED:
-        tvPtr->pos[atkSide][atkFlank].mudSportMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
-        tvPtr->pos[atkSide][atkFlank].mudSportMoveSlot = moveSlot;
-        break;
     case STRINGID_ATTACKERFAINTED:
         AddPointsOnFainting(FALSE);
     case STRINGID_RETURNMON:
-        if (tvPtr->pos[atkSide][atkFlank].waterSportMonId != 0)
-        {
-            tvPtr->pos[atkSide][atkFlank].waterSportMonId = 0;
-            tvPtr->pos[atkSide][atkFlank].waterSportMoveSlot = 0;
-        }
-        if (tvPtr->pos[atkSide][atkFlank].mudSportMonId != 0)
-        {
-            tvPtr->pos[atkSide][atkFlank].mudSportMonId = 0;
-            tvPtr->pos[atkSide][atkFlank].mudSportMoveSlot = 0;
-        }
         break;
     case STRINGID_TARGETFAINTED:
         AddPointsOnFainting(TRUE);
-        if (tvPtr->pos[atkSide][defFlank].waterSportMonId != 0)
-        {
-            tvPtr->pos[atkSide][defFlank].waterSportMonId = 0;
-            tvPtr->pos[atkSide][defFlank].waterSportMoveSlot = 0;
-        }
-        if (tvPtr->pos[atkSide][defFlank].mudSportMonId != 0)
-        {
-            tvPtr->pos[atkSide][defFlank].mudSportMonId = 0;
-            tvPtr->pos[atkSide][defFlank].mudSportMoveSlot = 0;
-        }
         break;
     case STRINGID_PKMNRAISEDDEF:
     case STRINGID_PKMNRAISEDDEFALITTLE:
@@ -1012,8 +975,6 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
 
     AddMovePoints(PTS_REFLECT,      gBattleMoves[move].type, gBattleMoves[move].power, 0);
     AddMovePoints(PTS_LIGHT_SCREEN, gBattleMoves[move].type, gBattleMoves[move].power, 0);
-    AddMovePoints(PTS_WATER_SPORT,  gBattleMoves[move].type, 0,                        0);
-    AddMovePoints(PTS_MUD_SPORT,    gBattleMoves[move].type, 0,                        0);
 }
 
 void BattleTv_SetDataBasedOnAnimation(u8 animationId)
@@ -1212,38 +1173,6 @@ static void AddMovePoints(u8 caseId, u16 arg1, u8 arg2, u8 arg3)
 
 #define type arg1
 #define power arg2
-    case PTS_WATER_SPORT:
-        // If used fire move during Water Sport
-        if (tvPtr->pos[defSide][0].waterSportMonId != -(tvPtr->pos[defSide][1].waterSportMonId) && type == TYPE_FIRE)
-        {
-            if (tvPtr->pos[defSide][0].waterSportMonId != 0)
-            {
-                u32 id = (tvPtr->pos[defSide][0].waterSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][0].waterSportMoveSlot] += sPointsArray[caseId][0];
-            }
-            if (tvPtr->pos[defSide][1].waterSportMonId != 0)
-            {
-                u32 id = (tvPtr->pos[defSide][1].waterSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][1].waterSportMoveSlot] += sPointsArray[caseId][0];
-            }
-        }
-        break;
-    case PTS_MUD_SPORT:
-        // If used Electric move during Mud Sport
-        if (tvPtr->pos[defSide][0].mudSportMonId != -(tvPtr->pos[defSide][1].mudSportMonId) && type == TYPE_ELECTRIC)
-        {
-            if (tvPtr->pos[defSide][0].mudSportMonId != 0)
-            {
-                u32 id = (tvPtr->pos[defSide][0].mudSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][0].mudSportMoveSlot] += sPointsArray[caseId][0];
-            }
-            if (tvPtr->pos[defSide][1].mudSportMonId != 0)
-            {
-                u32 id = (tvPtr->pos[defSide][1].mudSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][1].mudSportMoveSlot] += sPointsArray[caseId][0];
-            }
-        }
-        break;
     case PTS_REFLECT:
         // If hit Reflect with damaging physical move
         if (IS_TYPE_PHYSICAL(type) && power != 0 && tvPtr->side[defSide].reflectMonId != 0)

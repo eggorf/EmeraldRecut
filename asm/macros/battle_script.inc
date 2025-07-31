@@ -1178,11 +1178,6 @@
 	.byte 0xe7
 	.endm
 
-	.macro settypebasedhalvers ptr:req
-	.byte 0xe8
-	.4byte \ptr
-	.endm
-
 	.macro setweatherballtype
 	.byte 0xe9
 	.endm

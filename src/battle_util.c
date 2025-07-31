@@ -3083,35 +3083,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 }
             }
             break;
-        case ABILITYEFFECT_FIELD_SPORT: // 14
-            switch (gLastUsedAbility)
-            {
-            case ABILITYEFFECT_MUD_SPORT:
-                for (i = 0; i < gBattlersCount; i++)
-                {
-                    if (gStatuses3[i] & STATUS3_MUDSPORT)
-                        effect = i + 1;
-                }
-                break;
-            case ABILITYEFFECT_WATER_SPORT:
-                for (i = 0; i < gBattlersCount; i++)
-                {
-                    if (gStatuses3[i] & STATUS3_WATERSPORT)
-                        effect = i + 1;
-                }
-                break;
-            default:
-                for (i = 0; i < gBattlersCount; i++)
-                {
-                    if (gBattleMons[i].ability == ability)
-                    {
-                        gLastUsedAbility = ability;
-                        effect = i + 1;
-                    }
-                }
-                break;
-            }
-            break;
         case ABILITYEFFECT_CHECK_ON_FIELD: // 19
             for (i = 0; i < gBattlersCount; i++)
             {

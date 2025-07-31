@@ -31,7 +31,6 @@ const u16 gEggMoves[] = {
         MOVE_FORESIGHT,
         MOVE_FLAIL,
         MOVE_REFRESH,
-        MOVE_MUD_SPORT,
         MOVE_YAWN,
         MOVE_WATER_SPOUT,
         MOVE_FAKE_OUT),
@@ -252,7 +251,6 @@ const u16 gEggMoves[] = {
         MOVE_BELLY_DRUM,
         MOVE_FUTURE_SIGHT,
         MOVE_STOMP,
-        MOVE_MUD_SPORT,
         MOVE_SLEEP_TALK,
         MOVE_BLOCK),
         
@@ -545,7 +543,6 @@ const u16 gEggMoves[] = {
         MOVE_HYDRO_PUMP,
         MOVE_ANCIENT_POWER,
         MOVE_METAL_CLAW,
-        MOVE_MUD_SPORT,
         MOVE_BLOCK,
         MOVE_DRAGON_DANCE),
         
@@ -859,7 +856,6 @@ const u16 gEggMoves[] = {
         MOVE_MIRROR_COAT,
         MOVE_HYDRO_PUMP,
         MOVE_HAZE,
-        MOVE_MUD_SPORT,
         MOVE_AMNESIA),
         
     egg_moves(SKARMORY,
@@ -1111,11 +1107,9 @@ const u16 gEggMoves[] = {
     egg_moves(LUVDISC,
         MOVE_SPLASH,
         MOVE_SUPERSONIC,
-        MOVE_HYDRO_PUMP,
-        MOVE_MUD_SPORT),
+        MOVE_HYDRO_PUMP),
         
     egg_moves(CORPHISH,
-        MOVE_MUD_SPORT,
         MOVE_ENDEAVOR,
         MOVE_DRAGON_DANCE,
         MOVE_ANCIENT_POWER),
@@ -1123,7 +1117,6 @@ const u16 gEggMoves[] = {
     egg_moves(FEEBAS,
         MOVE_MIRROR_COAT,
         MOVE_DRAGON_BREATH,
-        MOVE_MUD_SPORT,
         MOVE_HYPNOSIS,
         MOVE_TICKLE,
         MOVE_CONFUSE_RAY),
@@ -1280,7 +1273,6 @@ const u16 gEggMoves[] = {
         
     egg_moves(CLAMPERL,
         MOVE_REFRESH,
-        MOVE_MUD_SPORT,
         MOVE_BODY_SLAM,
         MOVE_SUPERSONIC,
         MOVE_BARRIER,

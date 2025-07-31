@@ -2749,7 +2749,7 @@ static const struct TrainerHillFloor sFloors_Unique[] = {
                                         {
                                             .species = SPECIES_RELICANTH,
                                             .heldItem = ITEM_QUICK_CLAW,
-                                            .moves = {MOVE_ANCIENT_POWER, MOVE_WATER_PULSE, MOVE_MUD_SPORT, MOVE_RAIN_DANCE},
+                                            .moves = {MOVE_ANCIENT_POWER, MOVE_WATER_PULSE, MOVE_EARTHQUAKE, MOVE_RAIN_DANCE},
                                             .hpEV = 155,
                                             .defenseEV = 100,
                                             .spDefenseEV = 255,

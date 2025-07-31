@@ -1553,7 +1553,7 @@ static const struct TrainerMonItemCustomMoves sParty_Cindy6[] = {
     .lvl = 36,
     .species = SPECIES_LINOONE,
     .heldItem = ITEM_NUGGET,
-    .moves = {MOVE_FURY_SWIPES, MOVE_MUD_SPORT, MOVE_ODOR_SLEUTH, MOVE_SAND_ATTACK}
+    .moves = {MOVE_FURY_SWIPES, MOVE_TICKLE, MOVE_ODOR_SLEUTH, MOVE_SAND_ATTACK}
     }
 };
 
@@ -1770,7 +1770,7 @@ static const struct TrainerMonItemCustomMoves sParty_Winston5[] = {
     .lvl = 36,
     .species = SPECIES_LINOONE,
     .heldItem = ITEM_NUGGET,
-    .moves = {MOVE_FURY_SWIPES, MOVE_MUD_SPORT, MOVE_ODOR_SLEUTH, MOVE_SAND_ATTACK}
+    .moves = {MOVE_FURY_SWIPES, MOVE_TICKLE, MOVE_ODOR_SLEUTH, MOVE_SAND_ATTACK}
     }
 };
 
@@ -9203,7 +9203,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_TyraAndIvy[] = {
     .iv = 0,
     .lvl = 20,
     .species = SPECIES_GRAVELER,
-    .moves = {MOVE_DEFENSE_CURL, MOVE_ROLLOUT, MOVE_MUD_SPORT, MOVE_ROCK_THROW}
+    .moves = {MOVE_DEFENSE_CURL, MOVE_ROLLOUT, MOVE_MAGNITUDE, MOVE_ROCK_THROW}
     }
 };
 

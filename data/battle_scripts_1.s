@@ -219,7 +219,6 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectDoubleEdge             @ EFFECT_DOUBLE_EDGE
 	.4byte BattleScript_EffectTeeterDance            @ EFFECT_TEETER_DANCE
 	.4byte BattleScript_EffectBurnHit                @ EFFECT_BLAZE_KICK
-	.4byte BattleScript_EffectMudSport               @ EFFECT_MUD_SPORT
 	.4byte BattleScript_EffectPoisonFang             @ EFFECT_POISON_FANG
 	.4byte BattleScript_EffectWeatherBall            @ EFFECT_WEATHER_BALL
 	.4byte BattleScript_EffectOverheat               @ EFFECT_OVERHEAT
@@ -228,7 +227,6 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectSkyUppercut            @ EFFECT_SKY_UPPERCUT
 	.4byte BattleScript_EffectBulkUp                 @ EFFECT_BULK_UP
 	.4byte BattleScript_EffectPoisonHit              @ EFFECT_POISON_TAIL
-	.4byte BattleScript_EffectWaterSport             @ EFFECT_WATER_SPORT
 	.4byte BattleScript_EffectCalmMind               @ EFFECT_CALM_MIND
 	.4byte BattleScript_EffectDragonDance            @ EFFECT_DRAGON_DANCE
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
@@ -2625,17 +2623,6 @@ BattleScript_TeeterDanceMissed::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_TeeterDanceDoMoveEndIncrement
 
-BattleScript_EffectMudSport::
-BattleScript_EffectWaterSport::
-	attackcanceler
-	attackstring
-	ppreduce
-	settypebasedhalvers BattleScript_ButItFailed
-	attackanimation
-	waitanimation
-	printfromtable gSportsUsedStringIds
-	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
 
 BattleScript_EffectPoisonFang::
 	setmoveeffect MOVE_EFFECT_TOXIC

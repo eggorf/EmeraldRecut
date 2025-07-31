@@ -1197,10 +1197,6 @@ static const u8 sBlazeKickDescription[] = _(
     "A kick with a high critical-\n"
     "hit ratio. May cause a burn.");
 
-static const u8 sMudSportDescription[] = _(
-    "Covers the user in mud to\n"
-    "raise electrical resistance.");
-
 static const u8 sIceBallDescription[] = _(
     "A 5-turn attack that gains\n"
     "power on successive hits.");
@@ -1380,10 +1376,6 @@ static const u8 sVoltTackleDescription[] = _(
 static const u8 sMagicalLeafDescription[] = _(
     "Attacks with a strange leaf\n"
     "that cannot be evaded.");
-
-static const u8 sWaterSportDescription[] = _(
-    "The user becomes soaked to\n"
-    "raise resistance to fire.");
 
 static const u8 sCalmMindDescription[] = _(
     "Raises SP. ATK and SP. DEF\n"
@@ -1719,7 +1711,6 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_FEATHER_DANCE - 1] = sFeatherDanceDescription,
     [MOVE_TEETER_DANCE - 1] = sTeeterDanceDescription,
     [MOVE_BLAZE_KICK - 1] = sBlazeKickDescription,
-    [MOVE_MUD_SPORT - 1] = sMudSportDescription,
     [MOVE_ICE_BALL - 1] = sIceBallDescription,
     [MOVE_NEEDLE_ARM - 1] = sNeedleArmDescription,
     [MOVE_SLACK_OFF - 1] = sSlackOffDescription,
@@ -1765,7 +1756,6 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_COVET - 1] = sCovetDescription,
     [MOVE_VOLT_TACKLE - 1] = sVoltTackleDescription,
     [MOVE_MAGICAL_LEAF - 1] = sMagicalLeafDescription,
-    [MOVE_WATER_SPORT - 1] = sWaterSportDescription,
     [MOVE_CALM_MIND - 1] = sCalmMindDescription,
     [MOVE_LEAF_BLADE - 1] = sLeafBladeDescription,
     [MOVE_DRAGON_DANCE - 1] = sDragonDanceDescription,

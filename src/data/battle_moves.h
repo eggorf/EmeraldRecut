@@ -3900,19 +3900,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     },
 
-    [MOVE_MUD_SPORT] =
-    {
-        .effect = EFFECT_MUD_SPORT,
-        .power = 0,
-        .type = TYPE_GROUND,
-        .accuracy = 100,
-        .pp = 15,
-        .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_USER,
-        .priority = 0,
-        .flags = 0,
-    },
-
     [MOVE_ICE_BALL] =
     {
         .effect = EFFECT_ROLLOUT,
@@ -4496,19 +4483,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
-    },
-
-    [MOVE_WATER_SPORT] =
-    {
-        .effect = EFFECT_WATER_SPORT,
-        .power = 0,
-        .type = TYPE_WATER,
-        .accuracy = 100,
-        .pp = 15,
-        .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_USER,
-        .priority = 0,
-        .flags = 0,
     },
 
     [MOVE_CALM_MIND] =

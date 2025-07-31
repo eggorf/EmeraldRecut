@@ -316,7 +316,6 @@ gBattleAnims_Moves::
 	.4byte Move_FEATHER_DANCE
 	.4byte Move_TEETER_DANCE
 	.4byte Move_BLAZE_KICK
-	.4byte Move_MUD_SPORT
 	.4byte Move_ICE_BALL
 	.4byte Move_NEEDLE_ARM
 	.4byte Move_SLACK_OFF
@@ -362,7 +361,6 @@ gBattleAnims_Moves::
 	.4byte Move_COVET
 	.4byte Move_VOLT_TACKLE
 	.4byte Move_MAGICAL_LEAF
-	.4byte Move_WATER_SPORT
 	.4byte Move_CALM_MIND
 	.4byte Move_LEAF_BLADE
 	.4byte Move_DRAGON_DANCE
@@ -4008,53 +4006,6 @@ Move_TEETER_DANCE:
 	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
 	end
 
-Move_MUD_SPORT:
-	loadspritegfx ANIM_TAG_MUD_SAND
-	createvisualtask AnimTask_Splash, 2, 0, 6
-	delay 24
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, -4, -16
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, 4, -12
-	playsewithpan SE_M_DIG, SOUND_PAN_ATTACKER
-	delay 32
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, -3, -12
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, 5, -14
-	playsewithpan SE_M_DIG, SOUND_PAN_ATTACKER
-	delay 32
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, -5, -18
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 0, 3, -14
-	playsewithpan SE_M_DIG, SOUND_PAN_ATTACKER
-	delay 16
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 220, 60
-	waitplaysewithpan SE_M_BUBBLE2, 0, 15
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 60, 100
-	waitplaysewithpan SE_M_BUBBLE2, 0, 25
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 140, 55
-	waitplaysewithpan SE_M_BUBBLE2, 0, 14
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 180, 50
-	waitplaysewithpan SE_M_BUBBLE2, 0, 10
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 20, 90
-	waitplaysewithpan SE_M_BUBBLE2, 0, 22
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 90, 90
-	waitplaysewithpan SE_M_BUBBLE2, 0, 22
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 160, 60
-	waitplaysewithpan SE_M_BUBBLE2, 0, 15
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 30, 90
-	waitplaysewithpan SE_M_BUBBLE2, 0, 22
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 120, 60
-	waitplaysewithpan SE_M_BUBBLE2, 0, 15
-	delay 2
-	createsprite gMudsportMudSpriteTemplate, ANIM_TARGET, 2, 1, 200, 40
-	waitplaysewithpan SE_M_BUBBLE2, 0, 10
-	end
-
 Move_NEEDLE_ARM:
 	loadspritegfx ANIM_TAG_GREEN_SPIKE
 	loadspritegfx ANIM_TAG_IMPACT
@@ -4453,19 +4404,6 @@ Move_VOLT_TACKLE:
 	waitforvisualfinish
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 0, 8, 0, RGB_BLACK
 	waitforvisualfinish
-	end
-
-Move_WATER_SPORT:
-	loadspritegfx ANIM_TAG_GLOWY_BLUE_ORB
-	createvisualtask AnimTask_WaterSport, 5
-	delay 8
-	playsewithpan SE_M_SURF, SOUND_PAN_ATTACKER
-	delay 44
-	playsewithpan SE_M_SURF, SOUND_PAN_ATTACKER
-	delay 44
-	playsewithpan SE_M_SURF, SOUND_PAN_ATTACKER
-	delay 44
-	panse SE_M_SURF, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, +2, 0
 	end
 
 Move_CALM_MIND:
