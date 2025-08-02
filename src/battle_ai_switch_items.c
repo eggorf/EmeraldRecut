@@ -19,8 +19,18 @@ static bool8 ShouldUseItem(void);
 
 static bool8 ShouldSwitchIfPerishSong(void)
 {
+    u8 perishTimer;
+    perishTimer = gDisableStructs[gActiveBattler].perishSongTimer;
     if (gStatuses3[gActiveBattler] & STATUS3_PERISH_SONG
-        && gDisableStructs[gActiveBattler].perishSongTimer == 0)
+        && perishTimer == 0)
+    {
+        *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
+        BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
+        return TRUE;
+    }
+    if (gStatuses3[gActiveBattler] & STATUS3_PERISH_SONG
+        && perishTimer < 3
+        && Random() % (perishTimer + 2)) //more likely to switch the closer to 0
     {
         *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
         BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
@@ -59,7 +69,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
             continue;
 
         moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
-        if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE)
+        if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMoves[move].power > 0) //if type super effective and deals damage
             return FALSE;
     }
 
@@ -103,7 +113,9 @@ static bool8 ShouldSwitchIfWonderGuard(void)
                 continue;
 
             moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
-            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && Random() % 3 < 2)
+            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE
+                 && gBattleMoves[move].power > 0
+                 && Random() % 3 < 2)
             {
                 // We found a mon.
                 *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
@@ -119,7 +131,10 @@ static bool8 ShouldSwitchIfWonderGuard(void)
 static bool8 FindMonThatAbsorbsOpponentsMove(void)
 {
     u8 battlerIn1, battlerIn2;
-    u8 absorbingTypeAbility;
+    u8 absorbingTypeAbility = 0;
+    u8 absorbingMonType = 0;
+    u8 type1;
+    u8 type2;
     s32 firstId;
     s32 lastId; // + 1
     struct Pokemon *party;
@@ -153,11 +168,33 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
     else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_WATER)
         absorbingTypeAbility = ABILITY_WATER_ABSORB;
     else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_ELECTRIC)
+    {
         absorbingTypeAbility = ABILITY_VOLT_ABSORB;
+        absorbingMonType = TYPE_GROUND;
+    }
+    else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_GROUND)
+    {
+        absorbingTypeAbility = ABILITY_LEVITATE;
+        absorbingMonType = TYPE_FLYING;
+    }
+        else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_GHOST)
+        absorbingMonType = TYPE_NORMAL;
+        else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_PSYCHIC)
+        absorbingMonType = TYPE_DARK;
+        else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_POISON)
+        absorbingMonType = TYPE_STEEL;
+        else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_FIGHTING)
+        absorbingMonType = TYPE_GHOST;
+        else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_NORMAL)
+        absorbingMonType = TYPE_GHOST;
     else
         return FALSE;
-
-    if (gBattleMons[gActiveBattler].ability == absorbingTypeAbility)
+        
+    type1 = gBattleMons[gActiveBattler].types[0];
+    type2 = gBattleMons[gActiveBattler].types[1];
+    if (gBattleMons[gActiveBattler].ability == absorbingTypeAbility ||
+        gBattleMons[gActiveBattler].types[0] == absorbingMonType ||
+        gBattleMons[gActiveBattler].types[1] == absorbingMonType)
         return FALSE;
 
     if (gBattleTypeFlags & (BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TOWER_LINK_MULTI))
@@ -203,7 +240,10 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
         else
             monAbility = gSpeciesInfo[species].abilities[0];
 
-        if (absorbingTypeAbility == monAbility && Random() & 1)
+        if ((absorbingTypeAbility == monAbility ||
+            type1 == absorbingMonType ||
+            type2 == absorbingMonType)
+            && Random() & 1)
         {
             // we found a mon.
             *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
@@ -217,7 +257,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
 
 static bool8 ShouldSwitchIfNaturalCure(void)
 {
-    if (!(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP))
+    if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY))
         return FALSE;
     if (gBattleMons[gActiveBattler].ability != ABILITY_NATURAL_CURE)
         return FALSE;
@@ -275,7 +315,7 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng)
                 continue;
 
             moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
-            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE)
+            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMoves[move].power > 0)
             {
                 if (noRng)
                     return TRUE;
@@ -298,7 +338,7 @@ static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng)
                 continue;
 
             moveFlags = AI_TypeCalc(move, gBattleMons[opposingBattler].species, gBattleMons[opposingBattler].ability);
-            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE)
+            if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMoves[move].power > 0)
             {
                 if (noRng)
                     return TRUE;
@@ -413,7 +453,7 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
                     continue;
 
                 moveFlags = AI_TypeCalc(move, gBattleMons[battlerIn1].species, gBattleMons[battlerIn1].ability);
-                if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && Random() % moduloPercent == 0)
+                if (moveFlags & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMoves[move].power > 0 && Random() % moduloPercent == 0)
                 {
                     *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
                     BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
@@ -442,12 +482,13 @@ static bool8 ShouldSwitch(void)
         return FALSE;
     if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
         return FALSE;
-    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)) // Misses the flying type and Levitate check.
+    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)
+    && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
+    && (gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE))
         return FALSE;
-    if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL))
+    if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
     {
-        if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
-            return FALSE;
+        return FALSE;
     }
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
         return FALSE;
@@ -702,12 +743,16 @@ u8 GetMostSuitableMonToSwitchInto(void)
                 u8 type1 = gSpeciesInfo[species].types[0];
                 u8 type2 = gSpeciesInfo[species].types[1];
                 u8 typeDmg = TYPE_MUL_NORMAL;
-                ModulateByTypeEffectiveness(gBattleMons[opposingBattler].types[0], type1, type2, &typeDmg);
-                ModulateByTypeEffectiveness(gBattleMons[opposingBattler].types[1], type1, type2, &typeDmg);
+                u8 defType1 = gBattleMons[opposingBattler].types[0];
+                u8 defType2 = gBattleMons[opposingBattler].types[1];
+                ModulateByTypeEffectiveness(type1, defType1, defType2, &typeDmg);
+                ModulateByTypeEffectiveness(type2, defType1, defType2, &typeDmg);
 
                 /* Possible bug: this comparison gives the type that takes the most damage, when
                 a "good" AI would want to select the type that takes the least damage. Unknown if this
-                is a legitimate mistake or if it's an intentional, if weird, design choice */
+                is a legitimate mistake or if it's an intentional, if weird, design choice 
+                
+                FIXED(?)*/
                 if (bestDmg < typeDmg)
                 {
                     bestDmg = typeDmg;
@@ -726,7 +771,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
             for (i = 0; i < MAX_MON_MOVES; i++)
             {
                 move = GetMonData(&party[bestMonId], MON_DATA_MOVE1 + i);
-                if (move != MOVE_NONE && TypeCalc(move, gActiveBattler, opposingBattler) & MOVE_RESULT_SUPER_EFFECTIVE)
+                if (move != MOVE_NONE && TypeCalc(move, gActiveBattler, opposingBattler) & MOVE_RESULT_SUPER_EFFECTIVE && gBattleMoves[move].power > 0)
                     break;
             }
 
@@ -785,7 +830,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
     return bestMonId;
 }
 
-static u8 GetAI_ItemType(u8 itemId, const u8 *itemEffect) // NOTE: should take u16 as item Id argument
+static u8 GetAI_ItemType(u16 itemId, const u8 *itemEffect)
 {
     if (itemId == ITEM_FULL_RESTORE)
         return AI_ITEM_FULL_RESTORE;

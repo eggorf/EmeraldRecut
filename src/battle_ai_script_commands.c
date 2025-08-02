@@ -1634,6 +1634,8 @@ static void Cmd_if_status_not_in_party(void)
 
 static void Cmd_get_weather(void)
 {
+    AI_THINKING_STRUCT->funcResult = AI_WEATHER_NONE; //unsed for #9 WeatherAware
+
     if (gBattleWeather & B_WEATHER_RAIN)
         AI_THINKING_STRUCT->funcResult = AI_WEATHER_RAIN;
     if (gBattleWeather & B_WEATHER_SANDSTORM)

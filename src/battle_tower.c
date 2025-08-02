@@ -1958,13 +1958,14 @@ static void Task_StartBattleAfterTransition(u8 taskId)
 void DoSpecialTrainerBattle(void)
 {
     s32 i;
+    u32 battleMode;
 
     gBattleScripting.specialTrainerBattleType = gSpecialVar_0x8004;
     switch (gSpecialVar_0x8004)
     {
     case SPECIAL_BATTLE_TOWER:
         gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_BATTLE_TOWER;
-        u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
+        battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
         switch (battleMode)
         {
         case FRONTIER_MODE_SINGLES:

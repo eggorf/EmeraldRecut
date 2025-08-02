@@ -121,7 +121,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_QUICK_CLAW,
                 .fixedIV = 24,
                 .nature = NATURE_ADAMANT,
-                .evs = {152, 152, 0, 0, 106, 100},
+                .evs = {152, 152, 106, 0, 0, 100},
                 .moves = {MOVE_BODY_SLAM, MOVE_BELLY_DRUM, MOVE_YAWN, MOVE_SHADOW_BALL},
             },
         },
@@ -148,7 +148,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_CHESTO_BERRY,
                 .fixedIV = MAX_PER_STAT_IVS,
                 .nature = NATURE_ADAMANT,
-                .evs = {252, 252, 0, 0, 6, 0},
+                .evs = {252, 252, 6, 0, 0, 0},
                 .moves = {MOVE_CURSE, MOVE_RETURN, MOVE_REST, MOVE_SHADOW_BALL},
             },
         },
@@ -219,15 +219,15 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_BRIGHT_POWDER,
                 .fixedIV = 16,
                 .nature = NATURE_ADAMANT,
-                .evs = {152, 0, 0, 152, 100, 106},
+                .evs = {152, 100, 0, 152, 0, 106},
                 .moves = {MOVE_CONFUSE_RAY, MOVE_DOUBLE_TEAM, MOVE_TOXIC, MOVE_FLY},
             },
             {
                 .species = SPECIES_SLAKING,
                 .heldItem = ITEM_SCOPE_LENS,
                 .fixedIV = 16,
-                .nature = NATURE_HARDY,
-                .evs = {152, 152, 0, 106, 100, 0},
+                .nature = NATURE_IMPISH,
+                .evs = {152, 152, 0, 206, 0, 0},
                 .moves = {MOVE_EARTHQUAKE, MOVE_SWAGGER, MOVE_SHADOW_BALL, MOVE_BRICK_BREAK},
             },
             {
@@ -253,7 +253,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SLAKING,
                 .heldItem = ITEM_SCOPE_LENS,
                 .fixedIV = MAX_PER_STAT_IVS,
-                .nature = NATURE_HARDY,
+                .nature = NATURE_IMPISH,
                 .evs = {6, 252, 0, 252, 0, 0},
                 .moves = {MOVE_HYPER_BEAM, MOVE_EARTHQUAKE, MOVE_SHADOW_BALL, MOVE_YAWN},
             },
@@ -261,7 +261,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SUICUNE,
                 .heldItem = ITEM_KINGS_ROCK,
                 .fixedIV = MAX_PER_STAT_IVS,
-                .nature = NATURE_HASTY,
+                .nature = NATURE_TIMID,
                 .evs = {252, 0, 252, 6, 0, 0},
                 .moves = {MOVE_BLIZZARD, MOVE_SURF, MOVE_BITE, MOVE_CALM_MIND},
             },
@@ -398,7 +398,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_CHESTO_BERRY,
                 .fixedIV = 16,
                 .nature = NATURE_BOLD,
-                .evs = {252, 0, 0, 0, 106, 252},
+                .evs = {252, 0, 6, 0, 0, 252},
                 .moves = {MOVE_TOXIC, MOVE_SANDSTORM, MOVE_PROTECT, MOVE_REST},
             },
             {
@@ -447,7 +447,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_QUICK_CLAW,
                 .fixedIV = 16,
                 .nature = NATURE_ADAMANT,
-                .evs = {152, 152, 0, 0, 106, 100},
+                .evs = {152, 152, 106, 0, 0, 100},
                 .moves = {MOVE_EXPLOSION, MOVE_SUPERPOWER, MOVE_EARTHQUAKE, MOVE_ANCIENT_POWER},
             },
             {
@@ -455,7 +455,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .heldItem = ITEM_LEFTOVERS,
                 .fixedIV = 16,
                 .nature = NATURE_ADAMANT,
-                .evs = {152, 152, 0, 0, 6, 200},
+                .evs = {152, 152, 6, 0, 0, 200},
                 .moves = {MOVE_EARTHQUAKE, MOVE_METAL_CLAW, MOVE_TOXIC, MOVE_IRON_DEFENSE},
             },
             {
@@ -503,34 +503,34 @@ static const u8 sBattlePointAwards[][NUM_FRONTIER_FACILITIES][FRONTIER_MODE_COUN
         {1, 2, 3, 3}, {1, 1}, {4, 5}, {1}, {3, 4}, {1}, {5}
     },
     {
-        {2, 3, 4, 4}, {1, 1}, {4, 5}, {1}, {3, 4}, {1}, {5}
+        {2, 3, 4, 4}, {2, 2}, {4, 5}, {2}, {3, 4}, {2}, {5}
     },
     {
-        {3, 4, 5, 5}, {2, 2}, {5, 6}, {1}, {4, 5}, {2}, {6}
+        {3, 4, 5, 5}, {2, 2}, {5, 6}, {2}, {4, 5}, {2}, {6}
     },
     {
         {4, 5, 6, 6}, {2, 2}, {5, 6}, {2}, {4, 5}, {2}, {6}
     },
     {
-        {5, 6, 7, 7}, {3, 3}, {6, 7}, {2}, {5, 6}, {2}, {7}
+        {5, 6, 7, 7}, {3, 3}, {6, 7}, {3}, {5, 6}, {3}, {7}
     },
     {
-        {6, 7, 8, 8}, {3, 3}, {6, 7}, {2}, {5, 6}, {4}, {7}
+        {6, 7, 8, 8}, {3, 3}, {6, 7}, {3}, {5, 6}, {4}, {7}
     },
     {
-        {7, 8, 9, 9}, {4, 4}, {7, 8}, {3}, {6, 7}, {4}, {8}
+        {7, 8, 9, 9}, {4, 4}, {7, 8}, {4}, {6, 7}, {4}, {8}
     },
     {
-        {8, 9, 10, 10}, {4, 4}, {7, 8}, {3},{6, 7}, {4}, {8}
+        {8, 9, 10, 10}, {4, 4}, {7, 8}, {4},{6, 7}, {4}, {8}
     },
     {
-        {9, 10, 11, 11}, {5, 5}, {8, 9}, {4}, {7, 8}, {8}, {9}
+        {9, 10, 11, 11}, {5, 5}, {8, 9}, {5}, {7, 8}, {8}, {9}
     },
     {
-        {10, 11, 12, 12}, {5, 5}, {8, 9}, {4}, {7, 8}, {8}, {9}
+        {10, 11, 12, 12}, {5, 5}, {8, 9}, {5}, {7, 8}, {8}, {9}
     },
     {
-        {11, 12, 13, 13}, {6, 6}, {9, 10}, {5,0}, {8, 9}, {8}, {10}
+        {11, 12, 13, 13}, {6, 6}, {9, 10}, {6,0}, {8, 9}, {8}, {10}
     },
     {
         {12, 13, 14, 14}, {6, 6}, {9, 10}, {6,0}, {8, 9}, {8}, {10}
@@ -1662,8 +1662,8 @@ u8 GetFrontierBrainStatus(void)
     s32 winStreak = winStreakNoModifier + sFrontierBrainStreakAppearances[facility][3];
     s32 symbolsCount;
 
-    if (battleMode != FRONTIER_MODE_SINGLES)
-        return FRONTIER_BRAIN_NOT_READY;
+    /*if (battleMode != FRONTIER_MODE_SINGLES)  //should enable brains in doubles etc
+        return FRONTIER_BRAIN_NOT_READY;*/ 
 
     symbolsCount = GetPlayerSymbolCountForFacility(facility);
     switch (symbolsCount)
