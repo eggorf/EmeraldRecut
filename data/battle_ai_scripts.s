@@ -222,11 +222,9 @@ AI_CheckBadMove_CheckEffect:
 	if_effect EFFECT_IMPRISON, AI_CBM_Imprison
 	if_effect EFFECT_REFRESH, AI_CBM_Refresh
 	if_effect EFFECT_LOW_KICK, AI_CBM_HighRiskForDamage
-	if_effect EFFECT_MUD_SPORT, AI_CBM_MudSport
 	if_effect EFFECT_TICKLE, AI_CBM_Tickle
 	if_effect EFFECT_COSMIC_POWER, AI_CBM_CosmicPower
 	if_effect EFFECT_BULK_UP, AI_CBM_BulkUp
-	if_effect EFFECT_WATER_SPORT, AI_CBM_WaterSport
 	if_effect EFFECT_CALM_MIND, AI_CBM_CalmMind
 	if_effect EFFECT_DRAGON_DANCE, AI_CBM_DragonDance
 	end
@@ -591,10 +589,6 @@ AI_CBM_Refresh:
 	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, Score_Minus10
 	end
 
-AI_CBM_MudSport:
-	if_status3 AI_USER, STATUS3_MUDSPORT, Score_Minus10
-	end
-
 AI_CBM_Tickle:
 	if_stat_level_equal AI_TARGET, STAT_ATK, MIN_STAT_STAGE, Score_Minus10
 	if_stat_level_equal AI_TARGET, STAT_DEF, MIN_STAT_STAGE, Score_Minus8
@@ -608,10 +602,6 @@ AI_CBM_CosmicPower:
 AI_CBM_BulkUp:
 	if_stat_level_equal AI_USER, STAT_ATK, MAX_STAT_STAGE, Score_Minus10
 	if_stat_level_equal AI_USER, STAT_DEF, MAX_STAT_STAGE, Score_Minus8
-	end
-
-AI_CBM_WaterSport:
-	if_status3 AI_USER, STATUS3_WATERSPORT, Score_Minus10
 	end
 
 AI_CBM_CalmMind:
@@ -789,13 +779,11 @@ AI_CheckViability:
 	if_effect EFFECT_REFRESH, AI_CV_Refresh
 	if_effect EFFECT_SNATCH, AI_CV_Snatch
 	if_effect EFFECT_BLAZE_KICK, AI_CV_HighCrit
-	if_effect EFFECT_MUD_SPORT, AI_CV_MudSport
 	if_effect EFFECT_OVERHEAT, AI_CV_Overheat
 	if_effect EFFECT_TICKLE, AI_CV_DefenseDown
 	if_effect EFFECT_COSMIC_POWER, AI_CV_SpDefUp
 	if_effect EFFECT_BULK_UP, AI_CV_DefenseUp
 	if_effect EFFECT_POISON_TAIL, AI_CV_HighCrit
-	if_effect EFFECT_WATER_SPORT, AI_CV_WaterSport
 	if_effect EFFECT_CALM_MIND, AI_CV_SpDefUp
 	if_effect EFFECT_DRAGON_DANCE, AI_CV_DragonDance
 	end
@@ -1704,8 +1692,6 @@ AI_CV_Encore_EncouragedMovesToEncore:
 	.byte EFFECT_REFRESH
 	.byte EFFECT_GRUDGE
 	.byte EFFECT_TEETER_DANCE
-	.byte EFFECT_MUD_SPORT
-	.byte EFFECT_WATER_SPORT
 	.byte EFFECT_DRAGON_DANCE
 	.byte EFFECT_CAMOUFLAGE
 	.byte -1
@@ -2418,18 +2404,6 @@ AI_CV_Snatch5:
 AI_CV_Snatch_End:
 	end
 
-AI_CV_MudSport:
-	if_hp_less_than AI_USER, 50, Score_Minus1
-	get_target_type1
-	if_equal TYPE_ELECTRIC, AI_CV_MudSport2
-	get_target_type2
-	if_equal TYPE_ELECTRIC, AI_CV_MudSport2
-	goto Score_Minus1
-
-AI_CV_MudSport2:
-	score +1
-	end
-
 AI_CV_Overheat:
 	if_type_effectiveness AI_EFFECTIVENESS_x0_25, Score_Minus2
 	if_type_effectiveness AI_EFFECTIVENESS_x0_5, Score_Minus1
@@ -2441,18 +2415,6 @@ AI_CV_Overheat:
 AI_CV_Overheat2:
 	if_hp_more_than AI_USER, 80, AI_CV_Overheat_End
 AI_CV_Overheat_End:
-	end
-
-AI_CV_WaterSport:
-	if_hp_less_than AI_USER, 50, Score_Minus1
-	get_target_type1
-	if_equal TYPE_FIRE, AI_CV_WaterSport2
-	get_target_type2
-	if_equal TYPE_FIRE, AI_CV_WaterSport2
-	goto Score_Minus1
-
-AI_CV_WaterSport2:
-	score +1
 	end
 
 AI_CV_DragonDance:

@@ -2406,14 +2406,6 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [MOVE_MUD_SPORT] = {
-        { .songId = PHONEME_ID(PH_STRUT_BLEND) },
-        { .songId = PHONEME_ID(PH_GOAT_BLEND) },
-        { .songId = PHONEME_ID(PH_NURSE_BLEND) },
-        NULL_BARD_SOUND,
-        NULL_BARD_SOUND,
-        NULL_BARD_SOUND,
-    },
     [MOVE_ICE_BALL] = {
         { .songId = PHONEME_ID(PH_PRICE_BLEND) },
         { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
@@ -2772,14 +2764,6 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         { .songId = PHONEME_ID(PH_FOOT_BLEND) },
         { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
         PREV_BARD_SOUND,
-        NULL_BARD_SOUND,
-    },
-    [MOVE_WATER_SPORT] = {
-        { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
-        { .songId = PHONEME_ID(PH_NURSE_BLEND) },
-        { .songId = PHONEME_ID(PH_GOAT_SOLO) },
-        PREV_BARD_SOUND,
-        NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
     [MOVE_CALM_MIND] = {
