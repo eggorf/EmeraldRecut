@@ -4,16 +4,6 @@ SSTidalRooms_MapScripts::
 SSTidalRooms_EventScript_SnatchGiver::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_TM_SNATCH, SSTidalRooms_EventScript_ExplainSnatch
-	msgbox SSTidalRooms_Text_NotSuspiciousTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_SNATCH
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_SNATCH
-	msgbox SSTidalRooms_Text_ExplainSnatch, MSGBOX_DEFAULT
-	release
-	end
-
-SSTidalRooms_EventScript_ExplainSnatch::
 	msgbox SSTidalRooms_Text_ExplainSnatch, MSGBOX_DEFAULT
 	release
 	end
@@ -161,15 +151,8 @@ SSTidalRooms_Text_NaomiPostBattle:
 	.string "But, I will admit there is an appealing\n"
 	.string "side to touring HOENN by ferry.$"
 
-SSTidalRooms_Text_NotSuspiciousTakeThis:
-	.string "Uh… Hi! I… I'm not acting suspicious!\n"
-	.string "Uh… You can have this! For free!\p"
-	.string "It… Honestly, I didn't SNATCH it from\n"
-	.string "someone! I'd never do such a thing!\l"
-	.string "It's clean! You can use it!$"
-
 SSTidalRooms_Text_ExplainSnatch:
-	.string "SNATCH steals the beneficial effects\n"
-	.string "of certain moves before they can be\l"
-	.string "used by a foe or ally.$"
+	.string "Y'know, SNATCH steals the beneficial\n"
+	.string "effects of certain moves before they\l"
+	.string "can be used by a foe or ally.$"
 

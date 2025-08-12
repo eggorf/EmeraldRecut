@@ -1412,9 +1412,9 @@ static const u8 sTM48Desc[] = _(
     "turn this is used.");
 
 static const u8 sTM49Desc[] = _(
-    "Steals the effects\n"
-    "of the move the foe\n"
-    "is trying to use.");
+    "The move's type and\n"
+    "power change with\n"
+    "the current weather.");
 
 static const u8 sTM50Desc[] = _(
     "Enables full-power\n"

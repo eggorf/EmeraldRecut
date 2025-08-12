@@ -283,7 +283,7 @@
 #define FLAG_RECEIVED_OLD_ROD                0x101
 #define FLAG_RECEIVED_COIN_CASE              0x102
 #define FLAG_RETURNED_RED_OR_BLUE_ORB        0x103
-#define FLAG_RECEIVED_TM_SNATCH              0x104
+#define FLAG_RECEIVED_TM_WEATHER_BALL        0x104
 #define FLAG_RECEIVED_TM_DIG                 0x105
 #define FLAG_RECEIVED_TM_BULLET_SEED         0x106
 #define FLAG_ENTERED_ELITE_FOUR              0x107
@@ -999,7 +999,7 @@
 #define FLAG_HIDE_SLATEPORT_CITY_TM_SALESMAN                        0x3B4
 #define FLAG_HIDE_RUSTBORO_CITY_DEVON_CORP_3F_EMPLOYEE              0x3B5
 #define FLAG_HIDE_SS_TIDAL_CORRIDOR_MR_BRINEY                       0x3B6
-#define FLAG_HIDE_SS_TIDAL_ROOMS_SNATCH_GIVER                       0x3B7
+#define FLAG_UNUSED_0X3B7                                           0x3B7
 #define FLAG_RECEIVED_SHOAL_SALT_1                                  0x3B8
 #define FLAG_RECEIVED_SHOAL_SALT_2                                  0x3B9
 #define FLAG_RECEIVED_SHOAL_SALT_3                                  0x3BA

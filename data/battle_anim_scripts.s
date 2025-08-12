@@ -316,6 +316,7 @@ gBattleAnims_Moves::
 	.4byte Move_FEATHER_DANCE
 	.4byte Move_TEETER_DANCE
 	.4byte Move_BLAZE_KICK
+	.4byte Move_MUD_SPORT //UNUSED
 	.4byte Move_ICE_BALL
 	.4byte Move_NEEDLE_ARM
 	.4byte Move_SLACK_OFF
@@ -361,6 +362,7 @@ gBattleAnims_Moves::
 	.4byte Move_COVET
 	.4byte Move_VOLT_TACKLE
 	.4byte Move_MAGICAL_LEAF
+	.4byte Move_WATER_SPORT //UNUSED
 	.4byte Move_CALM_MIND
 	.4byte Move_LEAF_BLADE
 	.4byte Move_DRAGON_DANCE
@@ -4006,6 +4008,8 @@ Move_TEETER_DANCE:
 	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
 	end
 
+Move_MUD_SPORT: //UNUSED
+
 Move_NEEDLE_ARM:
 	loadspritegfx ANIM_TAG_GREEN_SPIKE
 	loadspritegfx ANIM_TAG_IMPACT
@@ -4405,6 +4409,9 @@ Move_VOLT_TACKLE:
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 0, 8, 0, RGB_BLACK
 	waitforvisualfinish
 	end
+
+Move_WATER_SPORT:
+// UNUSED
 
 Move_CALM_MIND:
 	loadspritegfx ANIM_TAG_THIN_RING

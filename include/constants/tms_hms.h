@@ -50,7 +50,7 @@
     F(THIEF) \
     F(STEEL_WING) \
     F(SKILL_SWAP) \
-    F(SNATCH) \
+    F(WEATHER_BALL) \
     F(OVERHEAT)
 
 #define FOREACH_HM(F) \
