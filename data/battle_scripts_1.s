@@ -4105,6 +4105,7 @@ BattleScript_AirLockActivates::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSXAIRLOCK
 	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_WeatherFormChanges
 	end3
 
 BattleScript_TookAttack::

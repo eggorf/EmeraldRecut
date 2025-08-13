@@ -2560,20 +2560,13 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 break;
             case ABILITY_CLOUD_NINE:
             case ABILITY_AIR_LOCK:
+                if (gBattleWeather & B_WEATHER_ANY)
                 {
-                    // that's a weird choice for a variable, why not use i or battler?
-                    for (target1 = 0; target1 < gBattlersCount; target1++)
-                    {
-                        effect = CastformDataTypeChange(target1);
-                        if (effect != 0)
-                        {
-                            BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
-                            gBattleScripting.battler = target1;
-                            *(&gBattleStruct->formToChangeInto) = effect - 1;
-                            break;
-                        }
-                    }
+                    gBattleWeather &= ~B_WEATHER_ANY;
+                    gWishFutureKnock.weatherDuration = 0;
                     BattleScriptPushCursorAndCallback(BattleScript_AirLockActivates);
+                    gBattleScripting.battler = battler;
+                    effect++;
                 }
                 break;
             }
