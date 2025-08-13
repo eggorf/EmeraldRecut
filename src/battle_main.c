@@ -4268,26 +4268,22 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_SWITCH:
                     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-                    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+                    if ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
+                        || gBattleTypeFlags & BATTLE_TYPE_ARENA
+                        || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+                        && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
                     {
                         BtlController_EmitChoosePokemon(BUFFER_A, PARTY_ACTION_CANT_SWITCH, PARTY_SIZE, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
                     }
-                    else if (!IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
+                    else if (((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
+                             || ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP))
+                                 && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
+                                 && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
+                             || ((i = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gActiveBattler, ABILITY_MAGNET_PULL, 0, 0))
+                                 && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL)))
+                             && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
                     {
-                        if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
-                        || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-                        {
-                            BtlController_EmitChoosePokemon(BUFFER_A, PARTY_ACTION_CANT_SWITCH, PARTY_SIZE, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                        }
-                        else if ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
-                                 || ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP))
-                                     && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
-                                     && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
-                                 || ((i = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gActiveBattler, ABILITY_MAGNET_PULL, 0, 0))
-                                     && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL)))
-                        {
-                            BtlController_EmitChoosePokemon(BUFFER_A, ((i - 1) << 4) | PARTY_ACTION_ABILITY_PREVENTS, PARTY_SIZE, gLastUsedAbility, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                        }
+                        BtlController_EmitChoosePokemon(BUFFER_A, ((i - 1) << 4) | PARTY_ACTION_ABILITY_PREVENTS, PARTY_SIZE, gLastUsedAbility, gBattleStruct->battlerPartyOrders[gActiveBattler]);
                     }
                     else
                     {
