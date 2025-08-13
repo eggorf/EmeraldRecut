@@ -544,8 +544,8 @@ static const u8 sLumBerryDesc[] = _(
 
 static const u8 sSitrusBerryDesc[] = _(
     "A hold item that\n"
-    "restores 30 HP in\n"
-    "battle.");
+    "restores 1/4 HP\n"
+    "in battle.");
 
 static const u8 sFigyBerryDesc[] = _(
     "A hold item that\n"
@@ -824,9 +824,9 @@ static const u8 sLeftoversDesc[] = _(
     "HP in battle.");
 
 static const u8 sDragonScaleDesc[] = _(
-    "A strange scale\n"
-    "held by DRAGON-\n"
-    "type POKéMON.");
+    "A strange scale,\n"
+    "it boosts the power \n"
+    "of DRAGON moves.");
 
 static const u8 sLightBallDesc[] = _(
     "A hold item that\n"
@@ -1202,9 +1202,9 @@ static const u8 sTM06Desc[] = _(
     "gradually worsens.");
 
 static const u8 sTM07Desc[] = _(
-    "Creates a hailstorm\n"
-    "that damages all\n"
-    "types except ICE.");
+    "Creates a snowstorm\n"
+    "to boost DEFENSE\n"
+    "of ICE types.");
 
 static const u8 sTM08Desc[] = _(
     "Bulks up the body\n"
