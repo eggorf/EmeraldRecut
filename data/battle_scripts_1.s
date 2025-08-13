@@ -4101,6 +4101,12 @@ BattleScript_DroughtActivates::
 	call BattleScript_WeatherFormChanges
 	end3
 
+BattleScript_AirLockActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXAIRLOCK
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_TookAttack::
 	attackstring
 	pause B_WAIT_TIME_SHORT
@@ -4438,6 +4444,11 @@ BattleScript_FocusBandActivates::
 	printstring STRINGID_PKMNHUNGONWITHX
 	waitmessage B_WAIT_TIME_LONG
 	return
+
+BattleScript_SturdyBandActivates::
+	printstring STRINGID_PKMNPROTECTEDBY
+	pause B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
 
 BattleScript_BerryConfuseHealEnd2::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT

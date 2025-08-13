@@ -1663,7 +1663,7 @@ static void UNUSED Unused_ApplyRandomDmgMultiplier(void)
 
 static void Cmd_adjustnormaldamage(void)
 {
-    u8 holdEffect, param;
+    u8 holdEffect, param, sturdied;
 
     ApplyRandomDmgMultiplier();
 
@@ -1680,10 +1680,16 @@ static void Cmd_adjustnormaldamage(void)
 
     gPotentialItemEffectBattler = gBattlerTarget;
 
-    if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
+if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
     {
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
+    }
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
+    {
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gSpecialStatuses[gBattlerTarget].focusBanded = 1;
+        sturdied = TRUE;
     }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
@@ -1694,7 +1700,12 @@ static void Cmd_adjustnormaldamage(void)
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
         }
-        else if (gSpecialStatuses[gBattlerTarget].focusBanded)
+        else if (sturdied)
+        {
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+            gLastUsedAbility = ABILITY_STURDY;
+        }
+        else //focus band
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
@@ -1706,7 +1717,7 @@ static void Cmd_adjustnormaldamage(void)
 // The same as adjustnormaldamage except it doesn't check for false swipe move effect.
 static void Cmd_adjustnormaldamage2(void)
 {
-    u8 holdEffect, param;
+    u8 holdEffect, param, sturdied;
 
     ApplyRandomDmgMultiplier();
 
@@ -1728,6 +1739,12 @@ static void Cmd_adjustnormaldamage2(void)
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
+    {
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gSpecialStatuses[gBattlerTarget].focusBanded = 1;
+        sturdied = TRUE;
+    }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
@@ -1737,7 +1754,12 @@ static void Cmd_adjustnormaldamage2(void)
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
         }
-        else if (gSpecialStatuses[gBattlerTarget].focusBanded)
+        else if (sturdied)
+        {
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+            gLastUsedAbility = ABILITY_STURDY;
+        }
+        else //focus band
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
@@ -2095,12 +2117,23 @@ static void Cmd_resultmessage(void)
             stringId = STRINGID_ITDOESNTAFFECT;
             break;
         case MOVE_RESULT_FOE_HUNG_ON:
-            gLastUsedItem = gBattleMons[gBattlerTarget].item;
-            gPotentialItemEffectBattler = gBattlerTarget;
-            gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-            BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
-            return;
+            if (gBattleMons[gBattlerTarget].item == ITEM_FOCUS_BAND)
+            {
+                gLastUsedItem = gBattleMons[gBattlerTarget].item;
+                gPotentialItemEffectBattler = gBattlerTarget;
+                gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
+                return;
+            }
+            else
+            {
+                gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
+                gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_SturdyBandActivates;
+                return;
+            }
         default:
             if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
             {
@@ -5875,7 +5908,7 @@ static void Cmd_cancelallactions(void)
 // The same as adjustnormaldamage, except there's no random damage multiplier.
 static void Cmd_adjustsetdamage(void)
 {
-    u8 holdEffect, param;
+    u8 holdEffect, param, sturdied;
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
     {
@@ -5895,6 +5928,12 @@ static void Cmd_adjustsetdamage(void)
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
+    else if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
+    {
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
+        gSpecialStatuses[gBattlerTarget].focusBanded = 1;
+        sturdied = TRUE;
+    }
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
@@ -5904,7 +5943,12 @@ static void Cmd_adjustsetdamage(void)
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
         }
-        else if (gSpecialStatuses[gBattlerTarget].focusBanded)
+        else if (sturdied)
+        {
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
+            gLastUsedAbility = ABILITY_STURDY;
+        }
+        else //focus band
         {
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
@@ -7481,7 +7525,7 @@ static void Cmd_tryKO(void) //ohko's
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
     }
 
-    if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY)
+    if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY) //THE ACTUAL OHKO SCRIPT
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         gLastUsedAbility = ABILITY_STURDY;
