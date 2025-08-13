@@ -927,7 +927,7 @@ static const struct TrainerHillFloor sFloors_Normal[] =
             {
                 .name = _("SALVADORE"),
                 .facilityClass = FACILITY_CLASS_PKMN_BREEDER_M,
-                .speechBefore = {EC_WORD_LET_S, EC_MOVE2(WRAP), EC_WORD_THINGS, EC_WORD_UP, EC_WORD_HERE, EC_WORD_HEY_QUES},
+                .speechBefore = {EC_WORD_LET_S, EC_WORD_THINGS, EC_WORD_UP, EC_WORD_HERE, EC_WORD_HEY_QUES},
                 .speechWin = {EC_WORD_WOULD, EC_WORD_YOU, EC_WORD_LIKE, EC_WORD_TO, EC_WORD_GO_HOME, EC_WORD_QUES},
                 .speechLose = {EC_WORD_I, EC_WORD_WILL, EC_WORD_MAKE, EC_WORD_YOU, EC_WORD_SORRY, EC_WORD_FRIEND},
                 .speechAfter = {EC_WORD_HAVEN_T, EC_WORD_YOU, EC_WORD_DONE, EC_WORD_ENOUGH, EC_WORD_QUES, EC_EMPTY_WORD},

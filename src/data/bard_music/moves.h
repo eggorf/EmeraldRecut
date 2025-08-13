@@ -286,7 +286,7 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [MOVE_WRAP] = {
+    [MOVE_UNUSED_35] = {
         { .songId = PHONEME_ID(PH_TRAP_BLEND) },
         PREV_BARD_SOUND,
         PREV_BARD_SOUND,
@@ -1030,7 +1030,7 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [MOVE_CLAMP] = {
+    [MOVE_UNUSED_128] = {
         { .songId = PHONEME_ID(PH_TRAP_BLEND) },
         PREV_BARD_SOUND,
         PREV_BARD_SOUND,
@@ -1126,7 +1126,7 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [MOVE_BARRAGE] = {
+    [MOVE_UNUSED_140] = {
         { .songId = PHONEME_ID(PH_NURSE_BLEND) },
         { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
         PREV_BARD_SOUND,
@@ -2526,7 +2526,7 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [MOVE_ODOR_SLEUTH] = {
+    [MOVE_UNUSED_316] = {
         { .songId = PHONEME_ID(PH_GOAT_BLEND) },
         { .songId = PHONEME_ID(PH_NURSE_BLEND) },
         { .songId = PHONEME_ID(PH_GOOSE_BLEND) },

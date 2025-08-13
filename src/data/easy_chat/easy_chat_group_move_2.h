@@ -8,7 +8,7 @@ const u16 gEasyChatGroup_Move2[] = {
     MOVE_ARM_THRUST,
     MOVE_ASSIST,
     MOVE_ATTRACT,
-    MOVE_BARRAGE,
+    MOVE_UNUSED_140,
     MOVE_BARRIER,
     MOVE_BATON_PASS,
     MOVE_BEAT_UP,
@@ -197,6 +197,6 @@ const u16 gEasyChatGroup_Move2[] = {
     MOVE_WHIRLWIND,
     MOVE_WING_ATTACK,
     MOVE_WISH,
-    MOVE_WRAP,
+    MOVE_UNUSED_35,
     MOVE_ZAP_CANNON,
 };

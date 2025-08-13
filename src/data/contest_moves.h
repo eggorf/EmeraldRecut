@@ -273,7 +273,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {0},
     },
 
-    [MOVE_WRAP] =
+    [MOVE_UNUSED_35] =
     {
         .effect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -1017,7 +1017,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {COMBO_STARTER_RAIN_DANCE},
     },
 
-    [MOVE_CLAMP] =
+    [MOVE_UNUSED_128] =
     {
         .effect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -1113,7 +1113,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {0},
     },
 
-    [MOVE_BARRAGE] =
+    [MOVE_UNUSED_140] =
     {
         .effect = CONTEST_EFFECT_BETTER_IF_SAME_TYPE,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
@@ -2513,7 +2513,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {COMBO_STARTER_SUNNY_DAY},
     },
 
-    [MOVE_ODOR_SLEUTH] =
+    [MOVE_UNUSED_316] =
     {
         .effect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_SMART,
