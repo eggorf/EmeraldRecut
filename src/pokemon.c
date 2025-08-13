@@ -3104,7 +3104,282 @@ void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
     (var) /= (gStatStageRatios)[(mon)->statStages[(statIndex)]][1];                 \
 }
 
+//NEW rewrite
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
+{
+    u32 i;
+    s32 damage = 0;
+    s32 damageHelper;
+    u8 type;
+    u16 attack, defense;
+    u16 spAttack, spDefense;
+    u8 defenderHoldEffect;
+    u8 defenderHoldEffectParam;
+    u8 attackerHoldEffect;
+    u8 attackerHoldEffectParam;
+
+    u16 atkModCategory;
+    u16 defModCategory;
+    u16 atkCategory;
+    u16 defCategory;
+
+    if (!powerOverride)
+        gBattleMovePower = gBattleMoves[move].power;
+    else
+        gBattleMovePower = powerOverride;
+
+    if (!typeOverride)
+        type = gBattleMoves[move].type;
+    else
+        type = typeOverride & DYNAMIC_TYPE_MASK;
+
+    if (type == TYPE_MYSTERY)
+    {
+        damage = 0;
+        return 3;
+    }
+
+    attack = attacker->attack;
+    defense = defender->defense;
+    spAttack = attacker->spAttack;
+    spDefense = defender->spDefense;
+
+    // Get defender hold item info
+    if (defender->item != ITEM_NONE)
+    {
+        if (defender->item == ITEM_ENIGMA_BERRY)
+        {
+            defenderHoldEffect = gEnigmaBerries[battlerIdDef].holdEffect;
+            defenderHoldEffectParam = gEnigmaBerries[battlerIdDef].holdEffectParam;
+        }
+        else
+        {
+            defenderHoldEffect = ItemId_GetHoldEffect(defender->item);
+            defenderHoldEffectParam = ItemId_GetHoldEffectParam(defender->item);
+        }
+        
+        if (gBattleMoves[gCurrentMove].effect == EFFECT_KNOCK_OFF) //knock off 1.5x on success
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+
+        if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
+            spDefense = (150 * spDefense) / 100;
+        if (defenderHoldEffect == HOLD_EFFECT_DEEP_SEA_SCALE && defender->species == SPECIES_CLAMPERL)
+            spDefense *= 2;
+        if (defenderHoldEffect == HOLD_EFFECT_METAL_POWDER && defender->species == SPECIES_DITTO)
+            defense *= 2;
+    }
+    // Get attacker hold item info   
+    if (attacker->item != ITEM_NONE)
+    {
+        if (attacker->item == ITEM_ENIGMA_BERRY)
+        {
+            attackerHoldEffect = gEnigmaBerries[battlerIdAtk].holdEffect;
+            attackerHoldEffectParam = gEnigmaBerries[battlerIdAtk].holdEffectParam;
+        }
+        else
+        {
+            attackerHoldEffect = ItemId_GetHoldEffect(attacker->item);
+            attackerHoldEffectParam = ItemId_GetHoldEffectParam(attacker->item);
+        }
+        
+        // Apply type-bonus hold item
+        for (i = 0; i < ARRAY_COUNT(sHoldEffectToType); i++)
+        {
+            if (attackerHoldEffect == sHoldEffectToType[i][0]
+                && type == sHoldEffectToType[i][1])
+            {
+                if (IS_TYPE_PHYSICAL(type))
+                    attack = (attack * (attackerHoldEffectParam + 100)) / 100;
+                else
+                    spAttack = (spAttack * (attackerHoldEffectParam + 100)) / 100;
+                break;
+            }
+        }
+
+        // Apply boosts from hold items
+        if (attackerHoldEffect == HOLD_EFFECT_CHOICE_BAND)
+            attack = (150 * attack) / 100;
+        if (attackerHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS))
+            spAttack = (150 * spAttack) / 100;
+        if (attackerHoldEffect == HOLD_EFFECT_DEEP_SEA_TOOTH && attacker->species == SPECIES_CLAMPERL)
+            spAttack *= 2;
+        if (attackerHoldEffect == HOLD_EFFECT_LIGHT_BALL && attacker->species == SPECIES_PIKACHU)
+            gBattleMovePower *= 2;
+        if (attackerHoldEffect == HOLD_EFFECT_THICK_CLUB && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK))
+            attack *= 2;
+    }
+
+    // Apply abilities
+    if (attacker->hp <= (attacker->maxHP / 3))
+    {
+        if (type == TYPE_GRASS && attacker->ability == ABILITY_OVERGROW)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if (type == TYPE_FIRE && attacker->ability == ABILITY_BLAZE)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if (type == TYPE_WATER && attacker->ability == ABILITY_TORRENT)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if (type == TYPE_BUG && attacker->ability == ABILITY_SWARM)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+    }
+    
+    if (IS_TYPE_PHYSICAL(type))
+    {
+        //Abilities
+        if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
+            attack *= 2;
+        if (attacker->ability == ABILITY_HUSTLE)
+            attack = (150 * attack) / 100;
+        if (attacker->ability == ABILITY_GUTS && attacker->status1)
+            attack = (150 * attack) / 100;
+        if (defender->ability == ABILITY_MARVEL_SCALE && defender->status1)
+            defense = (150 * defense) / 100;
+        // Burn cuts attack in half
+        if ((attacker->status1 & STATUS1_BURN) && attacker->ability != ABILITY_GUTS && gBattleMoves[gCurrentMove].effect != EFFECT_FACADE)
+            attack /= 2;
+        // Apply Reflect
+        if ((sideStatus & SIDE_STATUS_REFLECT) && gCritMultiplier == 1)
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                defense = (defense * 150) / 100;
+            else
+                defense *= 2;
+        }
+        // Self-destruct / Explosion cut defense in half
+        if (gBattleMoves[gCurrentMove].effect == EFFECT_EXPLOSION)
+            defense /= 2;
+
+        if (WEATHER_HAS_EFFECT2 && gBattleWeather & B_WEATHER_ANY)
+        {
+            // Snow boosts Ice's Def
+            if (gBattleWeather & B_WEATHER_SNOW)
+            {
+                if (TYPE_ICE == (defender->types[0] | defender->types[1]))
+                {
+                    defense = (defense * 150) / 100;
+                }
+            }
+        }
+
+        //use newly calculated physical stats
+        atkModCategory = STAT_ATK;
+        defModCategory = STAT_DEF;
+        atkCategory = attack;
+        defCategory = defense;
+        
+    }
+
+    else //special
+    {
+        //Abilities
+        if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
+            spAttack /= 2;
+        if (attacker->ability == ABILITY_PLUS && ABILITY_ON_FIELD2(ABILITY_MINUS))
+            spAttack = (150 * spAttack) / 100;
+        if (attacker->ability == ABILITY_MINUS && ABILITY_ON_FIELD2(ABILITY_PLUS))
+            spAttack = (150 * spAttack) / 100;
+        if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
+            spAttack = (150 * spAttack) / 100;
+        // Apply Lightscreen
+        if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && gCritMultiplier == 1)
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                spDefense = (spDefense * 150) / 100;
+            else
+                spDefense *= 2;
+        }
+        
+        // Are effects of weather negated with cloud nine or air lock
+        if (WEATHER_HAS_EFFECT2 && gBattleWeather & B_WEATHER_ANY)
+        {
+            // Sun boosts Fire, weakens Water
+            if (gBattleWeather & B_WEATHER_SUN)
+            {
+                switch (type)
+                {
+                case TYPE_FIRE:
+                    spAttack = (150 * spAttack) / 100;
+                    break;
+                case TYPE_WATER:
+                    spAttack /= 2;
+                    break;
+                }
+            }
+            else
+            {
+                // Any weather except sun weakens solar beam
+                if (gCurrentMove == MOVE_SOLAR_BEAM)
+                    spAttack /= 2;
+            
+                // Rain weakens Fire, boosts Water
+                if (gBattleWeather & B_WEATHER_RAIN)
+                {
+                    switch (type)
+                    {
+                    case TYPE_FIRE:
+                        spAttack /= 2;
+                        break;
+                    case TYPE_WATER:
+                        spAttack = (150 * spAttack) / 100;
+                        break;
+                    }
+                }
+
+                // Sand boosts Rock's SpDef
+                if (gBattleWeather & B_WEATHER_SANDSTORM)
+                {
+                    if (TYPE_ROCK == (defender->types[0] | defender->types[1]))
+                    {
+                        spDefense = (spDefense * 150) / 100;
+                    }
+                }
+
+            }
+        }
+
+        //use newly calculated special stats
+        atkModCategory = STAT_SPATK;
+        defModCategory = STAT_SPDEF;
+        atkCategory = spAttack;
+        defCategory = spDefense;
+    }
+        
+    if (gCritMultiplier == 1.5)
+    {
+        // Critical hit, ignore detrimental stat changes
+        if (attacker->statStages[atkModCategory] > DEFAULT_STAT_STAGE)
+            APPLY_STAT_MOD(damage, attacker, atkCategory, atkModCategory)
+        else
+            damage = atkCategory;
+
+        if (defender->statStages[defModCategory] < DEFAULT_STAT_STAGE)
+            APPLY_STAT_MOD(damageHelper, defender, defCategory, defModCategory)
+        else
+            damageHelper = defCategory;
+        }
+    else
+    {
+        APPLY_STAT_MOD(damage, attacker, atkCategory, atkModCategory)
+        APPLY_STAT_MOD(damageHelper, defender, defCategory, defModCategory)
+    }
+
+    damage *= gBattleMovePower;
+    damage *= (2 * attacker->level / 5 + 2);
+    damage /= damageHelper;
+    damage /= 50;
+
+    // Moves hitting both targets do 3/4 damage in double battles
+    if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && (gBattleMoves[move].target == (MOVE_TARGET_FOES_AND_ALLY || MOVE_TARGET_BOTH)) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+        damage = 3 * (damage / 4);
+
+    // Moves always do at least 1 damage.
+    if (damage == 0)
+        damage = 1;
+    
+    return damage + 2;
+}
+//end NEW
+
+/*s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
     s32 damage = 0;
@@ -3327,13 +3602,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                     damage /= 2;
                     break;
                 case TYPE_WATER:
-                    damage = (15 * damage) / 10;
+                    damage = (damage * 150) / 100;
                     break;
                 }
             }
 
             // Any weather except sun weakens solar beam
-            if ((gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_HAIL)) && gCurrentMove == MOVE_SOLAR_BEAM)
+            if ((gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_SNOW)) && gCurrentMove == MOVE_SOLAR_BEAM)
                 damage /= 2;
 
             // Sun boosts Fire, weakens Water
@@ -3342,7 +3617,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 switch (type)
                 {
                 case TYPE_FIRE:
-                    damage = (15 * damage) / 10;
+                    damage = (damage * 150) / 100;
                     break;
                 case TYPE_WATER:
                     damage /= 2;
@@ -3353,11 +3628,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         // Flash fire triggered
         if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
-            damage = (15 * damage) / 10;
+            damage = (damage * 150) / 100;
     }
 
     return damage + 2;
-}
+}*/
 
 u8 CountAliveMonsInBattle(u8 caseId)
 {
@@ -4678,16 +4953,15 @@ bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, 
     {                                                                                                   \
         friendshipChange = itemEffect[itemEffectParam];                                                 \
         friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);                                        \
-        if (friendshipChange > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)                            \
-            friendship += 150 * friendshipChange / 100;                                                 \
-        else                                                                                            \
-            friendship += friendshipChange;                                                             \
+        friendship += friendshipChange;                                                                 \
         if (friendshipChange > 0)                                                                       \
         {                                                                                               \
             if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)                           \
                 friendship++;                                                                           \
             if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())         \
                 friendship++;                                                                           \
+            if (holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)                                                \
+                friendship += 150 * friendshipChange / 100;                                                 \
         }                                                                                               \
         if (friendship < 0)                                                                             \
             friendship = 0;                                                                             \
