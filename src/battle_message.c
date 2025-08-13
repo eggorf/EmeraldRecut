@@ -244,6 +244,8 @@ static const u8 sText_PkmnShroudedItself[] = _("{B_ATK_NAME_WITH_PREFIX} shroude
 static const u8 sText_PkmnMoveBounced[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE}\nwas bounced back by MAGIC COAT!");
 static const u8 sText_PkmnWaitsForTarget[] = _("{B_ATK_NAME_WITH_PREFIX} waits for a target\nto make a move!");
 static const u8 sText_PkmnSnatchedMove[] = _("{B_DEF_NAME_WITH_PREFIX} SNATCHED\n{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s move!");
+static const u8 sText_PkmnXAirLock[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nsuppressed the effects of weather");
+static const u8 sText_UNUSED[] = _("{B_ATK_NAME_WITH_PREFIX} found\none {B_LAST_ITEM}!");
 static const u8 sText_XFoundOneY[] = _("{B_ATK_NAME_WITH_PREFIX} found\none {B_LAST_ITEM}!");
 static const u8 sText_SoothingAroma[] = _("A soothing aroma wafted\nthrough the area!");
 static const u8 sText_ItemsCantBeUsedNow[] = _("Items can't be used now.{PAUSE 64}");
@@ -493,6 +495,7 @@ static const u8 sText_PkmnsItemRestoredStatus[] = _("{B_SCR_ACTIVE_NAME_WITH_PRE
 static const u8 sText_PkmnsItemRestoredHPALittle[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_LAST_ITEM}\nrestored its HP a little!");
 static const u8 sText_ItemAllowsOnlyYMove[] = _("{B_LAST_ITEM} allows the\nuse of only {B_CURRENT_MOVE}!\p");
 static const u8 sText_PkmnHungOnWithX[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nusing its {B_LAST_ITEM}!");
+static const u8 sText_PkmnHungOnWithAbility[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nusing its {B_LAST_ABILITY}!");
 const u8 gText_EmptyString3[] = _("");
 static const u8 sText_YouThrowABallNowRight[] = _("You throw a BALL now, right?\nI… I'll do my best!");
 
@@ -817,6 +820,8 @@ const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_S
     [STRINGID_PKMNSXCUREDYPROBLEM - BATTLESTRINGS_TABLE_START] = sText_PkmnsXCuredYProblem,
     [STRINGID_ITSUCKEDLIQUIDOOZE - BATTLESTRINGS_TABLE_START] = sText_ItSuckedLiquidOoze,
     [STRINGID_PKMNTRANSFORMED - BATTLESTRINGS_TABLE_START] = sText_PkmnTransformed,
+    [STRINGID_PKMNSXAIRLOCK - BATTLESTRINGS_TABLE_START] = sText_PkmnXAirLock,
+    [STRINGID_FIREWEAKENED - BATTLESTRINGS_TABLE_START] = sText_PkmnXAirLock,
     [STRINGID_PKMNHIDUNDERWATER - BATTLESTRINGS_TABLE_START] = sText_PkmnHidUnderwater,
     [STRINGID_PKMNSPRANGUP - BATTLESTRINGS_TABLE_START] = sText_PkmnSprangUp,
     [STRINGID_HMMOVESCANTBEFORGOTTEN - BATTLESTRINGS_TABLE_START] = sText_HMMovesCantBeForgotten,
@@ -1034,9 +1039,9 @@ const u16 gFirstTurnOfTwoStringIds[] =
 const u16 gWrappedStringIds[NUM_TRAPPING_MOVES] =
 {
     STRINGID_PKMNSQUEEZEDBYBIND,   // MOVE_BIND
-    STRINGID_PKMNWRAPPEDBY,        // MOVE_WRAP
+    STRINGID_PKMNWRAPPEDBY,        // MOVE_UNUSED_35
     STRINGID_PKMNTRAPPEDINVORTEX,  // MOVE_FIRE_SPIN
-    STRINGID_PKMNCLAMPED,          // MOVE_CLAMP
+    STRINGID_PKMNCLAMPED,          // MOVE_UNUSED_128
     STRINGID_PKMNTRAPPEDINVORTEX,  // MOVE_WHIRLPOOL
     STRINGID_PKMNTRAPPEDBYSANDTOMB // MOVE_SAND_TOMB
 };
@@ -1246,9 +1251,9 @@ const u16 gCaughtMonStringIds[] =
 const u16 gTrappingMoves[NUM_TRAPPING_MOVES + 1] =
 {
     MOVE_BIND,
-    MOVE_WRAP,
+    MOVE_UNUSED_35,
     MOVE_FIRE_SPIN,
-    MOVE_CLAMP,
+    MOVE_UNUSED_128,
     MOVE_WHIRLPOOL,
     MOVE_SAND_TOMB,
     0xFFFF // Never read
@@ -1435,7 +1440,7 @@ static const u16 sGrammarMoveUsedTable[] =
     MOVE_SWAGGER, MOVE_SLEEP_TALK, MOVE_HIDDEN_POWER,
     MOVE_PSYCH_UP, MOVE_EXTREME_SPEED, MOVE_FOLLOW_ME,
     MOVE_TRICK, MOVE_ASSIST, MOVE_INGRAIN, MOVE_KNOCK_OFF,
-    MOVE_CAMOUFLAGE, MOVE_ASTONISH, MOVE_ODOR_SLEUTH,
+    MOVE_CAMOUFLAGE, MOVE_ASTONISH, MOVE_UNUSED_316,
     MOVE_GRASS_WHISTLE, MOVE_SHEER_COLD, MOVE_MUDDY_WATER,
     MOVE_IRON_DEFENSE, MOVE_BOUNCE, 0,
 
@@ -1443,18 +1448,18 @@ static const u16 sGrammarMoveUsedTable[] =
     MOVE_FLAIL, MOVE_TAUNT, MOVE_BULK_UP, 0,
 
     MOVE_MEDITATE, MOVE_AGILITY, MOVE_MIMIC, MOVE_DOUBLE_TEAM,
-    MOVE_BARRAGE, MOVE_TRANSFORM, MOVE_STRUGGLE, MOVE_SCARY_FACE,
+    MOVE_UNUSED_140, MOVE_TRANSFORM, MOVE_STRUGGLE, MOVE_SCARY_FACE,
     MOVE_CHARGE, MOVE_WISH, MOVE_BRICK_BREAK, MOVE_YAWN,
     MOVE_FEATHER_DANCE, MOVE_TEETER_DANCE,
     MOVE_FAKE_TEARS, MOVE_CALM_MIND, 0,
 
     MOVE_POUND, MOVE_SCRATCH, MOVE_VICE_GRIP,
     MOVE_WING_ATTACK, MOVE_FLY, MOVE_BIND, MOVE_SLAM,
-    MOVE_HORN_ATTACK, MOVE_WRAP, MOVE_THRASH, MOVE_TAIL_WHIP,
+    MOVE_HORN_ATTACK, MOVE_UNUSED_35, MOVE_THRASH, MOVE_TAIL_WHIP,
     MOVE_LEER, MOVE_BITE, MOVE_GROWL, MOVE_ROAR,
     MOVE_SING, MOVE_PECK, MOVE_ABSORB, MOVE_STRING_SHOT,
     MOVE_EARTHQUAKE, MOVE_FISSURE, MOVE_DIG, MOVE_TOXIC,
-    MOVE_SCREECH, MOVE_METRONOME, MOVE_LICK, MOVE_CLAMP,
+    MOVE_SCREECH, MOVE_METRONOME, MOVE_LICK, MOVE_UNUSED_128,
     MOVE_CONSTRICT, MOVE_POISON_GAS, MOVE_BUBBLE,
     MOVE_SLASH, MOVE_SPIDER_WEB, MOVE_NIGHTMARE, MOVE_CURSE,
     MOVE_FORESIGHT, MOVE_CHARM, MOVE_ATTRACT, MOVE_ROCK_SMASH,
