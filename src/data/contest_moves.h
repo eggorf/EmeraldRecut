@@ -470,7 +470,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .effect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
         .comboStarterId = 0,
-        .comboMoves = {COMBO_STARTER_POWDER_SNOW, COMBO_STARTER_HAIL},
+        .comboMoves = {COMBO_STARTER_POWDER_SNOW, COMBO_STARTER_SNOW},
     },
 
     [MOVE_PSYBEAM] =
@@ -1446,7 +1446,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .effect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
         .comboStarterId = COMBO_STARTER_POWDER_SNOW,
-        .comboMoves = {COMBO_STARTER_HAIL},
+        .comboMoves = {COMBO_STARTER_SNOW},
     },
 
     [MOVE_PROTECT] =
@@ -2057,11 +2057,11 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {COMBO_STARTER_SUNNY_DAY},
     },
 
-    [MOVE_HAIL] =
+    [MOVE_SNOW] =
     {
         .effect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
-        .comboStarterId = COMBO_STARTER_HAIL,
+        .comboStarterId = COMBO_STARTER_SNOW,
         .comboMoves = {0},
     },
 
@@ -2478,7 +2478,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .effect = CONTEST_EFFECT_HIGHLY_APPEALING,
         .contestCategory = CONTEST_CATEGORY_SMART,
         .comboStarterId = 0,
-        .comboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SUNNY_DAY, COMBO_STARTER_HAIL, COMBO_STARTER_SANDSTORM},
+        .comboMoves = {COMBO_STARTER_RAIN_DANCE, COMBO_STARTER_SUNNY_DAY, COMBO_STARTER_SNOW, COMBO_STARTER_SANDSTORM},
     },
 
     [MOVE_AROMATHERAPY] =

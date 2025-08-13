@@ -226,9 +226,9 @@
 #define B_WEATHER_SUN_TEMPORARY       (1 << 5)
 #define B_WEATHER_SUN_PERMANENT       (1 << 6)
 #define B_WEATHER_SUN                 (B_WEATHER_SUN_TEMPORARY | B_WEATHER_SUN_PERMANENT)
-#define B_WEATHER_HAIL_TEMPORARY      (1 << 7)
-#define B_WEATHER_HAIL                (B_WEATHER_HAIL_TEMPORARY)
-#define B_WEATHER_ANY                 (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_SUN | B_WEATHER_HAIL)
+#define B_WEATHER_SNOW_TEMPORARY      (1 << 7)
+#define B_WEATHER_SNOW                (B_WEATHER_SNOW_TEMPORARY)
+#define B_WEATHER_ANY                 (B_WEATHER_RAIN | B_WEATHER_SANDSTORM | B_WEATHER_SUN | B_WEATHER_SNOW)
 
 // Move Effects
 #define MOVE_EFFECT_SLEEP               1

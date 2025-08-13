@@ -206,7 +206,7 @@ AI_CheckBadMove_CheckEffect:
 	if_effect EFFECT_STOCKPILE, AI_CBM_Stockpile
 	if_effect EFFECT_SPIT_UP, AI_CBM_SpitUpAndSwallow
 	if_effect EFFECT_SWALLOW, AI_CBM_SpitUpAndSwallow
-	if_effect EFFECT_HAIL, AI_CBM_Hail
+	if_effect EFFECT_SNOW, AI_CBM_Snow
 	if_effect EFFECT_TORMENT, AI_CBM_Torment
 	if_effect EFFECT_FLATTER, AI_CBM_Confuse
 	if_effect EFFECT_WILL_O_WISP, AI_CBM_WillOWisp
@@ -380,9 +380,21 @@ AI_CBM_LightScreen:
 
 AI_CBM_OneHitKO:
 	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
+	get_curr_move_type
+	if_equal TYPE_ICE, AI_CBM_SheerCold
 	get_ability AI_TARGET
 	if_equal ABILITY_STURDY, Score_Minus30
 	if_level_cond 1, Score_Minus10
+	end
+
+AI_CBM_SheerCold:
+	get_target_type1
+	if_equal TYPE_ICE, AI_CBM_SheerColdEnd
+	get_target_type2
+	if_equal TYPE_ICE, AI_CBM_SheerColdEnd
+
+AI_CBM_SheerColdEnd:
+	score -30
 	end
 
 AI_CBM_Magnitude:
@@ -546,9 +558,9 @@ AI_CBM_SpitUpAndSwallow:
 	if_equal 0, Score_Minus30
 	end
 
-AI_CBM_Hail:
+AI_CBM_Snow:
 	get_weather
-	if_equal AI_WEATHER_HAIL, Score_Minus8
+	if_equal AI_WEATHER_SNOW, Score_Minus8
 	end
 
 AI_CBM_Torment:
@@ -758,7 +770,7 @@ AI_CheckViability:
 	if_effect EFFECT_FAKE_OUT, AI_CV_FakeOut
 	if_effect EFFECT_SPIT_UP, AI_CV_SpitUp
 	if_effect EFFECT_SWALLOW, AI_CV_Heal
-	if_effect EFFECT_HAIL, AI_CV_Hail
+	if_effect EFFECT_SNOW, AI_CV_Snow
 	if_effect EFFECT_FLATTER, AI_CV_Flatter
 	if_effect EFFECT_MEMENTO, AI_CV_SelfKO
 	if_effect EFFECT_FACADE, AI_CV_Facade
@@ -786,6 +798,7 @@ AI_CheckViability:
 	if_effect EFFECT_POISON_TAIL, AI_CV_HighCrit
 	if_effect EFFECT_CALM_MIND, AI_CV_SpDefUp
 	if_effect EFFECT_DRAGON_DANCE, AI_CV_DragonDance
+	if_effect EFFECT_RAPID_SPIN, AI_CV_RapidSpin
 	end
 
 AI_CV_Sleep:
@@ -1320,6 +1333,7 @@ AI_CV_Toxic2:
 	score -3
 AI_CV_Toxic3:
 	if_has_move_with_effect AI_USER, EFFECT_SPECIAL_DEFENSE_UP, AI_CV_Toxic4
+	if_has_move_with_effect AI_USER, EFFECT_DEFENSE_UP, AI_CV_Toxic4
 	if_has_move_with_effect AI_USER, EFFECT_PROTECT, AI_CV_Toxic4
 	end
 
@@ -1677,7 +1691,7 @@ AI_CV_Encore_EncouragedMovesToEncore:
 	.byte EFFECT_STOCKPILE
 	.byte EFFECT_SPIT_UP
 	.byte EFFECT_SWALLOW
-	.byte EFFECT_HAIL
+	.byte EFFECT_SNOW
 	.byte EFFECT_TORMENT
 	.byte EFFECT_WILL_O_WISP
 	.byte EFFECT_FOLLOW_ME
@@ -1945,7 +1959,7 @@ AI_CV_RainDance:
 AI_CV_RainDance2:
 	if_hp_less_than AI_USER, 40, Score_Minus1
 	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_RainDance3
+	if_equal AI_WEATHER_SNOW, AI_CV_RainDance3
 	if_equal AI_WEATHER_SUN, AI_CV_RainDance3
 	if_equal AI_WEATHER_SANDSTORM, AI_CV_RainDance3
 	get_ability AI_USER
@@ -1959,7 +1973,7 @@ AI_CV_RainDance3:
 AI_CV_SunnyDay:
 	if_hp_less_than AI_USER, 40, Score_Minus1
 	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_SunnyDay2
+	if_equal AI_WEATHER_SNOW, AI_CV_SunnyDay2
 	if_equal AI_WEATHER_RAIN, AI_CV_SunnyDay2
 	if_equal AI_WEATHER_SANDSTORM, AI_CV_SunnyDay2
 	end
@@ -1978,6 +1992,7 @@ AI_CV_PsychUp:
 	if_stat_level_more_than AI_TARGET, STAT_SPATK, 8, AI_CV_PsychUp2
 	if_stat_level_more_than AI_TARGET, STAT_SPDEF, 8, AI_CV_PsychUp2
 	if_stat_level_more_than AI_TARGET, STAT_EVASION, 8, AI_CV_PsychUp2
+	if_status2 AI_TARGET, STATUS2_FOCUS_ENERGY, AI_CV_PsychUp2
 	goto Score_Minus2
 
 AI_CV_PsychUp2:
@@ -2081,7 +2096,6 @@ AI_CV_SemiInvulnerable2:
 	if_status2 AI_TARGET, STATUS2_CURSED, AI_CV_SemiInvulnerable_TryEncourage
 	if_status3 AI_TARGET, STATUS3_LEECHSEED, AI_CV_SemiInvulnerable_TryEncourage
 	get_weather
-	if_equal AI_WEATHER_HAIL, AI_CV_SemiInvulnerable_CheckIceType
 	if_equal AI_WEATHER_SANDSTORM, AI_CV_SemiInvulnerable_CheckSandstormTypes
 	goto AI_CV_SemiInvulnerable5
 
@@ -2092,11 +2106,6 @@ AI_CV_SemiInvulnerable_CheckSandstormTypes:
 	if_in_bytes AI_CV_SandstormResistantTypes, AI_CV_SemiInvulnerable_TryEncourage
 	goto AI_CV_SemiInvulnerable5
 
-AI_CV_SemiInvulnerable_CheckIceType:
-	get_user_type1
-	if_equal TYPE_ICE, AI_CV_SemiInvulnerable_TryEncourage
-	get_user_type2
-	if_equal TYPE_ICE, AI_CV_SemiInvulnerable_TryEncourage
 AI_CV_SemiInvulnerable5:
 	if_target_faster AI_CV_SemiInvulnerable_End
 	get_last_used_bank_move AI_TARGET
@@ -2128,15 +2137,15 @@ AI_CV_SpitUp:
 AI_CV_SpitUp_End:
 	end
 
-AI_CV_Hail:
+AI_CV_Snow:
 	if_hp_less_than AI_USER, 40, Score_Minus1
 	get_weather
-	if_equal AI_WEATHER_SUN, AI_CV_Hail2
-	if_equal AI_WEATHER_RAIN, AI_CV_Hail2
-	if_equal AI_WEATHER_SANDSTORM, AI_CV_Hail2
+	if_equal AI_WEATHER_SUN, AI_CV_Snow2
+	if_equal AI_WEATHER_RAIN, AI_CV_Snow2
+	if_equal AI_WEATHER_SANDSTORM, AI_CV_Snow2
 	end
 
-AI_CV_Hail2:
+AI_CV_Snow2:
 	score +1
 	end
 
@@ -2313,6 +2322,11 @@ AI_CV_KnockOff:
 	if_random_less_than 180, AI_CV_KnockOff_End
 	score +1
 AI_CV_KnockOff_End:
+	end
+
+AI_CV_RapidSpin:
+	if_side_affecting AI_USER, SIDE_STATUS_SPIKES, Score_Plus2
+	if_stat_level_less_than AI_USER, STAT_SPEED, DEFAULT_STAT_STAGE+1, Score_Plus1
 	end
 
 AI_CV_Endeavor:
@@ -3024,16 +3038,16 @@ AI_WeatherAware:
 
 	if_equal AI_WEATHER_RAIN, AI_WeatherAware_Rain
 	if_equal AI_WEATHER_SANDSTORM, AI_WeatherAware_Sand
-	if_equal AI_WEATHER_HAIL, AI_WeatherAware_Hail
+	if_equal AI_WEATHER_SNOW, AI_WeatherAware_Snow
 	end
 
 AI_WeatherAware_Sun:
 	get_considered_move_effect
-	if_effect EFFECT_SYNTHESIS, AI_WeatherAware_HealSun
+	if_effect EFFECT_SYNTHESIS, AI_WA_HealSun
 	if_effect EFFECT_THUNDER, Score_Minus1
-	if_in_bytes AI_WeatherAware_EncouragedInSun, Score_Plus1
-	if_ability AI_USER, ABILITY_CHLOROPHYLL, AI_WeatherAware_UserHasSpeed
-	if_ability AI_TARGET, ABILITY_CHLOROPHYLL, AI_WeatherAware_EnemyHasSpeed
+	if_in_bytes AI_WA_EncouragedInSun, Score_Plus1
+	if_ability AI_USER, ABILITY_CHLOROPHYLL, AI_WA_UserHasSpeed
+	if_ability AI_TARGET, ABILITY_CHLOROPHYLL, AI_WA_EnemyHasSpeed
 	get_how_powerful_move_is
 	if_equal MOVE_POWER_OTHER, AI_WeatherAware_End
 	get_curr_move_type
@@ -3041,11 +3055,11 @@ AI_WeatherAware_Sun:
 	if_equal_ TYPE_WATER, Score_Minus1
 	end
 
-AI_WeatherAware_HealSun:
+AI_WA_HealSun:
 	score +1
 	goto AI_CV_Heal
 
-AI_WeatherAware_EncouragedInSun:
+AI_WA_EncouragedInSun:
 	@ EFFECT_SYNTHESIS already checked
 	.byte EFFECT_WEATHER_BALL
 	.byte EFFECT_SOLAR_BEAM
@@ -3056,23 +3070,23 @@ AI_WeatherAware_NotSun:
 	get_considered_move_effect
 	if_effect EFFECT_WEATHER_BALL, Score_Plus1
 	if_effect EFFECT_SOLAR_BEAM, Score_Minus1
-	if_effect EFFECT_SYNTHESIS, AI_WeatherAware_HealNotSun
+	if_effect EFFECT_SYNTHESIS, AI_WA_HealNotSun
 	get_weather
 	if_equal AI_WEATHER_RAIN, AI_WeatherAware_Rain
 	if_equal AI_WEATHER_SANDSTORM, AI_WeatherAware_Sand
-	if_equal AI_WEATHER_HAIL, AI_WeatherAware_Hail
+	if_equal AI_WEATHER_SNOW, AI_WeatherAware_Snow
 	end
 
-AI_WeatherAware_HealNotSun:
+AI_WA_HealNotSun:
 	score -2
 	goto AI_CV_Heal
 
 AI_WeatherAware_Rain:
 	get_considered_move_effect
 	if_effect EFFECT_THUNDER, Score_Plus1
-	if_ability AI_USER, ABILITY_SWIFT_SWIM, AI_WeatherAware_UserHasSpeed
+	if_ability AI_USER, ABILITY_SWIFT_SWIM, AI_WA_UserHasSpeed
 	if_ability AI_USER, ABILITY_RAIN_DISH, AI_WeatherAware_RainStall
-	if_ability AI_USER, ABILITY_SWIFT_SWIM, AI_WeatherAware_EnemyHasSpeed
+	if_ability AI_USER, ABILITY_SWIFT_SWIM, AI_WA_EnemyHasSpeed
 	get_how_powerful_move_is
 	if_equal MOVE_POWER_OTHER, AI_WeatherAware_End
 	get_curr_move_type
@@ -3080,15 +3094,15 @@ AI_WeatherAware_Rain:
 	if_equal_ TYPE_WATER, Score_Plus1
 	end
 
-AI_WeatherAware_UserHasSpeed:
+AI_WA_UserHasSpeed:
 	get_considered_move_effect
-	if_in_bytes AI_WeatherAware_SpeedMoves, Score_Minus1
+	if_in_bytes AI_WA_SpeedMoves, Score_Minus1
 
-AI_WeatherAware_EnemyHasSpeed:
+AI_WA_EnemyHasSpeed:
 	get_considered_move_effect
-	if_in_bytes AI_WeatherAware_SpeedMoves, Score_Plus1
+	if_in_bytes AI_WA_SpeedMoves, Score_Plus1
 
-AI_WeatherAware_SpeedMoves:
+AI_WA_SpeedMoves:
 	.byte EFFECT_SPEED_UP
 	.byte EFFECT_SPEED_UP_2
 	.byte EFFECT_SPEED_DOWN
@@ -3130,14 +3144,22 @@ AI_WeatherAware_RainStallMoves:
 
 AI_WeatherAware_Sand:
 	if_ability AI_USER, ABILITY_SAND_VEIL, AI_WeatherAware_SandStall
-	if_ability AI_TARGET, ABILITY_SAND_VEIL, AI_WeatherAware_HitVeil 
+	if_ability AI_TARGET, ABILITY_SAND_VEIL, AI_WA_HitVeil
+	get_user_type1
+	if_equal TYPE_ROCK, AI_WA_User_Sand_Stats
+	get_user_type2
+	if_equal TYPE_ROCK, AI_WA_User_Sand_Stats
+	get_target_type1
+	if_equal TYPE_ROCK, AI_WA_Target_Sand_Stats
+	get_target_type2
+	if_equal TYPE_ROCK, AI_WA_Target_Sand_Stats
 	end
 
-AI_WeatherAware_HitVeil:
+AI_WA_HitVeil:
 	get_considered_move_effect
-	if_in_bytes AI_WeatherAware_HitVeilMoves, Score_Plus1
+	if_in_bytes AI_WA_HitVeilMoves, Score_Plus1
 
-AI_WeatherAware_HitVeilMoves:
+AI_WA_HitVeilMoves:
 	.byte EFFECT_ALWAYS_HIT
 	.byte EFFECT_ACCURACY_UP
 	.byte EFFECT_ACCURACY_UP_2
@@ -3180,10 +3202,58 @@ AI_WeatherAware_SandStallMoves:
 	.byte EFFECT_INGRAIN
 	.byte -1
 
-AI_WeatherAware_Hail:
+AI_WA_User_Sand_Stats:
+	get_considered_move_effect
+	if_in_bytes AI_WA_SpDefenseUp_Moves, Score_Minus1
+AI_WA_Target_Sand_Stats:
+	get_considered_move_effect
+	if_in_bytes AI_WA_SpDefenseDown_Moves, Score_Plus1
+
+AI_WA_SpDefenseDown_Moves:
+	.byte EFFECT_SPECIAL_DEFENSE_DOWN
+	.byte EFFECT_SPECIAL_DEFENSE_DOWN_2
+	.byte EFFECT_SPECIAL_ATTACK_UP
+	.byte EFFECT_SPECIAL_ATTACK_UP_2
+	.byte -1
+AI_WA_SpDefenseUp_Moves:
+	.byte EFFECT_SPECIAL_DEFENSE_UP
+	.byte EFFECT_SPECIAL_DEFENSE_UP_2
+	.byte EFFECT_SPECIAL_ATTACK_DOWN
+	.byte EFFECT_SPECIAL_ATTACK_DOWN_2
+	.byte -1
+
+AI_WeatherAware_Snow:
 	get_considered_move_effect
 	if_effect EFFECT_BLIZZARD, Score_Plus1
+	get_user_type1
+	if_equal TYPE_ICE, AI_WA_User_Snow_Stats
+	get_user_type2
+	if_equal TYPE_ICE, AI_WA_User_Snow_Stats
+	get_target_type1
+	if_equal TYPE_ICE, AI_WA_Target_Snow_Stats
+	get_target_type2
+	if_equal TYPE_ICE, AI_WA_Target_Snow_Stats
 	end
+
+AI_WA_User_Snow_Stats:
+	get_considered_move_effect
+	if_in_bytes AI_WA_DefenseUp_Moves, Score_Minus1
+AI_WA_Target_Snow_Stats:
+	get_considered_move_effect
+	if_in_bytes AI_WA_DefenseDown_Moves, Score_Plus1
+
+AI_WA_DefenseUp_Moves:
+	.byte EFFECT_DEFENSE_UP
+	.byte EFFECT_DEFENSE_UP_2
+	.byte EFFECT_ATTACK_DOWN
+	.byte EFFECT_ATTACK_DOWN_2
+	.byte -1
+AI_WA_DefenseDown_Moves:
+	.byte EFFECT_DEFENSE_DOWN
+	.byte EFFECT_DEFENSE_DOWN_2
+	.byte EFFECT_ATTACK_UP
+	.byte EFFECT_ATTACK_UP_2
+	.byte -1
 
 AI_WeatherAware_End:
 	end

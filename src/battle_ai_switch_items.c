@@ -476,19 +476,23 @@ static bool8 ShouldSwitch(void)
     s32 i;
     s32 availableToSwitch;
 
-    if (gBattleMons[*(activeBattlerPtr = &gActiveBattler)].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
-        return FALSE;
-    if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-        return FALSE;
-    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
-        return FALSE;
-    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)
-    && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
-    && (gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE))
-        return FALSE;
-    if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
+    
+    if (!IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
     {
+        if (gBattleMons[*(activeBattlerPtr = &gActiveBattler)].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
         return FALSE;
+        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+        return FALSE;
+        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
+        return FALSE;
+        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)
+        && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
+        && (gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE))
+            return FALSE;
+        if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
+        {
+            return FALSE;
+        }
     }
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
         return FALSE;

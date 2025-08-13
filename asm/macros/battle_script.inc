@@ -1027,7 +1027,7 @@
 	.byte 0xc7
 	.endm
 
-	.macro sethail
+	.macro setsnow
 	.byte 0xc8
 	.endm
 

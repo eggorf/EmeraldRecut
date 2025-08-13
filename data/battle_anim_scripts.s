@@ -274,7 +274,7 @@ gBattleAnims_Moves::
 	.4byte Move_SPIT_UP
 	.4byte Move_SWALLOW
 	.4byte Move_HEAT_WAVE
-	.4byte Move_HAIL
+	.4byte Move_SNOW
 	.4byte Move_TORMENT
 	.4byte Move_FLATTER
 	.4byte Move_WILL_O_WISP
@@ -3481,7 +3481,7 @@ Move_HEAT_WAVE:
 	end
 
 @ Also used by Hail weather
-Move_HAIL:
+Move_SNOW:
 	loadspritegfx ANIM_TAG_HAIL
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 3, 0, 6, RGB_BLACK
@@ -9789,7 +9789,7 @@ Move_WEATHER_BALL:
 	jumpreteq ANIM_WEATHER_SUN, WeatherBallFire
 	jumpreteq ANIM_WEATHER_RAIN, WeatherBallWater
 	jumpreteq ANIM_WEATHER_SANDSTORM, WeatherBallSandstorm
-	jumpreteq ANIM_WEATHER_HAIL, WeatherBallIce
+	jumpreteq ANIM_WEATHER_SNOW, WeatherBallIce
 WeatherBallNormal:
 	loadspritegfx ANIM_TAG_IMPACT
 	createsprite gWeatherBallNormalDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 1, 0, 0
@@ -10467,7 +10467,7 @@ General_Sandstorm:
 	goto Move_SANDSTORM
 
 General_Hail:
-	goto Move_HAIL
+	goto Move_SNOW
 
 General_LeechSeedDrain:
 	createvisualtask AnimTask_GetBattlersFromArg, 5

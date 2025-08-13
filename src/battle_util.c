@@ -1144,7 +1144,7 @@ enum
     ENDTURN_RAIN,
     ENDTURN_SANDSTORM,
     ENDTURN_SUN,
-    ENDTURN_HAIL,
+    ENDTURN_SNOW,
     ENDTURN_FIELD_COUNT,
 };
 
@@ -1347,7 +1347,7 @@ u8 DoFieldEndTurnEffects(void)
                 if (!(gBattleWeather & B_WEATHER_SANDSTORM_PERMANENT) && --gWishFutureKnock.weatherDuration == 0)
                 {
                     gBattleWeather &= ~B_WEATHER_SANDSTORM_TEMPORARY;
-                    gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
+                    gBattlescriptCurrInstr = BattleScript_SandStormSnowEnds;
                 }
                 else
                 {
@@ -1379,13 +1379,13 @@ u8 DoFieldEndTurnEffects(void)
             }
             gBattleStruct->turnCountersTracker++;
             break;
-        case ENDTURN_HAIL:
-            if (gBattleWeather & B_WEATHER_HAIL)
+        case ENDTURN_SNOW:
+            if (gBattleWeather & B_WEATHER_SNOW)
             {
                 if (--gWishFutureKnock.weatherDuration == 0)
                 {
-                    gBattleWeather &= ~B_WEATHER_HAIL_TEMPORARY;
-                    gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
+                    gBattleWeather &= ~B_WEATHER_SNOW_TEMPORARY;
+                    gBattlescriptCurrInstr = BattleScript_SandStormSnowEnds;
                 }
                 else
                 {
@@ -1393,7 +1393,7 @@ u8 DoFieldEndTurnEffects(void)
                 }
 
                 gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
-                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_HAIL;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SNOW;
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 effect++;
             }
@@ -1424,7 +1424,7 @@ enum
     ENDTURN_DISABLE,
     ENDTURN_ENCORE,
     ENDTURN_LOCK_ON,
-    ENDTURN_CHARGE,
+    //ENDTURN_CHARGE, charge effect removed after applying damage bonus
     ENDTURN_TAUNT,
     ENDTURN_YAWN,
     ENDTURN_ITEMS2,
@@ -1574,7 +1574,7 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
                         if (gBattleMoveDamage == 0)
                             gBattleMoveDamage = 1;
                     }
@@ -1710,11 +1710,11 @@ u8 DoBattlerEndTurnEffects(void)
                     gStatuses3[gActiveBattler] -= STATUS3_ALWAYS_HITS_TURN(1);
                 gBattleStruct->turnEffectsTracker++;
                 break;
-            case ENDTURN_CHARGE:  // charge
-                if (gDisableStructs[gActiveBattler].chargeTimer && --gDisableStructs[gActiveBattler].chargeTimer == 0)
+            /*case ENDTURN_CHARGE:  // charge effect removed after applying damage bonus
+                if (gStatuses3[gActiveBattler] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
                     gStatuses3[gActiveBattler] &= ~STATUS3_CHARGED_UP;
                 gBattleStruct->turnEffectsTracker++;
-                break;
+                break;*/
             case ENDTURN_TAUNT:  // taunt
                 if (gDisableStructs[gActiveBattler].tauntTimer)
                     gDisableStructs[gActiveBattler].tauntTimer--;
@@ -2375,7 +2375,7 @@ u8 CastformDataTypeChange(u8 battler)
     }
     if (!WEATHER_HAS_EFFECT)
         return 0; // No change
-    if (!(gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_HAIL)) && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
+    if (!(gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_SNOW)) && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
     {
         SET_BATTLER_TYPE(battler, TYPE_NORMAL);
         formChange = CASTFORM_NORMAL + 1;
@@ -2390,7 +2390,7 @@ u8 CastformDataTypeChange(u8 battler)
         SET_BATTLER_TYPE(battler, TYPE_WATER);
         formChange = CASTFORM_WATER + 1;
     }
-    if (gBattleWeather & B_WEATHER_HAIL && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE))
+    if (gBattleWeather & B_WEATHER_SNOW && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE))
     {
         SET_BATTLER_TYPE(battler, TYPE_ICE);
         formChange = CASTFORM_ICE + 1;
@@ -2492,9 +2492,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         }
                         break;
 					case WEATHER_SNOW:
-						if (!(gBattleWeather & B_WEATHER_HAIL))
+						if (!(gBattleWeather & B_WEATHER_SNOW))
 						{
-							gBattleWeather = B_WEATHER_HAIL;
+							gBattleWeather = B_WEATHER_SNOW;
 							gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
 							gBattleScripting.battler = battler;
 							effect++;

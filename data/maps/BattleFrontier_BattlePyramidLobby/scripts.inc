@@ -781,7 +781,7 @@ BattleFrontier_BattlePyramidLobby_Text_HintFighting:
 
 BattleFrontier_BattlePyramidLobby_Text_HintWeather:
 	.string "RAIN DANCE… SUNNY DAY…\n"
-	.string "SANDSTORM… HAIL…\p"
+	.string "SANDSTORM… SNOW…\p"
 	.string "I see POKéMON that become stronger\n"
 	.string "with the weather…\p"
 	.string "…And, I see your POKéMON confounded\n"

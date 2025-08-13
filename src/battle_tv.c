@@ -27,7 +27,7 @@ enum {
     PTS_RAIN,
     PTS_SUN,
     PTS_SANDSTORM,
-    PTS_HAIL,
+    PTS_SNOW,
     PTS_ELECTRIC,
     PTS_STATUS_DMG,
     PTS_STATUS,
@@ -246,7 +246,7 @@ static const u16 sPoints_MoveEffect[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_SPIT_UP] = 3,
     [EFFECT_SWALLOW] = 3,
     [EFFECT_UNUSED_A3] = 1,
-    [EFFECT_HAIL] = 4,
+    [EFFECT_SNOW] = 4,
     [EFFECT_TORMENT] = 7,
     [EFFECT_FLATTER] = 7,
     [EFFECT_WILL_O_WISP] = 5,
@@ -375,7 +375,7 @@ static const u16 sPoints_SandstormMoves[] =
     MOVE_SOLAR_BEAM, -3,
     TABLE_END, 0
 };
-static const u16 sPoints_HailMoves[] =
+static const u16 sPoints_SnowMoves[] =
 {
     MOVE_WEATHER_BALL, 3,
     MOVE_SOLAR_BEAM, -3,
@@ -492,7 +492,7 @@ static const u16 *const sPointsArray[] =
     [PTS_RAIN]                   = sPoints_RainMoves,
     [PTS_SUN]                    = sPoints_SunMoves,
     [PTS_SANDSTORM]              = sPoints_SandstormMoves,
-    [PTS_HAIL]                   = sPoints_HailMoves,
+    [PTS_SNOW]                   = sPoints_SnowMoves,
     [PTS_ELECTRIC]               = sPoints_ElectricMoves,
     [PTS_STATUS_DMG]             = sPoints_StatusDmg,
     [PTS_STATUS]                 = sPoints_Status,
@@ -955,7 +955,7 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
     tvPtr->side[atkSide].usedMoveSlot = moveSlot;
     AddMovePoints(PTS_MOVE_EFFECT, moveSlot, gBattleMoves[move].effect, 0);
     AddPointsBasedOnWeather(weatherFlags, move, moveSlot);
-    if (disableStructPtr->chargeTimer != 0)
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP)
         AddMovePoints(PTS_ELECTRIC, move, moveSlot, 0);
 
     if (move == MOVE_WISH)
@@ -1129,7 +1129,7 @@ static void AddMovePoints(u8 caseId, u16 arg1, u8 arg2, u8 arg3)
     case PTS_RAIN:
     case PTS_SUN:
     case PTS_SANDSTORM:
-    case PTS_HAIL:
+    case PTS_SNOW:
     case PTS_ELECTRIC:
         i = 0;
         ptr = sPointsArray[caseId];
@@ -1391,10 +1391,11 @@ static void TrySetBattleSeminarShow(void)
                                                     sideStatus, powerOverride,
                                                     0, gBattlerAttacker, gBattlerTarget);
 
-            if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+            if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
                 gBattleMoveDamage *= 2;
+                gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
             if (gProtectStructs[gBattlerAttacker].helpingHand)
-                gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
+                gBattleMoveDamage = gBattleMoveDamage * 150 / 100;
 
             moveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
             dmgByMove[i] = gBattleMoveDamage;
@@ -1526,6 +1527,6 @@ static void AddPointsBasedOnWeather(u16 weatherFlags, u16 moveId, u8 moveSlot)
         AddMovePoints(PTS_SUN, moveId, moveSlot, 0);
     else if (weatherFlags & B_WEATHER_SANDSTORM)
         AddMovePoints(PTS_SANDSTORM, moveId, moveSlot, 0);
-    else if (weatherFlags & B_WEATHER_HAIL)
-        AddMovePoints(PTS_HAIL, moveId, moveSlot, 0);
+    else if (weatherFlags & B_WEATHER_SNOW)
+        AddMovePoints(PTS_SNOW, moveId, moveSlot, 0);
 }

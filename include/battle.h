@@ -83,10 +83,10 @@ struct DisableStruct
     u8 furyCutterCounter;
     u8 rolloutTimer:4;
     u8 rolloutTimerStartValue:4;
-    u8 chargeTimer:4;
-    u8 chargeTimerStartValue:4;
+    u8 chargeTimer:4;           //unused
+    u8 chargeTimerStartValue:4; //unused
     u8 tauntTimer:4;
-    u8 tauntTimer2:4;
+    u8 tauntTimer2:4; //unused
     u8 battlerPreventingEscape;
     u8 battlerWithSureHit;
     u8 isFirstTurn;

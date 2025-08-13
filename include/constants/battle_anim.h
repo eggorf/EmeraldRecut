@@ -418,7 +418,7 @@
 #define ANIM_WEATHER_SUN 1
 #define ANIM_WEATHER_RAIN 2
 #define ANIM_WEATHER_SANDSTORM 3
-#define ANIM_WEATHER_HAIL 4
+#define ANIM_WEATHER_SNOW 4
 
 // Flags given to various functions to indicate which palettes to consider.
 // Handled by UnpackSelectedBattlePalettes

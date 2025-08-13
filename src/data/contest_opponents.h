@@ -1970,7 +1970,7 @@ const struct ContestPokemon gContestOpponents[] =
         .moves =
         {
             MOVE_PERISH_SONG,
-            MOVE_HAIL,
+            MOVE_SNOW,
             MOVE_HYPER_BEAM,
             MOVE_SLASH
         },

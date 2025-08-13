@@ -157,7 +157,7 @@ const u16 gEggMoves[] = {
         MOVE_AMNESIA,
         MOVE_FLAIL,
         MOVE_ASSIST,
-        MOVE_ODOR_SLEUTH),
+        MOVE_FORESIGHT),
         
     egg_moves(PSYDUCK,
         MOVE_HYPNOSIS,
@@ -641,7 +641,7 @@ const u16 gEggMoves[] = {
         MOVE_SAFEGUARD,
         MOVE_SCREECH,
         MOVE_CONFUSE_RAY,
-        MOVE_ODOR_SLEUTH,
+        MOVE_FORESIGHT,
         MOVE_CHARGE),
         
     egg_moves(MARILL,
@@ -835,7 +835,7 @@ const u16 gEggMoves[] = {
         
     egg_moves(REMORAID,
         MOVE_HYDRO_PUMP,
-        MOVE_WRAP,
+        MOVE_BIND,
         MOVE_SUPERSONIC,
         MOVE_HAZE,
         MOVE_SCREECH,
@@ -1102,6 +1102,7 @@ const u16 gEggMoves[] = {
         MOVE_WHIRLPOOL,
         MOVE_SPARK,
         MOVE_FLAIL,
+        MOVE_HYDRO_PUMP,
         MOVE_DRAGON_DANCE),
         
     egg_moves(LUVDISC,

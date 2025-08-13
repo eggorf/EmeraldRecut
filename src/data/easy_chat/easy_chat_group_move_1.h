@@ -52,7 +52,7 @@ const u16 gEasyChatGroup_Move1[] = {
     MOVE_GROWTH,
     MOVE_GRUDGE,
     MOVE_GUST,
-    MOVE_HAIL,
+    MOVE_SNOW,
     MOVE_HARDEN,
     MOVE_HAZE,
     MOVE_HEADBUTT,

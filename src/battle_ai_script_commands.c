@@ -1367,9 +1367,7 @@ static void Cmd_get_ability(void)
         }
 
         // abilities that prevent fleeing.
-        if (gBattleMons[battlerId].ability == ABILITY_SHADOW_TAG
-        || gBattleMons[battlerId].ability == ABILITY_MAGNET_PULL
-        || gBattleMons[battlerId].ability == ABILITY_ARENA_TRAP)
+        if (gBattleMons[battlerId].ability == (ABILITY_SHADOW_TAG || ABILITY_MAGNET_PULL || ABILITY_ARENA_TRAP))
         {
             AI_THINKING_STRUCT->funcResult = gBattleMons[battlerId].ability;
             gAIScriptPtr += 2;
@@ -1418,9 +1416,7 @@ static void Cmd_check_ability(void)
             AI_THINKING_STRUCT->funcResult = ability;
         }
         // Abilities that prevent fleeing.
-        else if (gBattleMons[battlerId].ability == ABILITY_SHADOW_TAG
-        || gBattleMons[battlerId].ability == ABILITY_MAGNET_PULL
-        || gBattleMons[battlerId].ability == ABILITY_ARENA_TRAP)
+        else if (gBattleMons[battlerId].ability == (ABILITY_SHADOW_TAG || ABILITY_MAGNET_PULL || ABILITY_ARENA_TRAP))
         {
             ability = gBattleMons[battlerId].ability;
         }
@@ -1642,8 +1638,8 @@ static void Cmd_get_weather(void)
         AI_THINKING_STRUCT->funcResult = AI_WEATHER_SANDSTORM;
     if (gBattleWeather & B_WEATHER_SUN)
         AI_THINKING_STRUCT->funcResult = AI_WEATHER_SUN;
-    if (gBattleWeather & B_WEATHER_HAIL)
-        AI_THINKING_STRUCT->funcResult = AI_WEATHER_HAIL;
+    if (gBattleWeather & B_WEATHER_SNOW)
+        AI_THINKING_STRUCT->funcResult = AI_WEATHER_SNOW;
 
     gAIScriptPtr += 1;
 }

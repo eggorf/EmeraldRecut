@@ -240,9 +240,9 @@
 #define STRINGID_SUNLIGHTGOTBRIGHT          240
 #define STRINGID_SUNLIGHTSTRONG             241
 #define STRINGID_SUNLIGHTFADED              242
-#define STRINGID_STARTEDHAIL                243
-#define STRINGID_HAILCONTINUES              244
-#define STRINGID_HAILSTOPPED                245
+#define STRINGID_STARTEDSNOW                243
+#define STRINGID_SNOWCONTINUES              244
+#define STRINGID_SNOWSTOPPED                245
 #define STRINGID_FAILEDTOSPITUP             246
 #define STRINGID_FAILEDTOSWALLOW            247
 #define STRINGID_WINDBECAMEHEATWAVE         248
@@ -439,16 +439,16 @@
 #define B_MSG_WEATHER_FAILED    2
 #define B_MSG_STARTED_SANDSTORM 3
 #define B_MSG_STARTED_SUNLIGHT  4
-#define B_MSG_STARTED_HAIL      5
+#define B_MSG_STARTED_SNOW      5
 
 // gRainContinuesStringIds
 #define B_MSG_RAIN_CONTINUES     0
 #define B_MSG_DOWNPOUR_CONTINUES 1
 #define B_MSG_RAIN_STOPPED       2
 
-// gSandStormHailContinuesStringIds / gSandStormHailDmgStringIds/ gSandStormHailEndStringIds
+// gSandStormSnowContinuesStringIds / gSandStormSnowDmgStringIds/ gSandStormSnowEndStringIds
 #define B_MSG_SANDSTORM  0
-#define B_MSG_HAIL       1
+#define B_MSG_SNOW       1
 
 // gReflectLightScreenSafeguardStringIds
 #define B_MSG_SIDE_STATUS_FAILED     0
