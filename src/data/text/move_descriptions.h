@@ -1196,7 +1196,7 @@ static const u8 sTeeterDanceDescription[] = _(
 static const u8 sBlazeKickDescription[] = _(
     "A kick with a high critical-\n"
     "hit ratio. 10% to cause a burn.");
-
+    
 static const u8 sIceBallDescription[] = _(
     "A 5-turn attack that gains\n"
     "power on successive hits.");
@@ -1446,7 +1446,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_HORN_DRILL - 1] = sHornDrillDescription,
     [MOVE_TACKLE - 1] = sTackleDescription,
     [MOVE_BODY_SLAM - 1] = sBodySlamDescription,
-    [MOVE_WRAP - 1] = sWrapDescription,
+    [MOVE_UNUSED_35 - 1] = sWrapDescription,
     [MOVE_TAKE_DOWN - 1] = sTakeDownDescription,
     [MOVE_THRASH - 1] = sThrashDescription,
     [MOVE_DOUBLE_EDGE - 1] = sDoubleEdgeDescription,
@@ -1539,7 +1539,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_BONE_CLUB - 1] = sBoneClubDescription,
     [MOVE_FIRE_BLAST - 1] = sFireBlastDescription,
     [MOVE_WATERFALL - 1] = sWaterfallDescription,
-    [MOVE_CLAMP - 1] = sClampDescription,
+    [MOVE_UNUSED_128 - 1] = sClampDescription,
     [MOVE_SWIFT - 1] = sSwiftDescription,
     [MOVE_SKULL_BASH - 1] = sSkullBashDescription,
     [MOVE_SPIKE_CANNON - 1] = sSpikeCannonDescription,
@@ -1551,7 +1551,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_GLARE - 1] = sGlareDescription,
     [MOVE_DREAM_EATER - 1] = sDreamEaterDescription,
     [MOVE_POISON_GAS - 1] = sPoisonGasDescription,
-    [MOVE_BARRAGE - 1] = sBarrageDescription,
+    [MOVE_UNUSED_140 - 1] = sBarrageDescription,
     [MOVE_LEECH_LIFE - 1] = sLeechLifeDescription,
     [MOVE_LOVELY_KISS - 1] = sLovelyKissDescription,
     [MOVE_SKY_ATTACK - 1] = sSkyAttackDescription,
@@ -1711,6 +1711,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_FEATHER_DANCE - 1] = sFeatherDanceDescription,
     [MOVE_TEETER_DANCE - 1] = sTeeterDanceDescription,
     [MOVE_BLAZE_KICK - 1] = sBlazeKickDescription,
+    [MOVE_UNUSED_300 - 1] = sOdorSleuthDescription,
     [MOVE_ICE_BALL - 1] = sIceBallDescription,
     [MOVE_NEEDLE_ARM - 1] = sNeedleArmDescription,
     [MOVE_SLACK_OFF - 1] = sSlackOffDescription,
@@ -1726,7 +1727,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_FAKE_TEARS - 1] = sFakeTearsDescription,
     [MOVE_AIR_CUTTER - 1] = sAirCutterDescription,
     [MOVE_OVERHEAT - 1] = sOverheatDescription,
-    [MOVE_ODOR_SLEUTH - 1] = sOdorSleuthDescription,
+    [MOVE_UNUSED_316 - 1] = sOdorSleuthDescription,
     [MOVE_ROCK_TOMB - 1] = sRockTombDescription,
     [MOVE_SILVER_WIND - 1] = sSilverWindDescription,
     [MOVE_METAL_SOUND - 1] = sMetalSoundDescription,
@@ -1756,6 +1757,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_COVET - 1] = sCovetDescription,
     [MOVE_VOLT_TACKLE - 1] = sVoltTackleDescription,
     [MOVE_MAGICAL_LEAF - 1] = sMagicalLeafDescription,
+    [MOVE_UNUSED_346 - 1] = sOdorSleuthDescription,
     [MOVE_CALM_MIND - 1] = sCalmMindDescription,
     [MOVE_LEAF_BLADE - 1] = sLeafBladeDescription,
     [MOVE_DRAGON_DANCE - 1] = sDragonDanceDescription,

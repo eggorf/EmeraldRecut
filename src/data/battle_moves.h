@@ -455,7 +455,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     },
 
-    [MOVE_WRAP] = //UNUSED
+    [MOVE_UNUSED_35] = //UNUSED
     {
         .effect = EFFECT_TRAP,
         .power = 15,
@@ -1664,7 +1664,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
 
-    [MOVE_CLAMP] = //UNUSED
+    [MOVE_UNUSED_128] = //UNUSED
     {
         .effect = EFFECT_TRAP,
         .power = 35,
@@ -1820,7 +1820,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     },
 
-    [MOVE_BARRAGE] = //UNUSED
+    [MOVE_UNUSED_140] = //UNUSED
     {
         .effect = EFFECT_MULTI_HIT,
         .power = 15,
@@ -3900,7 +3900,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     },
 
-   [MOVE_MUD_SPORT] = //UNUSED
+   [MOVE_UNUSED_300] = //UNUSED
     {
         .effect = EFFECT_DOUBLE_EDGE,
         .power = 0,
@@ -4108,7 +4108,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
 
-    [MOVE_ODOR_SLEUTH] = //UNUSED
+    [MOVE_UNUSED_316] = //UNUSED
     {
         .effect = EFFECT_FORESIGHT,
         .power = 0,
@@ -4498,7 +4498,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
 
-    [MOVE_WATER_SPORT] =
+    [MOVE_UNUSED_346] =
     {
         .effect = EFFECT_WATER_SPORT,
         .power = 0,
