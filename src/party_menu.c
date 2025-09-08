@@ -128,6 +128,8 @@ enum {
     FIELD_MOVE_TELEPORT,
     FIELD_MOVE_DIG,
     FIELD_MOVE_SECRET_POWER,
+    FIELD_MOVE_MILK_DRINK,
+    FIELD_MOVE_SOFT_BOILED,
     FIELD_MOVE_SWEET_SCENT,
     FIELD_MOVES_COUNT
 };
@@ -150,8 +152,9 @@ enum {
 #define PARTY_PAL_TO_SWITCH    (1 << 2)
 #define PARTY_PAL_MULTI_ALT    (1 << 3)
 #define PARTY_PAL_SWITCHING    (1 << 4)
-#define PARTY_PAL_NO_MON       (1 << 5)
-#define PARTY_PAL_UNUSED       (1 << 6)
+#define PARTY_PAL_TO_SOFTBOIL  (1 << 5)
+#define PARTY_PAL_NO_MON       (1 << 6)
+#define PARTY_PAL_UNUSED       (1 << 7)
 
 #define MENU_DIR_DOWN     1
 #define MENU_DIR_UP      -1
@@ -1170,7 +1173,9 @@ static u8 GetPartyBoxPaletteFlags(u8 slot, u8 animNum)
         if (slot == gPartyMenu.slotId || slot == gPartyMenu.slotId2)
             palFlags |= PARTY_PAL_TO_SWITCH;
     }
-
+    if (gPartyMenu.action == PARTY_ACTION_SOFTBOILED && slot == gPartyMenu.slotId )
+        palFlags |= PARTY_PAL_TO_SOFTBOIL;
+    
     return palFlags;
 }
 
@@ -1272,7 +1277,7 @@ void Task_HandleChooseMonInput(u8 taskId)
 
 static s8 *GetCurrentPartySlotPtr(void)
 {
-    if (gPartyMenu.action == PARTY_ACTION_SWITCH)
+    if (gPartyMenu.action == PARTY_ACTION_SWITCH || gPartyMenu.action == PARTY_ACTION_SOFTBOILED)
         return &gPartyMenu.slotId2;
     else
         return &gPartyMenu.slotId;
@@ -1288,6 +1293,13 @@ static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr)
     {
         switch (gPartyMenu.action)
         {
+        case PARTY_ACTION_SOFTBOILED:
+            if (IsSelectedMonNotEgg((u8 *)slotPtr))
+            {
+                PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+                Task_TryUseSoftboiledOnPartyMon(taskId);
+            }
+            break;
         case PARTY_ACTION_USE_ITEM:
             if (IsSelectedMonNotEgg((u8 *)slotPtr))
             {
@@ -1365,6 +1377,10 @@ static void HandleChooseMonCancel(u8 taskId, s8 *slotPtr)
         PlaySE(SE_FAILURE);
         break;
     case PARTY_ACTION_SWITCH:
+    case PARTY_ACTION_SOFTBOILED:
+        PlaySE(SE_SELECT);
+        FinishTwoMonAction(taskId);
+        break;
     case PARTY_ACTION_MINIGAME:
         PlaySE(SE_SELECT);
         CancelParticipationPrompt(taskId);
@@ -2208,6 +2224,19 @@ static void LoadPartyBoxPalette(struct PartyMenuBox *menuBox, u8 palFlags)
     if (palFlags & PARTY_PAL_NO_MON)
     {
         LOAD_PARTY_BOX_PAL(sPartyBoxNoMonPalIds, sPartyBoxNoMonPalOffsets);
+    }
+    else if (palFlags & PARTY_PAL_TO_SOFTBOIL)
+    {
+        if (palFlags & PARTY_PAL_SELECTED)
+        {
+            LOAD_PARTY_BOX_PAL(sPartyBoxSelectedForActionPalIds1, sPartyBoxPalOffsets1);
+            LOAD_PARTY_BOX_PAL(sPartyBoxCurrSelectionPalIds2, sPartyBoxPalOffsets2);
+        }
+        else
+        {
+            LOAD_PARTY_BOX_PAL(sPartyBoxSelectedForActionPalIds1, sPartyBoxPalOffsets1);
+            LOAD_PARTY_BOX_PAL(sPartyBoxSelectedForActionPalIds2, sPartyBoxPalOffsets2);
+        }
     }
     else if (palFlags & PARTY_PAL_SWITCHING)
     {
@@ -3730,7 +3759,10 @@ static void CursorCb_FieldMove(u8 taskId)
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
     if (MenuHelpers_IsLinkActive() == TRUE || InUnionRoom() == TRUE)
     {
-        DisplayPartyMenuStdMessage(sFieldMoveCursorCallbacks[fieldMove].msgId);
+        if (fieldMove == FIELD_MOVE_MILK_DRINK || fieldMove == FIELD_MOVE_SOFT_BOILED)
+            DisplayPartyMenuStdMessage(PARTY_MSG_CANT_USE_HERE);
+        else
+            DisplayPartyMenuStdMessage(sFieldMoveCursorCallbacks[fieldMove].msgId);
         gTasks[taskId].func = Task_CancelAfterAorBPress;
     }
     else
@@ -3745,6 +3777,10 @@ static void CursorCb_FieldMove(u8 taskId)
         {
             switch (fieldMove)
             {
+            case FIELD_MOVE_MILK_DRINK:
+            case FIELD_MOVE_SOFT_BOILED:
+                ChooseMonForSoftboiled(taskId);
+                break;
             case FIELD_MOVE_TELEPORT:
                 mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->lastHealLocation.mapGroup, gSaveBlock1Ptr->lastHealLocation.mapNum);
                 GetMapNameGeneric(gStringVar1, mapHeader->regionMapSectionId);

@@ -687,6 +687,8 @@ struct
     [MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT] = {gMoveNames[MOVE_TELEPORT], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_DIG] = {gMoveNames[MOVE_DIG], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SECRET_POWER] = {gMoveNames[MOVE_SECRET_POWER], CursorCb_FieldMove},
+    [MENU_FIELD_MOVES + FIELD_MOVE_MILK_DRINK] = {gMoveNames[MOVE_MILK_DRINK], CursorCb_FieldMove},
+    [MENU_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED] = {gMoveNames[MOVE_SOFT_BOILED], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT] = {gMoveNames[MOVE_SWEET_SCENT], CursorCb_FieldMove},
 };
 
@@ -757,10 +759,12 @@ static const u16 sFieldMoves[FIELD_MOVES_COUNT + 1] =
     [FIELD_MOVE_TELEPORT]     = MOVE_TELEPORT,      //8
     [FIELD_MOVE_DIG]          = MOVE_DIG,           //9
     [FIELD_MOVE_SECRET_POWER] = MOVE_SECRET_POWER,  //10
-    [FIELD_MOVE_SWEET_SCENT]  = MOVE_SWEET_SCENT,   //11
+    [FIELD_MOVE_MILK_DRINK]   = MOVE_MILK_DRINK,    //11
+    [FIELD_MOVE_SOFT_BOILED]  = MOVE_SOFT_BOILED,   //12
+    [FIELD_MOVE_SWEET_SCENT]  = MOVE_SWEET_SCENT,   //13
     // NOTE: This value is used as the terminal value for the table. There's no reason to do this, as the size of the table is known.
     //       Whichever move shares this value (MOVE_SWORDS_DANCE by default) if present will be treated as the end of the array rather than a field move.
-    [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT   //12
+    [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT   //13
 };
 
 struct
@@ -780,6 +784,8 @@ struct
     [FIELD_MOVE_TELEPORT]     = {SetUpFieldMove_Teleport,    PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_DIG]          = {SetUpFieldMove_Dig,         PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_SECRET_POWER] = {SetUpFieldMove_SecretPower, PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_MILK_DRINK]   = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
+    [FIELD_MOVE_SOFT_BOILED]  = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
     [FIELD_MOVE_SWEET_SCENT]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
 };
 
