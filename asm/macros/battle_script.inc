@@ -1248,6 +1248,12 @@
 	.byte \position
 	.endm
 
+@ HOWL
+@	.macro jumpifnoally battler:req, jumpInstr:req
+@	.byte \battler
+@	.4byte \jumpInstr
+@	.endm
+
 @ various command changed to more readable macros
 	.macro cancelmultiturnmoves battler:req
 	various \battler, VARIOUS_CANCEL_MULTI_TURN_MOVES
@@ -1433,3 +1439,13 @@
 	.macro jumpifnotbattletype flags:req, jumpptr:req
 	jumpifword CMP_NO_COMMON_BITS, gBattleTypeFlags, \flags, \jumpptr
 	.endm
+
+@ HOWL
+@	.macro setallytonexttarget jumpInstr:req
+@	jumpifbyte CMP_GREATER_THAN, gBattlerTarget, 0x1, 1f
+@	addbyte gBattlerTarget, 0x2
+@	goto \jumpInstr
+@	1:
+@	subbyte gBattlerTarget, 0x2
+@	goto \jumpInstr
+@	.endm

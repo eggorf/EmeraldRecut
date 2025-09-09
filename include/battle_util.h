@@ -23,7 +23,7 @@
 #define ABILITYEFFECT_TRACE                      11
 #define ABILITYEFFECT_CHECK_OTHER_SIDE           12
 #define ABILITYEFFECT_CHECK_BATTLER_SIDE         13
-#define ABILITYEFFECT_FIELD_SPORT                14 //UNUSED
+#define ABILITYEFFECT_ON_DAMAGE_ATTACKER         14 //REPLACE SPORTS w/ stench/poison touch etc
 #define ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER 15
 #define ABILITYEFFECT_COUNT_OTHER_SIDE           16
 #define ABILITYEFFECT_COUNT_BATTLER_SIDE         17
@@ -33,7 +33,7 @@
 
 #define ABILITY_ON_OPPOSING_FIELD(battlerId, abilityId) (AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, battlerId, abilityId, 0, 0))
 #define ABILITY_ON_FIELD(abilityId) (AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, abilityId, 0, 0))
-#define ABILITY_ON_FIELD2(abilityId) (AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, abilityId, 0, 0))
+#define ABILITY_ON_FIELD2(abilityId) (AbilityBattleEffects(ABILITYEFFECT_ON_DAMAGE_ATTACKER, 0, abilityId, 0, 0))
 
 // For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
 #define ITEMEFFECT_ON_SWITCH_IN                 0

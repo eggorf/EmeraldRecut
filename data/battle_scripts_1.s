@@ -232,6 +232,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectCalmMind               @ EFFECT_CALM_MIND
 	.4byte BattleScript_EffectDragonDance            @ EFFECT_DRAGON_DANCE
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
+	@.4byte BattleScript_EffectAttackUpUserAlly		 @ EFFECT_HOWL
 
 
 BattleScript_EffectHit::
@@ -476,6 +477,49 @@ BattleScript_EffectMirrorMove::
 BattleScript_EffectAttackUp::
 	setstatchanger STAT_ATK, 1, FALSE
 	goto BattleScript_EffectStatUp
+
+@ HOWL
+
+@BattleScript_EffectAttackUpUserAlly::
+@	jumpifnoally BS_ATTACKER, BattleScript_EffectAttackUp
+@	attackcanceler
+@	attackstring
+@	ppreduce
+@	jumpifstat BS_ATTACKER, CMP_NOT_EQUAL, STAT_ATK, MAX_STAT_STAGE, BattleScript_EffectAttackUpUserAlly_Works
+@	jumpifstat BS_ATTACKER_PARTNER, CMP_EQUAL, STAT_ATK, MAX_STAT_STAGE, BattleScript_ButItFailed
+@BattleScript_EffectAttackUpUserAlly_Works:
+@	attackanimation
+@	waitanimation
+@	setstatchanger STAT_ATK, 1, FALSE
+@	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_EffectAttackUpUserAlly_TryAlly
+@	printfromtable gStatUpStringIds
+@	waitmessage B_WAIT_TIME_LONG
+@BattleScript_EffectAttackUpUserAlly_TryAlly:
+@	setallytonexttarget BattleScript_EffectAttackUpUserAlly_TryAlly_
+@BattleScript_EffectAttackUpUserAlly_End:
+@	goto BattleScript_MoveEnd
+@BattleScript_EffectAttackUpUserAlly_TryAlly_:
+@	jumpifability BS_ATTACKER_PARTNER, ABILITY_SOUNDPROOF, BattleScript_EffectAttackUpUserAlly_TryAllyBlocked
+@	setstatchanger STAT_ATK, 1, FALSE
+@	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_EffectAttackUpUserAlly_End
+@	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_EffectAttackUpUserAlly_AllyString
+@	pause B_WAIT_TIME_SHORT
+@	printfromtable gStatUpStringIds
+@	waitmessage B_WAIT_TIME_LONG
+@	goto BattleScript_EffectAttackUpUserAlly_End
+@BattleScript_EffectAttackUpUserAlly_AllyString:
+@	printfromtable gStatUpStringIds
+@	waitmessage B_WAIT_TIME_LONG
+@	goto BattleScript_EffectAttackUpUserAlly_End
+@
+@BattleScript_EffectAttackUpUserAlly_TryAllyBlocked:
+@	copybyte sBATTLER, gBattlerTarget
+@	printstring STRINGID_PKMNSXBLOCKSY2
+@	waitmessage B_WAIT_TIME_LONG
+@	goto BattleScript_MoveEnd
+
+
+
 
 BattleScript_EffectDefenseUp::
 	setstatchanger STAT_DEF, 1, FALSE

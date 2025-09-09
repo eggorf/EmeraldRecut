@@ -685,6 +685,9 @@ u8 GetBattlerForBattleScript(u8 caseId)
     case BS_ATTACKER:
         ret = gBattlerAttacker;
         break;
+    case BS_ATTACKER_PARTNER:
+        ret = BATTLE_PARTNER(gBattlerAttacker);
+        break;
     case BS_EFFECT_BATTLER:
         ret = gEffectBattler;
         break;
@@ -2843,6 +2846,25 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 break;
             }
             break;
+        case ABILITYEFFECT_ON_DAMAGE_ATTACKER:
+            switch (gLastUsedAbility)
+            {
+            case ABILITY_STENCH:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                 && TARGET_TURN_DAMAGED 
+                 && (Random() % 100) < 10
+                 && gBattleMons[gBattlerTarget].hp
+                 && !gProtectStructs[gBattlerAttacker].confusionSelfDmg)
+                {
+                    gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_FLINCH;
+                    BattleScriptPushCursor();
+                    SetMoveEffect(FALSE, 0);
+                    BattleScriptPop();
+                    effect++;
+                }
+                break;
+            }
+            break;
         case ABILITYEFFECT_IMMUNITY: // 5
             for (battler = 0; battler < gBattlersCount; battler++)
             {
@@ -3718,7 +3740,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && TARGET_TURN_DAMAGED
                     && (Random() % 100) < atkHoldEffectParam
-                    && gBattleMons[gBattlerTarget].hp)
+                    && gBattleMons[gBattlerTarget].hp
+                    && gBattleMons[gBattlerAttacker].ability != ABILITY_STENCH)
                 {
                     gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_FLINCH;
                     BattleScriptPushCursor();

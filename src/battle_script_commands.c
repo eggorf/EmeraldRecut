@@ -327,6 +327,7 @@ static void Cmd_removeattackerstatus1(void);
 static void Cmd_finishaction(void);
 static void Cmd_finishturn(void);
 static void Cmd_trainerslideout(void);
+//static void Cmd_JumpIfNoAlly(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -578,7 +579,8 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_removeattackerstatus1,                   //0xF5
     Cmd_finishaction,                            //0xF6
     Cmd_finishturn,                              //0xF7
-    Cmd_trainerslideout                          //0xF8
+    Cmd_trainerslideout,                         //0xF8
+//    Cmd_JumpIfNoAlly                             //0xF9
 };
 
 struct StatFractions
@@ -1663,7 +1665,10 @@ static void UNUSED Unused_ApplyRandomDmgMultiplier(void)
 
 static void Cmd_adjustnormaldamage(void)
 {
-    u8 holdEffect, param, sturdied;
+    u8 holdEffect, param, Endured, HungOn;
+
+    Endured = FALSE;
+    HungOn = FALSE;
 
     ApplyRandomDmgMultiplier();
 
@@ -1679,36 +1684,39 @@ static void Cmd_adjustnormaldamage(void)
     }
 
     gPotentialItemEffectBattler = gBattlerTarget;
-
-if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
+    
+    
+    if (gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+    {
+    }
+    else if (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured)
+        Endured = TRUE;   
+    else if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
     {
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
-    }
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+        HungOn = TRUE;
+    } 
     else if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
-        sturdied = TRUE;
+        gLastUsedAbility = ABILITY_STURDY;
+        HungOn = TRUE;
     }
-    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
-     && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
-     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
+    if (gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
     {
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-        if (gProtectStructs[gBattlerTarget].endured)
+        if (Endured)
         {
+            gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
             gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
         }
-        else if (sturdied)
+        if (HungOn)
         {
+            gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
-            gLastUsedAbility = ABILITY_STURDY;
-        }
-        else //focus band
-        {
-            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
-            gLastUsedItem = gBattleMons[gBattlerTarget].item;
+            
         }
     }
     gBattlescriptCurrInstr++;
@@ -4330,6 +4338,11 @@ static void Cmd_moveend(void)
                 effect = TRUE;
             gBattleScripting.moveendState++;
             break;
+        case MOVEEND_ON_DAMAGE_ATTACKER: // Poison Touch, Stench, etc
+            if (AbilityBattleEffects(ABILITYEFFECT_ON_DAMAGE_ATTACKER, gBattlerAttacker, 0, 0, 0))
+                effect = TRUE;
+            gBattleScripting.moveendState++;
+            break;
         case MOVEEND_IMMUNITY_ABILITIES: // status immunities
             if (AbilityBattleEffects(ABILITYEFFECT_IMMUNITY, 0, 0, 0, 0))
                 effect = TRUE; // it loops through all battlers, so we increment after its done with all battlers
@@ -5908,7 +5921,10 @@ static void Cmd_cancelallactions(void)
 // The same as adjustnormaldamage, except there's no random damage multiplier.
 static void Cmd_adjustsetdamage(void)
 {
-    u8 holdEffect, param, sturdied;
+    u8 holdEffect, param, Endured, HungOn;
+
+    Endured = FALSE;
+    HungOn = FALSE;
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
     {
@@ -5922,36 +5938,39 @@ static void Cmd_adjustsetdamage(void)
     }
 
     gPotentialItemEffectBattler = gBattlerTarget;
-
-    if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
+    
+    
+    if (gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
+    {
+    }
+    else if (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured)
+        Endured = TRUE;   
+    else if (holdEffect == HOLD_EFFECT_FOCUS_BAND && (Random() % 100) < param)
     {
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
-    }
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+        HungOn = TRUE;
+    } 
     else if (gBattleMons[gBattlerTarget].ability == ABILITY_STURDY && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
     {
         RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gSpecialStatuses[gBattlerTarget].focusBanded = 1;
-        sturdied = TRUE;
+        gLastUsedAbility = ABILITY_STURDY;
+        HungOn = TRUE;
     }
-    if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
-     && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded)
-     && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
+    if (gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage)
     {
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-        if (gProtectStructs[gBattlerTarget].endured)
+        if (Endured)
         {
+            gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
             gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
         }
-        else if (sturdied)
+        if (HungOn)
         {
+            gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
-            gLastUsedAbility = ABILITY_STURDY;
-        }
-        else //focus band
-        {
-            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
-            gLastUsedItem = gBattleMons[gBattlerTarget].item;
+            
         }
     }
     gBattlescriptCurrInstr++;
@@ -10297,3 +10316,13 @@ static void Cmd_trainerslideout(void)
 
     gBattlescriptCurrInstr += 2;
 }
+/* HOWL
+void Cmd_JumpIfNoAlly(void)
+{
+    u32 partner = BATTLE_PARTNER(GetBattlerForBattleScript(gActiveBattler));
+    if ((gAbsentBattlerFlags & gBitTable[partner]))
+        gBattlescriptCurrInstr += 5;
+    else
+        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+}
+*/
