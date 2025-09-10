@@ -3273,9 +3273,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //Abilities
         if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
             spAttack /= 2;
-        if (attacker->ability == ABILITY_PLUS && ABILITY_ON_FIELD2(ABILITY_MINUS))
+        if (attacker->ability == (ABILITY_PLUS || ABILITY_MINUS) && ABILITY_ON_FIELD2(ABILITY_MINUS))
             spAttack = (150 * spAttack) / 100;
-        if (attacker->ability == ABILITY_MINUS && ABILITY_ON_FIELD2(ABILITY_PLUS))
+        if (attacker->ability == (ABILITY_PLUS || ABILITY_MINUS) && ABILITY_ON_FIELD2(ABILITY_PLUS))
             spAttack = (150 * spAttack) / 100;
         if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
             spAttack = (150 * spAttack) / 100;

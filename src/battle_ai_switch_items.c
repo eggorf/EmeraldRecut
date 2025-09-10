@@ -483,7 +483,7 @@ static bool8 ShouldSwitch(void)
         return FALSE;
         if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
         return FALSE;
-        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
+        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG) && gBattleMons[gActiveBattler].ability != ABILITY_SHADOW_TAG)
         return FALSE;
         if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)
         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
