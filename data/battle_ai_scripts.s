@@ -73,7 +73,9 @@ AI_CBM_CheckIfNegatesType:
 	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_VOLT_ABSORB, CheckIfVoltAbsorbCancelsElectric
+	if_equal ABILITY_LIGHTNING_ROD, CheckIfVoltAbsorbCancelsElectric
 	if_equal ABILITY_WATER_ABSORB, CheckIfWaterAbsorbCancelsWater
+	if_equal ABILITY_STORM_DRAIN, CheckIfWaterAbsorbCancelsWater
 	if_equal ABILITY_FLASH_FIRE, CheckIfFlashFireCancelsFire
 	if_equal ABILITY_WONDER_GUARD, CheckIfWonderGuardCancelsMove
 	if_equal ABILITY_LEVITATE, CheckIfLevitateCancelsGroundMove
@@ -324,6 +326,7 @@ AI_CBM_AccDown:
 	if_stat_level_equal AI_TARGET, STAT_ACC, MIN_STAT_STAGE, Score_Minus30
 	get_ability AI_TARGET
 	if_equal ABILITY_KEEN_EYE, Score_Minus30
+	if_equal ABILITY_ILLUMINATE, Score_Minus30
 	goto CheckIfAbilityBlocksStatChange
 
 AI_CBM_EvasionDown:
@@ -2679,11 +2682,15 @@ AI_DoubleBattleSkillSwap:
 
 AI_DoubleBattleElectricMove:
 	if_no_ability AI_TARGET_PARTNER, ABILITY_LIGHTNING_ROD, AI_DoubleBattleElectricMoveEnd
-	score -2
+	score -10
 	if_no_type AI_TARGET_PARTNER, TYPE_GROUND, AI_DoubleBattleElectricMoveEnd
 	score -8
 AI_DoubleBattleElectricMoveEnd:
 	end
+
+AI_DoubleBattleWaterMove:
+	if_no_ability AI_TARGET_PARTNER, ABILITY_STORM_DRAIN, AI_DoubleBattleElectricMoveEnd
+	score -10
 
 AI_DoubleBattleFireMove:
 	if_flash_fired AI_USER, AI_DoubleBattleFireMove2

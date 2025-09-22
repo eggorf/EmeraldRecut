@@ -131,14 +131,15 @@ static bool8 ShouldSwitchIfWonderGuard(void)
 static bool8 FindMonThatAbsorbsOpponentsMove(void)
 {
     u8 battlerIn1, battlerIn2;
-    u8 absorbingTypeAbility = 0;
+    u8 numAbsorbingAbilities = 0;
+    u16 absorbingTypeAbilities[3]; // Array size is maximum number of absorbing abilities for a single type
     u8 absorbingMonType = 0;
     u8 type1;
     u8 type2;
     s32 firstId;
     s32 lastId; // + 1
     struct Pokemon *party;
-    s32 i;
+    s32 i, j;
 
     if (HasSuperEffectiveMoveAgainstOpponents(TRUE) && Random() % 3 != 0)
         return FALSE;
@@ -164,17 +165,21 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
     }
 
     if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_FIRE)
-        absorbingTypeAbility = ABILITY_FLASH_FIRE;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_FLASH_FIRE;
     else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_WATER)
-        absorbingTypeAbility = ABILITY_WATER_ABSORB;
+    {
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_WATER_ABSORB;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_STORM_DRAIN;
+    }
     else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_ELECTRIC)
     {
-        absorbingTypeAbility = ABILITY_VOLT_ABSORB;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_VOLT_ABSORB;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_LIGHTNING_ROD;
         absorbingMonType = TYPE_GROUND;
     }
     else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_GROUND)
     {
-        absorbingTypeAbility = ABILITY_LEVITATE;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_LEVITATE;
         absorbingMonType = TYPE_FLYING;
     }
         else if (gBattleMoves[gLastLandedMoves[gActiveBattler]].type == TYPE_GHOST)
@@ -192,8 +197,12 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
         
     type1 = gBattleMons[gActiveBattler].types[0];
     type2 = gBattleMons[gActiveBattler].types[1];
-    if (gBattleMons[gActiveBattler].ability == absorbingTypeAbility ||
-        gBattleMons[gActiveBattler].types[0] == absorbingMonType ||
+    for (i = 0; i < numAbsorbingAbilities; i++)
+    {
+        if (gBattleMons[gActiveBattler].ability == absorbingTypeAbilities[i])
+        return FALSE;
+    }
+    if (gBattleMons[gActiveBattler].types[0] == absorbingMonType ||
         gBattleMons[gActiveBattler].types[1] == absorbingMonType)
         return FALSE;
 
@@ -239,16 +248,26 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
             monAbility = gSpeciesInfo[species].abilities[1];
         else
             monAbility = gSpeciesInfo[species].abilities[0];
-
-        if ((absorbingTypeAbility == monAbility ||
-            type1 == absorbingMonType ||
-            type2 == absorbingMonType)
-            && Random() & 1)
+        
+        if (Random() & 1)
         {
-            // we found a mon.
-            *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
-            BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
-            return TRUE;
+            for (j = 0; j < numAbsorbingAbilities; j++)
+            {
+                // Found a mon
+                if (absorbingTypeAbilities[j] == monAbility)
+                {
+                    *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
+                    BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
+                    return TRUE;
+                }
+            }
+            if ((type1 || type2) == absorbingMonType)
+            {
+                // we found a mon.
+                *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = i;
+                BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_SWITCH, 0);
+                return TRUE;
+            }
         }
     }
 
