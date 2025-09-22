@@ -721,7 +721,6 @@
                 "min_level": 13,
                 "max_level": 13,
                 "species": "SPECIES_PLUSLE"
-                "species": "SPECIES_PLUSLE"
               },
               {
                 "min_level": 13,
@@ -736,7 +735,6 @@
               {
                 "min_level": 13,
                 "max_level": 13,
-                "species": "SPECIES_ELECTRIKE"
                 "species": "SPECIES_ELECTRIKE"
               },
               {
