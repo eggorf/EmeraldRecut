@@ -1279,6 +1279,18 @@ static const union AnimCmd sAnim_Lickitung_1[] =
     ANIMCMD_END,
 };
 
+ .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 50),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 1),
+        ),
+
 static const union AnimCmd sAnim_Koffing_1[] =
 {
     ANIMCMD_FRAME(0, 10),
