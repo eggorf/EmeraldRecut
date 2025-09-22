@@ -3786,7 +3786,8 @@ static void SetMonTypeIcons(void)
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
     if (summary->isEgg)
     {
-        SetTypeSpritePosAndPal(TYPE_MYSTERY, 120, 48, SPRITE_ARR_ID_TYPE);
+        SetTypeSpritePosAndPal(gSpeciesInfo[summary->species].types[0], 120, 48, SPRITE_ARR_ID_TYPE);
+        //SetTypeSpritePosAndPal(TYPE_MYSTERY, 120, 48, SPRITE_ARR_ID_TYPE);
         SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, TRUE);
     }
     else
