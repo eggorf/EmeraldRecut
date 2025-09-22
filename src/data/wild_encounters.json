@@ -8597,6 +8597,7 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_WIGGLYTUFF"
               },
               {
@@ -8670,12 +8671,42 @@
 <<<<<<< Updated upstream
                 "species": "SPECIES_CASTFORM"
 =======
+=======
+>>>>>>> Stashed changes
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
                 "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
               },
               {
                 "min_level": 5,
@@ -8890,7 +8921,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_WINGULL"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -8898,89 +8933,116 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_MARILL"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_WHISMUR"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_POOCHYENA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_ELECTRIKE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_MAKUHITA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_ODDISH"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_GULPIN"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_TAILLOW"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_TAILLOW"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_PSYDUCK"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -8989,7 +9051,24 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_PSYDUCK"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_PSYDUCK"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -9335,6 +9414,7 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_MACHAMP"
 =======
                 "species": "SPECIES_NONE"
@@ -9428,6 +9508,56 @@
                 "max_level": 50,
                 "species": "SPECIES_SHEDINJA"
 =======
+=======
+>>>>>>> Stashed changes
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_NONE"
               },
               {
@@ -12109,7 +12239,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_ODDISH"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12117,17 +12251,12 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_POOCHYENA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_ILLUMISE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12135,6 +12264,20 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_ILLUMISE"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_VOLBEAT"
               },
@@ -12155,6 +12298,9 @@
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
@@ -12165,7 +12311,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_SKITTY"
+=======
+                "species": "SPECIES_PICHU"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_PICHU"
 >>>>>>> Stashed changes
@@ -12174,6 +12324,7 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_DODUO"
 =======
                 "species": "SPECIES_NONE"
@@ -12185,6 +12336,8 @@
 <<<<<<< Updated upstream
                 "species": "SPECIES_DODUO"
 =======
+=======
+>>>>>>> Stashed changes
                 "species": "SPECIES_NONE"
               },
               {
@@ -12196,6 +12349,14 @@
                 "min_level": 5,
                 "max_level": 5,
                 "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_NONE"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
               },
               {
                 "min_level": 5,
@@ -12216,7 +12377,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_MACHOP"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12224,89 +12389,116 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_SLUGMA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_NUMEL"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_SPINDA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_SWABLU"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_AZUMARILL"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_RALTS"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_SKARMORY"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_ZANGOOSE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_SEVIPER"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_RHYHORN"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12315,7 +12507,24 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_RHYHORN"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_RHYHORN"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12383,7 +12592,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_GIRAFARIG"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12392,7 +12605,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_GIRAFARIG"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12410,7 +12627,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_POOCHYENA"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12418,89 +12639,116 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_GULPIN"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_MARILL"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_NINCADA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_ELECTRIKE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_WINGULL"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_WHISMUR"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_WURMPLE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_PLUSLE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_MINUN"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_NATU"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12509,7 +12757,24 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_NATU"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_NATU"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12527,7 +12792,11 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_CACTURNE"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12535,26 +12804,25 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_TROPIUS"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_NUZLEAF"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_LOMBRE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12562,62 +12830,90 @@
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_LOMBRE"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_LINOONE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_MIGHTYENA"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_DUSTOX"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_BEAUTIFLY"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_NUZLEAF"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                 "species": "SPECIES_LOMBRE"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-<<<<<<< Updated upstream
-                "species": "SPECIES_PINSIR"
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
@@ -12626,7 +12922,24 @@
                 "min_level": 5,
                 "max_level": 5,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "species": "SPECIES_PINSIR"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                "species": "SPECIES_PINSIR"
+=======
+                "species": "SPECIES_NONE"
+>>>>>>> Stashed changes
 =======
                 "species": "SPECIES_NONE"
 >>>>>>> Stashed changes
