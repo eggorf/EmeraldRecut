@@ -2032,14 +2032,7 @@ static void Cmd_if_holds_item(void)
     itemHi = gAIScriptPtr[2];
     itemLo = gAIScriptPtr[3];
 
-#ifdef BUGFIX
-    // This bug doesn't affect the vanilla game because this script command
-    // is only used to check ITEM_PERSIM_BERRY, whose high byte happens to
-    // be 0.
     if (((itemHi << 8) | itemLo) == item)
-#else
-    if ((itemLo | itemHi) == item)
-#endif
         gAIScriptPtr = T1_READ_PTR(gAIScriptPtr + 4);
     else
         gAIScriptPtr += 8;
