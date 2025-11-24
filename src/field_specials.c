@@ -2466,7 +2466,7 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
     },
     [SCROLL_MULTI_BF_RECEPTIONIST] =
     {
-        gText_BattleTower2,
+        gText_BattleTower,
         gText_BattleDome,
         gText_BattlePalace,
         gText_BattleArena,

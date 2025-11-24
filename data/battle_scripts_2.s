@@ -115,7 +115,7 @@ BattleScript_PlayerUsesItem::
 	end
 
 BattleScript_OpponentUsesHealItem::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	pause B_WAIT_TIME_MED
 	playse SE_USE_ITEM
 	printstring STRINGID_TRAINER1USEDITEM
@@ -131,7 +131,7 @@ BattleScript_OpponentUsesHealItem::
 	finishaction
 
 BattleScript_OpponentUsesStatusCureItem::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	pause B_WAIT_TIME_MED
 	playse SE_USE_ITEM
 	printstring STRINGID_TRAINER1USEDITEM
@@ -144,7 +144,7 @@ BattleScript_OpponentUsesStatusCureItem::
 	finishaction
 
 BattleScript_OpponentUsesXItem::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	pause B_WAIT_TIME_MED
 	playse SE_USE_ITEM
 	printstring STRINGID_TRAINER1USEDITEM
@@ -156,7 +156,7 @@ BattleScript_OpponentUsesXItem::
 	finishaction
 
 BattleScript_OpponentUsesGuardSpec::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	pause B_WAIT_TIME_MED
 	playse SE_USE_ITEM
 	printstring STRINGID_TRAINER1USEDITEM

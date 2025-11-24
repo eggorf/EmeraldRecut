@@ -712,7 +712,7 @@ BattleScript_DoMultiHit::
 	datahpupdate BS_TARGET
 	critmessage
 	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	waitmessage 1
 	addbyte sMULTIHIT_STRING + 4, 1
 	moveendto MOVEEND_NEXT_TARGET
@@ -875,7 +875,7 @@ BattleScript_TwoTurnMovesSecondTurn::
 
 BattleScriptFirstChargingTurn::
 	attackcanceler
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	ppreduce
 	attackanimation
 	waitanimation
@@ -1494,7 +1494,7 @@ BattleScript_DoTripleKickAttack::
 	datahpupdate BS_TARGET
 	critmessage
 	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	waitmessage 1
 	moveendto MOVEEND_NEXT_TARGET
 	jumpifbyte CMP_COMMON_BITS, gMoveResultFlags, MOVE_RESULT_FOE_ENDURED, BattleScript_TripleKickPrintStrings
@@ -1950,7 +1950,7 @@ BattleScript_DoHitAllWithUndergroundBonus::
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	waitmessage 1
 	tryfaintmon BS_TARGET
 	moveendto MOVEEND_NEXT_TARGET
@@ -3796,7 +3796,7 @@ BattleScript_SAtkDown2End::
 	return
 
 BattleScript_FocusPunchSetUp::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	waitmessage 1
 	playanimation BS_ATTACKER, B_ANIM_FOCUS_PUNCH_SETUP
 	printstring STRINGID_PKMNTIGHTENINGFOCUS
@@ -4549,7 +4549,7 @@ BattleScript_ActionSelectionItemsCantBeUsed::
 	endselectionscript
 
 BattleScript_FlushMessageBox::
-	printstring STRINGID_EMPTYSTRING3
+	printstring STRINGID_EMPTYSTRING
 	return
 
 BattleScript_PalacePrintFlavorText::

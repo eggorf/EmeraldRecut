@@ -617,7 +617,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_X_MONS_ARE_NEEDED]      = gText_PokemonAreNeeded,
     [PARTY_MSG_MONS_CANT_BE_SAME]      = gText_PokemonCantBeSame,
     [PARTY_MSG_NO_SAME_HOLD_ITEMS]     = gText_NoIdenticalHoldItems,
-    [PARTY_MSG_UNUSED]                 = gText_EmptyString2,
+    [PARTY_MSG_UNUSED]                 = gText_EmptyString,
     [PARTY_MSG_DO_WHAT_WITH_MON]       = gText_DoWhatWithPokemon,
     [PARTY_MSG_RESTORE_WHICH_MOVE]     = gText_RestoreWhichMove,
     [PARTY_MSG_BOOST_PP_WHICH_MOVE]    = gText_BoostPp,
@@ -657,24 +657,24 @@ struct
     TaskFunc func;
 } static const sCursorOptions[] =
 {
-    [MENU_SUMMARY] = {gText_Summary5, CursorCb_Summary},
+    [MENU_SUMMARY] = {gText_Summary, CursorCb_Summary},
     [MENU_SWITCH] = {gText_Switch2, CursorCb_Switch},
-    [MENU_CANCEL1] = {gText_Cancel2, CursorCb_Cancel1},
+    [MENU_CANCEL1] = {gText_Cancel, CursorCb_Cancel1},
     [MENU_ITEM] = {gText_Item, CursorCb_Item},
     [MENU_GIVE] = {gMenuText_Give, CursorCb_Give},
     [MENU_TAKE_ITEM] = {gText_Take, CursorCb_TakeItem},
     [MENU_MAIL] = {gText_Mail, CursorCb_Mail},
     [MENU_TAKE_MAIL] = {gText_Take2, CursorCb_TakeMail},
     [MENU_READ] = {gText_Read2, CursorCb_Read},
-    [MENU_CANCEL2] = {gText_Cancel2, CursorCb_Cancel2},
+    [MENU_CANCEL2] = {gText_Cancel, CursorCb_Cancel2},
     [MENU_SHIFT] = {gText_Shift, CursorCb_SendMon},
     [MENU_SEND_OUT] = {gText_SendOut, CursorCb_SendMon},
     [MENU_ENTER] = {gText_Enter, CursorCb_Enter},
     [MENU_NO_ENTRY] = {gText_NoEntry, CursorCb_NoEntry},
     [MENU_STORE] = {gText_Store, CursorCb_Store},
     [MENU_REGISTER] = {gText_Register, CursorCb_Register},
-    [MENU_TRADE1] = {gText_Trade4, CursorCb_Trade1},
-    [MENU_TRADE2] = {gText_Trade4, CursorCb_Trade2},
+    [MENU_TRADE1] = {gText_Trade, CursorCb_Trade1},
+    [MENU_TRADE2] = {gText_Trade, CursorCb_Trade2},
     [MENU_TOSS] = {gMenuText_Toss, CursorCb_Toss},
     [MENU_FIELD_MOVES + FIELD_MOVE_CUT] = {gMoveNames[MOVE_CUT], CursorCb_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_FLASH] = {gMoveNames[MOVE_FLASH], CursorCb_FieldMove},
@@ -1109,16 +1109,6 @@ static const bool8 sMultiBattlePartnersPartyMask[PARTY_SIZE + 2] =
     TRUE,
     TRUE,
     FALSE
-};
-
-static const u8 *const sUnused_StatStrings[] =
-{
-    gText_HP4,
-    gText_Attack3,
-    gText_Defense3,
-    gText_SpAtk4,
-    gText_SpDef4,
-    gText_Speed2
 };
 
 /* Expands to:

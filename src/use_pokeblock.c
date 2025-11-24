@@ -292,7 +292,7 @@ static const u8 *const sConditionNames[CONDITION_COUNT] =
     [CONDITION_TOUGH]  = gText_Toughness,
     [CONDITION_SMART]  = gText_Smartness,
     [CONDITION_CUTE]   = gText_Cuteness,
-    [CONDITION_BEAUTY] = gText_Beauty3
+    [CONDITION_BEAUTY] = gText_BeautySpace
 };
 
 static const struct SpriteSheet sSpriteSheet_UpDown =

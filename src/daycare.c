@@ -1146,7 +1146,7 @@ static void UNUSED GetDaycareLevelMenuText(struct DayCare *daycare, u8 *dest)
     StringAppend(dest, gText_NewLine2);
     StringAppend(dest, monNames[1]);
     StringAppend(dest, gText_NewLine2);
-    StringAppend(dest, gText_Exit4);
+    StringAppend(dest, gText_Exit);
 }
 
 static void UNUSED GetDaycareLevelMenuLevelText(struct DayCare *daycare, u8 *dest)

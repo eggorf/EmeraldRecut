@@ -1211,7 +1211,7 @@ static void Task_TradeEvolutionScene(u8 taskId)
             else
             {
                 PlayBGM(MUS_EVOLUTION);
-                DrawTextOnTradeWindow(0, gText_CommunicationStandby5, 1);
+                DrawTextOnTradeWindow(0, gText_CommunicationStandby, 1);
                 gTasks[taskId].tState++;
             }
         }
@@ -1311,7 +1311,7 @@ static void Task_TradeEvolutionScene(u8 taskId)
             {
             case 0: // YES
                 sEvoCursorPos = 0;
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3 - BATTLESTRINGS_TABLE_START]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING - BATTLESTRINGS_TABLE_START]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState = gTasks[taskId].tLearnMoveYesState;
                 if (gTasks[taskId].tLearnMoveState == T_MVSTATE_SHOW_MOVE_SELECT)
@@ -1320,7 +1320,7 @@ static void Task_TradeEvolutionScene(u8 taskId)
             case 1: // NO
             case MENU_B_PRESSED:
                 sEvoCursorPos = 1;
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3 - BATTLESTRINGS_TABLE_START]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING - BATTLESTRINGS_TABLE_START]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState = gTasks[taskId].tLearnMoveNoState;
                 break;

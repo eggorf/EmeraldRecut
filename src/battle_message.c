@@ -54,7 +54,7 @@ EWRAM_DATA struct BattleMsgData *gBattleMsgDataPtr = NULL;
 
 static const u8 sText_Trainer1LoseText[] = _("{B_TRAINER1_LOSE_TEXT}");
 static const u8 sText_PkmnGainedEXP[] = _("{B_BUFF1} gained{B_BUFF2}\n{B_BUFF3} EXP. Points!\p");
-static const u8 sText_EmptyString4[] = _("");
+static const u8 sText_EmptyString[] = _("");
 static const u8 sText_ABoosted[] = _(" a boosted");
 static const u8 sText_PkmnGrewToLv[] = _("{B_BUFF1} grew to\nLV. {B_BUFF2}!{WAIT_SE}\p");
 static const u8 sText_PkmnLearnedMove[] = _("{B_BUFF1} learned\n{B_BUFF2}!{WAIT_SE}\p");
@@ -409,7 +409,6 @@ static const u8 sText_LinkTrainer1WithdrewPkmn[] = _("{B_LINK_OPPONENT1_NAME} wi
 static const u8 sText_LinkTrainer2WithdrewPkmn[] = _("{B_LINK_SCR_TRAINER_NAME} withdrew\n{B_BUFF1}!");
 static const u8 sText_WildPkmnPrefix[] = _("Wild ");
 static const u8 sText_FoePkmnPrefix[] = _("Foe ");
-static const u8 sText_EmptyString8[] = _("");
 static const u8 sText_FoePkmnPrefix2[] = _("Foe");
 static const u8 sText_AllyPkmnPrefix[] = _("Ally");
 static const u8 sText_FoePkmnPrefix3[] = _("Foe");
@@ -496,7 +495,6 @@ static const u8 sText_PkmnsItemRestoredHPALittle[] = _("{B_SCR_ACTIVE_NAME_WITH_
 static const u8 sText_ItemAllowsOnlyYMove[] = _("{B_LAST_ITEM} allows the\nuse of only {B_CURRENT_MOVE}!\p");
 static const u8 sText_PkmnHungOnWithX[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nusing its {B_LAST_ITEM}!");
 static const u8 sText_PkmnHungOnWithAbility[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nusing its {B_LAST_ABILITY}!");
-const u8 gText_EmptyString3[] = _("");
 static const u8 sText_YouThrowABallNowRight[] = _("You throw a BALL now, right?\nI… I'll do my best!");
 
 // early declaration of strings
@@ -809,7 +807,7 @@ const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_S
     [STRINGID_PKMNSITEMRESTOREDHPALITTLE - BATTLESTRINGS_TABLE_START] = sText_PkmnsItemRestoredHPALittle,
     [STRINGID_ITEMALLOWSONLYYMOVE - BATTLESTRINGS_TABLE_START] = sText_ItemAllowsOnlyYMove,
     [STRINGID_PKMNHUNGONWITHX - BATTLESTRINGS_TABLE_START] = sText_PkmnHungOnWithX,
-    [STRINGID_EMPTYSTRING3 - BATTLESTRINGS_TABLE_START] = gText_EmptyString3,
+    [STRINGID_EMPTYSTRING - BATTLESTRINGS_TABLE_START] = gText_EmptyString,
     [STRINGID_PKMNSXPREVENTSBURNS - BATTLESTRINGS_TABLE_START] = sText_PkmnsXPreventsBurns,
     [STRINGID_PKMNSXBLOCKSY - BATTLESTRINGS_TABLE_START] = sText_PkmnsXBlocksY,
     [STRINGID_PKMNSXRESTOREDHPALITTLE2 - BATTLESTRINGS_TABLE_START] = sText_PkmnsXRestoredHPALittle2,
@@ -834,7 +832,7 @@ const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_S
     [STRINGID_PKMNUSEDXTOGETPUMPED - BATTLESTRINGS_TABLE_START] = sText_PkmnUsedXToGetPumped,
     [STRINGID_PKMNSXMADEYUSELESS - BATTLESTRINGS_TABLE_START] = sText_PkmnsXMadeYUseless,
     [STRINGID_PKMNTRAPPEDBYSANDTOMB - BATTLESTRINGS_TABLE_START] = sText_PkmnTrappedBySandTomb,
-    [STRINGID_EMPTYSTRING4 - BATTLESTRINGS_TABLE_START] = sText_EmptyString4,
+    [STRINGID_UNUSED - BATTLESTRINGS_TABLE_START] = sText_EmptyString,
     [STRINGID_ABOOSTED - BATTLESTRINGS_TABLE_START] = sText_ABoosted,
     [STRINGID_PKMNSXINTENSIFIEDSUN - BATTLESTRINGS_TABLE_START] = sText_PkmnsXIntensifiedSun,
     [STRINGID_PKMNMAKESGROUNDMISS - BATTLESTRINGS_TABLE_START] = sText_PkmnMakesGroundMiss,
@@ -861,7 +859,7 @@ const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_S
     [STRINGID_PKMNRAISEDSPDEFALITTLE - BATTLESTRINGS_TABLE_START] = sText_PkmnRaisedSpDefALittle,
     [STRINGID_THEWALLSHATTERED - BATTLESTRINGS_TABLE_START] = sText_TheWallShattered,
     [STRINGID_PKMNSXPREVENTSYSZ - BATTLESTRINGS_TABLE_START] = sText_PkmnsXPreventsYsZ,
-    [STRINGID_PKMNSXCUREDITSYPROBLEM - BATTLESTRINGS_TABLE_START] = sText_PkmnsXCuredItsYProblem,
+    [STRINGID_PKMNSUNUSED - BATTLESTRINGS_TABLE_START] = sText_PkmnsUNUSED,
     [STRINGID_ATTACKERCANTESCAPE - BATTLESTRINGS_TABLE_START] = sText_AttackerCantEscape,
     [STRINGID_PKMNOBTAINEDX - BATTLESTRINGS_TABLE_START] = sText_PkmnObtainedX,
     [STRINGID_PKMNOBTAINEDX2 - BATTLESTRINGS_TABLE_START] = sText_PkmnObtainedX2,
@@ -1009,7 +1007,7 @@ const u16 gStatUpStringIds[] =
     [B_MSG_ATTACKER_STAT_ROSE] = STRINGID_ATTACKERSSTATROSE,
     [B_MSG_DEFENDER_STAT_ROSE] = STRINGID_DEFENDERSSTATROSE,
     [B_MSG_STAT_WONT_INCREASE] = STRINGID_STATSWONTINCREASE,
-    [B_MSG_STAT_ROSE_EMPTY]    = STRINGID_EMPTYSTRING3,
+    [B_MSG_STAT_ROSE_EMPTY]    = STRINGID_EMPTYSTRING,
     [B_MSG_STAT_ROSE_ITEM]     = STRINGID_USINGITEMSTATOFPKMNROSE,
     [B_MSG_USED_DIRE_HIT]      = STRINGID_PKMNUSEDXTOGETPUMPED,
 };
@@ -1019,7 +1017,7 @@ const u16 gStatDownStringIds[] =
     [B_MSG_ATTACKER_STAT_FELL] = STRINGID_ATTACKERSSTATFELL,
     [B_MSG_DEFENDER_STAT_FELL] = STRINGID_DEFENDERSSTATFELL,
     [B_MSG_STAT_WONT_DECREASE] = STRINGID_STATSWONTDECREASE,
-    [B_MSG_STAT_FELL_EMPTY]    = STRINGID_EMPTYSTRING3,
+    [B_MSG_STAT_FELL_EMPTY]    = STRINGID_EMPTYSTRING,
 };
 
 // Index read from sTWOTURN_STRINGID
@@ -1305,7 +1303,6 @@ const u8 gText_Space2[] = _(" ");
 const u8 gText_LineBreak[] = _("\l");
 const u8 gText_NewLine[] = _("\n");
 const u8 gText_Are[] = _("are");
-const u8 gText_Are2[] = _("are");
 const u8 gText_BadEgg[] = _("Bad EGG");
 const u8 gText_BattleWallyName[] = _("WALLY");
 const u8 gText_Win[] = _("{HIGHLIGHT TRANSPARENT}Win");

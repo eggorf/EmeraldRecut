@@ -684,16 +684,16 @@ const u16 gFrontierBannedSpecies[] =
 
 static const u8 *const sRecordsWindowChallengeTexts[][2] =
 {
-    [RANKING_HALL_TOWER_SINGLES] = {gText_BattleTower2,  gText_FacilitySingle},
-    [RANKING_HALL_TOWER_DOUBLES] = {gText_BattleTower2,  gText_FacilityDouble},
-    [RANKING_HALL_TOWER_MULTIS]  = {gText_BattleTower2,  gText_FacilityMulti},
+    [RANKING_HALL_TOWER_SINGLES] = {gText_BattleTower,  gText_FacilitySingle},
+    [RANKING_HALL_TOWER_DOUBLES] = {gText_BattleTower,  gText_FacilityDouble},
+    [RANKING_HALL_TOWER_MULTIS]  = {gText_BattleTower,  gText_FacilityMulti},
     [RANKING_HALL_DOME]          = {gText_BattleDome,    gText_FacilitySingle},
     [RANKING_HALL_PALACE]        = {gText_BattlePalace,  gText_FacilitySingle},
     [RANKING_HALL_ARENA]         = {gText_BattleArena,   gText_Facility},
     [RANKING_HALL_FACTORY]       = {gText_BattleFactory, gText_FacilitySingle},
     [RANKING_HALL_PIKE]          = {gText_BattlePike,    gText_Facility},
     [RANKING_HALL_PYRAMID]       = {gText_BattlePyramid, gText_Facility},
-    [RANKING_HALL_TOWER_LINK]    = {gText_BattleTower2,  gText_FacilityLink},
+    [RANKING_HALL_TOWER_LINK]    = {gText_BattleTower,  gText_FacilityLink},
 };
 
 static const u8 *const sLevelModeText[] =
@@ -1057,7 +1057,7 @@ static void ShowTowerResultsWindow(u8 battleMode)
         StringExpandPlaceholders(gStringVar4, gText_LinkMultiBattleRoomResults);
 
     PrintAligned(gStringVar4, 2);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 16, 49, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 16, 49, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 16, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
     TowerPrintPrevOrCurrentStreak(battleMode, FRONTIER_LVL_50, 72, 132, 49);
@@ -1124,7 +1124,7 @@ static void ShowDomeResultsWindow(u8 battleMode)
         StringExpandPlaceholders(gStringVar4, gText_DoubleBattleTourneyResults);
 
     PrintAligned(gStringVar4, 0);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 8, 33, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 8, 33, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 8, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
     DomePrintPrevOrCurrentStreak(battleMode, FRONTIER_LVL_50, 64, 121, 33);
@@ -1200,7 +1200,7 @@ static void ShowPalaceResultsWindow(u8 battleMode)
         StringExpandPlaceholders(gStringVar4, gText_DoubleBattleHallResults);
 
     PrintAligned(gStringVar4, 2);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 16, 49, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 16, 49, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 16, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
     PalacePrintPrevOrCurrentStreak(battleMode, FRONTIER_LVL_50, 72, 131, 49);
@@ -1252,7 +1252,7 @@ static void ShowPikeResultsWindow(void)
     FillWindowPixelBuffer(gRecordsWindowId, PIXEL_FILL(1));
     StringExpandPlaceholders(gStringVar4, gText_BattleChoiceResults);
     PrintAligned(gStringVar4, 0);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 8, 33, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 8, 33, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 8, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
     PikePrintPrevOrCurrentStreak(FRONTIER_LVL_50, 64, 114, 33);
@@ -1315,7 +1315,7 @@ static void ShowArenaResultsWindow(void)
     PrintHyphens(10);
     StringExpandPlaceholders(gStringVar4, gText_SetKOTourneyResults);
     PrintAligned(gStringVar4, 2);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 16, 49, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 16, 49, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 16, 97, TEXT_SKIP_DRAW, NULL);
     ArenaPrintPrevOrCurrentStreak(FRONTIER_LVL_50, 72, 126, 49);
     ArenaPrintRecordStreak(FRONTIER_LVL_50, 72, 126, 65);
@@ -1404,7 +1404,7 @@ static void ShowFactoryResultsWindow(u8 battleMode)
         StringExpandPlaceholders(gStringVar4, gText_BattleSwapDoubleResults);
 
     PrintAligned(gStringVar4, 0);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 8, 33, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 8, 33, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_RentalSwap, 152, 33, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 8, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
@@ -1465,7 +1465,7 @@ static void ShowPyramidResultsWindow(void)
     FillWindowPixelBuffer(gRecordsWindowId, PIXEL_FILL(1));
     StringExpandPlaceholders(gStringVar4, gText_BattleQuestResults);
     PrintAligned(gStringVar4, 2);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv502, 8, 49, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Lv50, 8, 49, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_OpenLv, 8, 97, TEXT_SKIP_DRAW, NULL);
     PrintHyphens(10);
     PyramidPrintPrevOrCurrentStreak(FRONTIER_LVL_50, 64, 111, 49);
@@ -2092,7 +2092,7 @@ static void CheckPartyIneligibility(void)
                 StringAppend(gStringVar1, gText_LineBreak);
             else
                 StringAppend(gStringVar1, gText_Space2);
-            StringAppend(gStringVar1, gText_Are2);
+            StringAppend(gStringVar1, gText_Are);
         }
     }
     else

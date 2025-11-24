@@ -1676,7 +1676,7 @@ static void PrintCrushingResults(struct BerryCrushGame *game)
     // Print seconds value
     ConvertIntToDecimalStringN(gStringVar1, game->gfx.secondsInt, STR_CONV_MODE_LEADING_ZEROS, 2);
     ConvertIntToDecimalStringN(gStringVar2, game->gfx.secondsFrac, STR_CONV_MODE_LEADING_ZEROS, 2);
-    StringExpandPlaceholders(gStringVar4, gText_XDotY2);
+    StringExpandPlaceholders(gStringVar4, gText_XDotY);
     x -= GetStringWidth(FONT_SHORT, gStringVar4, -1);
     AddTextPrinterParameterized3(game->gfx.resultsWindowId, FONT_SHORT, x, y, sTextColorTable[COLORID_GRAY], 0, gStringVar4);
 
@@ -1702,7 +1702,7 @@ static void PrintCrushingResults(struct BerryCrushGame *game)
             pressingSpeedFrac += *(i + sPressingSpeedConversionTable); // It's accessed in a different way here for unknown reason
     ConvertIntToDecimalStringN(gStringVar1, game->pressingSpeed >> 8, STR_CONV_MODE_RIGHT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar2, pressingSpeedFrac / 1000000, STR_CONV_MODE_LEADING_ZEROS, 2);
-    StringExpandPlaceholders(gStringVar4, gText_XDotY3);
+    StringExpandPlaceholders(gStringVar4, gText_XDotY);
     x -= GetStringWidth(FONT_SHORT, gStringVar4, -1);
     if (game->newRecord)
         AddTextPrinterParameterized3(game->gfx.resultsWindowId, FONT_SHORT, x, y, sTextColorTable[COLORID_RED], 0, gStringVar4);
@@ -1826,7 +1826,7 @@ static void Task_ShowRankings(u8 taskId)
             }
             ConvertIntToDecimalStringN(gStringVar1, (u16)tPressingSpeeds(i) >> 8, STR_CONV_MODE_RIGHT_ALIGN, 3);
             ConvertIntToDecimalStringN(gStringVar2, score / 1000000, STR_CONV_MODE_LEADING_ZEROS, 2);
-            StringExpandPlaceholders(gStringVar4, gText_XDotY3);
+            StringExpandPlaceholders(gStringVar4, gText_XDotY);
             xPos -= GetStringWidth(FONT_NORMAL, gStringVar4, -1);
             AddTextPrinterParameterized3(tWindowId, FONT_NORMAL, xPos, yPos, sTextColorTable[COLORID_GRAY], 0, gStringVar4);
             yPos += 16;
