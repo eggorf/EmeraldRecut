@@ -2652,7 +2652,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 case ABILITY_VOLT_ABSORB:
                     if (moveType == TYPE_ELECTRIC)
                     {
-                        if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                        if (gProtectStructs[gBattlerAttacker].ppDeducted)
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain;
                         else
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain_PPLoss;
@@ -2663,7 +2663,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 case ABILITY_WATER_ABSORB:
                     if (moveType == TYPE_WATER)
                     {
-                        if (gProtectStructs[gBattlerAttacker].notFirstStrike)
+                        if (gProtectStructs[gBattlerAttacker].ppDeducted)
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain;
                         else
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain_PPLoss;
@@ -2702,7 +2702,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 {
                     if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
                     {
-                        if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
+                        if ((gProtectStructs[gBattlerAttacker].ppDeducted))
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
                         else
                             gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;

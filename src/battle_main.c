@@ -3319,7 +3319,7 @@ void FaintClearSetData(void)
     gProtectStructs[gActiveBattler].usedTauntedMove = FALSE;
     gProtectStructs[gActiveBattler].flag2Unknown = FALSE;
     gProtectStructs[gActiveBattler].flinchImmobility = FALSE;
-    gProtectStructs[gActiveBattler].notFirstStrike = FALSE;
+    gProtectStructs[gActiveBattler].ppDeducted = FALSE;
 
     gDisableStructs[gActiveBattler].isFirstTurn = 2;
 

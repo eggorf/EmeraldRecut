@@ -1249,7 +1249,7 @@ static void Cmd_ppreduce(void)
 
     if (!(gHitMarker & (HITMARKER_NO_PPDEDUCT | HITMARKER_NO_ATTACKSTRING)) && gBattleMons[gBattlerAttacker].pp[gCurrMovePos])
     {
-        gProtectStructs[gBattlerAttacker].notFirstStrike = 1;
+        gProtectStructs[gBattlerAttacker].ppDeducted = 1;
 
         if (gBattleMons[gBattlerAttacker].pp[gCurrMovePos] > ppToDeduct)
             gBattleMons[gBattlerAttacker].pp[gCurrMovePos] -= ppToDeduct;
@@ -1669,11 +1669,6 @@ static inline void ApplyRandomDmgMultiplier(void)
         if (gBattleMoveDamage == 0)
             gBattleMoveDamage = 1;
     }
-}
-
-static void UNUSED Unused_ApplyRandomDmgMultiplier(void)
-{
-    ApplyRandomDmgMultiplier();
 }
 
 static void Cmd_adjustnormaldamage(void)
