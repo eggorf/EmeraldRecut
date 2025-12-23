@@ -211,7 +211,7 @@ EWRAM_DATA u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT] = {0};
 EWRAM_DATA u8 gBattleOutcome = 0;
 EWRAM_DATA struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT] = {0};
-EWRAM_DATA u16 gBattleWeather = 0;
+EWRAM_DATA u16 gBattleWeather = B_WEATHER_NONE;
 EWRAM_DATA struct WishFutureKnock gWishFutureKnock = {0};
 EWRAM_DATA u16 gIntroSlideFlags = 0;
 EWRAM_DATA u8 gSentPokesToOpponent[2] = {0};
@@ -351,7 +351,7 @@ const u8 gTypeEffectiveness[336] =
     TYPE_WATER, TYPE_GROUND, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_WATER, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_WATER, TYPE_DRAGON, TYPE_MUL_NOT_EFFECTIVE,
-    TYPE_WATER, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,
+    //TYPE_WATER, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_WATER, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_ELECTRIC, TYPE_GRASS, TYPE_MUL_NOT_EFFECTIVE,
@@ -3084,7 +3084,7 @@ static void BattleStartClearSetData(void)
 
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
-    gBattleWeather = 0;
+    gBattleWeather = B_WEATHER_NONE;
 
     dataPtr = (u8 *)&gWishFutureKnock;
     for (i = 0; i < sizeof(struct WishFutureKnock); i++)

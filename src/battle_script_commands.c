@@ -8916,7 +8916,7 @@ static void Cmd_recoverbasedonsunlight(void)
 
     if (gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP)
     {
-        if (gBattleWeather == 0 || !WEATHER_HAS_EFFECT)
+        if (gBattleWeather == B_WEATHER_NONE || !WEATHER_HAS_EFFECT)
             gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
         else if (gBattleWeather & B_WEATHER_SUN)
             gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;

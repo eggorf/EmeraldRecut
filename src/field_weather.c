@@ -227,7 +227,7 @@ void StartWeather(void)
 
 void SetNextWeather(u8 weather)
 {
-    if (weather != WEATHER_RAIN && weather != WEATHER_RAIN_THUNDERSTORM && weather != WEATHER_DOWNPOUR)
+    if (weather != (WEATHER_RAIN || WEATHER_RAIN_THUNDERSTORM || WEATHER_DOWNPOUR))
     {
         PlayRainStoppingSoundEffect();
     }

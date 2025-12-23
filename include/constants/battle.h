@@ -197,7 +197,7 @@
 // Per-side statuses that affect an entire party
 #define SIDE_STATUS_REFLECT          (1 << 0)
 #define SIDE_STATUS_LIGHTSCREEN      (1 << 1)
-#define SIDE_STATUS_X4               (1 << 2)
+#define SIDE_STATUS_X4               (1 << 2) //unused
 #define SIDE_STATUS_SPIKES           (1 << 4)
 #define SIDE_STATUS_SAFEGUARD        (1 << 5)
 #define SIDE_STATUS_FUTUREATTACK     (1 << 6)
@@ -217,9 +217,9 @@
 
 // Battle Weather flags
 #define B_WEATHER_RAIN_TEMPORARY      (1 << 0)
-#define B_WEATHER_RAIN_DOWNPOUR       (1 << 1)  // unused
+#define B_WEATHER_NONE                (1 << 1)
 #define B_WEATHER_RAIN_PERMANENT      (1 << 2)
-#define B_WEATHER_RAIN                (B_WEATHER_RAIN_TEMPORARY | B_WEATHER_RAIN_DOWNPOUR | B_WEATHER_RAIN_PERMANENT)
+#define B_WEATHER_RAIN                (B_WEATHER_RAIN_TEMPORARY | B_WEATHER_RAIN_PERMANENT)
 #define B_WEATHER_SANDSTORM_TEMPORARY (1 << 3)
 #define B_WEATHER_SANDSTORM_PERMANENT (1 << 4)
 #define B_WEATHER_SANDSTORM           (B_WEATHER_SANDSTORM_TEMPORARY | B_WEATHER_SANDSTORM_PERMANENT)

@@ -1288,21 +1288,13 @@ u8 DoFieldEndTurnEffects(void)
                     if (--gWishFutureKnock.weatherDuration == 0)
                     {
                         gBattleWeather &= ~B_WEATHER_RAIN_TEMPORARY;
-                        gBattleWeather &= ~B_WEATHER_RAIN_DOWNPOUR;
+                        gBattleWeather = B_WEATHER_NONE;
                         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_RAIN_STOPPED;
-                    }
-                    else if (gBattleWeather & B_WEATHER_RAIN_DOWNPOUR)
-                    {
-                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DOWNPOUR_CONTINUES;
                     }
                     else
                     {
                         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_RAIN_CONTINUES;
                     }
-                }
-                else if (gBattleWeather & B_WEATHER_RAIN_DOWNPOUR)
-                {
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DOWNPOUR_CONTINUES;
                 }
                 else
                 {
@@ -1320,6 +1312,7 @@ u8 DoFieldEndTurnEffects(void)
                 if (!(gBattleWeather & B_WEATHER_SANDSTORM_PERMANENT) && --gWishFutureKnock.weatherDuration == 0)
                 {
                     gBattleWeather &= ~B_WEATHER_SANDSTORM_TEMPORARY;
+                    gBattleWeather = B_WEATHER_NONE;
                     gBattlescriptCurrInstr = BattleScript_SandStormSnowEnds;
                 }
                 else
@@ -1340,6 +1333,7 @@ u8 DoFieldEndTurnEffects(void)
                 if (!(gBattleWeather & B_WEATHER_SUN_PERMANENT) && --gWishFutureKnock.weatherDuration == 0)
                 {
                     gBattleWeather &= ~B_WEATHER_SUN_TEMPORARY;
+                    gBattleWeather = B_WEATHER_NONE;
                     gBattlescriptCurrInstr = BattleScript_SunlightFaded;
                 }
                 else
@@ -1358,6 +1352,7 @@ u8 DoFieldEndTurnEffects(void)
                 if (--gWishFutureKnock.weatherDuration == 0)
                 {
                     gBattleWeather &= ~B_WEATHER_SNOW_TEMPORARY;
+                    gBattleWeather = B_WEATHER_NONE;
                     gBattlescriptCurrInstr = BattleScript_SandStormSnowEnds;
                 }
                 else
@@ -2536,6 +2531,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 if (gBattleWeather & B_WEATHER_ANY)
                 {
                     gBattleWeather &= ~B_WEATHER_ANY;
+                    gBattleWeather = B_WEATHER_NONE;
                     gWishFutureKnock.weatherDuration = 0;
                     BattleScriptPushCursorAndCallback(BattleScript_AirLockActivates);
                     gBattleScripting.battler = battler;
