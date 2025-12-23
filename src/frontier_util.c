@@ -96,7 +96,7 @@ static const u8 sFrontierBrainStreakAppearances[NUM_FRONTIER_FACILITIES][4] =
 
 static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZE] =
 {
-    [FRONTIER_FACILITY_TOWER] =
+    [FRONTIER_FACILITY_TOWER] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
@@ -153,7 +153,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
             },
         },
     },
-    [FRONTIER_FACILITY_DOME] =
+    [FRONTIER_FACILITY_DOME] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
@@ -210,7 +210,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
             },
         },
     },
-    [FRONTIER_FACILITY_PALACE] =
+    [FRONTIER_FACILITY_PALACE] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
@@ -226,8 +226,8 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SLAKING,
                 .heldItem = ITEM_SCOPE_LENS,
                 .fixedIV = 16,
-                .nature = NATURE_IMPISH,
-                .evs = {152, 152, 0, 206, 0, 0},
+                .nature = NATURE_HARDY,
+                .evs = {152, 152, 0, 106, 0, 100},
                 .moves = {MOVE_EARTHQUAKE, MOVE_SWAGGER, MOVE_SHADOW_BALL, MOVE_BRICK_BREAK},
             },
             {
@@ -253,7 +253,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SLAKING,
                 .heldItem = ITEM_SCOPE_LENS,
                 .fixedIV = MAX_PER_STAT_IVS,
-                .nature = NATURE_IMPISH,
+                .nature = NATURE_HARDY,
                 .evs = {6, 252, 0, 252, 0, 0},
                 .moves = {MOVE_HYPER_BEAM, MOVE_EARTHQUAKE, MOVE_SHADOW_BALL, MOVE_YAWN},
             },
@@ -261,13 +261,13 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SUICUNE,
                 .heldItem = ITEM_KINGS_ROCK,
                 .fixedIV = MAX_PER_STAT_IVS,
-                .nature = NATURE_TIMID,
+                .nature = NATURE_HASTY,
                 .evs = {252, 0, 252, 6, 0, 0},
                 .moves = {MOVE_BLIZZARD, MOVE_SURF, MOVE_BITE, MOVE_CALM_MIND},
             },
         },
     },
-    [FRONTIER_FACILITY_ARENA] =
+    [FRONTIER_FACILITY_ARENA] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
@@ -291,7 +291,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
                 .species = SPECIES_SHEDINJA,
                 .heldItem = ITEM_BRIGHT_POWDER,
                 .fixedIV = 20,
-                .nature = NATURE_ADAMANT,
+                .nature = NATURE_JOLLY,
                 .evs = {0, 252, 6, 252, 0, 0},
                 .moves = {MOVE_SHADOW_BALL, MOVE_RETURN, MOVE_CONFUSE_RAY, MOVE_AERIAL_ACE},
             },
@@ -381,7 +381,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
             },
         },
     },
-    [FRONTIER_FACILITY_PIKE] =
+    [FRONTIER_FACILITY_PIKE] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
@@ -438,7 +438,7 @@ static const struct FrontierBrainMon sFrontierBrainsMons[][2][FRONTIER_PARTY_SIZ
             },
         },
     },
-    [FRONTIER_FACILITY_PYRAMID] =
+    [FRONTIER_FACILITY_PYRAMID] = // HP, ATK DEF, SPEED, SPATK, SPDEF
     {
         // Silver Symbol.
         {
