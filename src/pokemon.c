@@ -3147,7 +3147,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // Get defender hold item info
     if (defender->item != ITEM_NONE)
     {
-        if (defender->item == ITEM_ENIGMA_BERRY)
+        /*if (defender->item == ITEM_ENIGMA_BERRY)
         {
             defenderHoldEffect = gEnigmaBerries[battlerIdDef].holdEffect;
             defenderHoldEffectParam = gEnigmaBerries[battlerIdDef].holdEffectParam;
@@ -3156,16 +3156,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         {
             defenderHoldEffect = ItemId_GetHoldEffect(defender->item);
             defenderHoldEffectParam = ItemId_GetHoldEffectParam(defender->item);
-        }
+        }*/
         
         if (gBattleMoves[gCurrentMove].effect == EFFECT_KNOCK_OFF) //knock off 1.5x on success
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
+        if (defender->item == ITEM_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
             spDefense = (150 * spDefense) / 100;
-        if (defenderHoldEffect == HOLD_EFFECT_DEEP_SEA_SCALE && defender->species == SPECIES_CLAMPERL)
+        if (defender->item == ITEM_DEEP_SEA_SCALE && defender->species == SPECIES_CLAMPERL)
             spDefense *= 2;
-        if (defenderHoldEffect == HOLD_EFFECT_METAL_POWDER && defender->species == SPECIES_DITTO)
+        if (defender->item == ITEM_METAL_POWDER && defender->species == SPECIES_DITTO)
             defense *= 2;
     }
     // Get attacker hold item info   
@@ -5734,13 +5734,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
     u16 upperPersonality = personality >> 16;
     u8 holdEffect;
 
-    if (heldItem == ITEM_ENIGMA_BERRY)
+    /*if (heldItem == ITEM_ENIGMA_BERRY)
         holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
     else
-        holdEffect = ItemId_GetHoldEffect(heldItem);
+        holdEffect = ItemId_GetHoldEffect(heldItem);*/
 
     // Prevent evolution with Everstone, unless we're just viewing the party menu with an evolution item
-    if (holdEffect == HOLD_EFFECT_PREVENT_EVOLVE && mode != EVO_MODE_ITEM_CHECK)
+    if (heldItem == ITEM_EVERSTONE && mode != EVO_MODE_ITEM_CHECK)
         return SPECIES_NONE;
 
     switch (mode)
@@ -6156,7 +6156,6 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
 
-    if (heldItem == ITEM_ENIGMA_BERRY)
     {
         if (gMain.inBattle)
             holdEffect = gEnigmaBerries[0].holdEffect;
@@ -6166,7 +6165,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     else
     {
         holdEffect = ItemId_GetHoldEffect(heldItem);
-    }
+    }*/
 
     if (species && species != SPECIES_EGG)
     {
@@ -6196,7 +6195,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
         }
 
         mod = sFriendshipEventModifiers[event][friendshipLevel];
-        if (mod > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
+        if (mod > 0 && heldItem == ITEM_SOOTHE_BELL)
             // 50% increase, rounding down
             mod = (150 * mod) / 100;
 
@@ -6238,10 +6237,24 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
         if (totalEVs >= MAX_TOTAL_EVS)
             break;
 
-        if (CheckPartyHasHadPokerus(mon, 0))
-            multiplier = 2;
+        heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
+        /*if (heldItem == ITEM_ENIGMA_BERRY)
+        {
+            if (gMain.inBattle)
+                holdEffect = gEnigmaBerries[0].holdEffect;
+            else
+                holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+        }
         else
-            multiplier = 1;
+        {
+            holdEffect = ItemId_GetHoldEffect(heldItem);
+        }*/
+
+        multiplier = 1;
+        if (CheckPartyHasHadPokerus(mon, 0))
+            multiplier *= 2;
+        if (heldItem == ITEM_MACHO_BRACE)
+            multiplier *= 2;            
 
         switch (i)
         {
@@ -6264,22 +6277,6 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_SpDefense * multiplier;
             break;
         }
-
-        heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
-        if (heldItem == ITEM_ENIGMA_BERRY)
-        {
-            if (gMain.inBattle)
-                holdEffect = gEnigmaBerries[0].holdEffect;
-            else
-                holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-        }
-        else
-        {
-            holdEffect = ItemId_GetHoldEffect(heldItem);
-        }
-
-        if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
-            evIncrease *= 2;
 
         if (totalEVs + (s16)evIncrease > MAX_TOTAL_EVS)
             evIncrease = ((s16)evIncrease + MAX_TOTAL_EVS) - (totalEVs + evIncrease);
