@@ -1391,12 +1391,6 @@ static void TrySetBattleSeminarShow(void)
                                                     sideStatus, powerOverride,
                                                     0, gBattlerAttacker, gBattlerTarget);
 
-            if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
-                gBattleMoveDamage *= 2;
-                gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
-            if (gProtectStructs[gBattlerAttacker].helpingHand)
-                gBattleMoveDamage = gBattleMoveDamage * 150 / 100;
-
             moveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
             dmgByMove[i] = gBattleMoveDamage;
             if (dmgByMove[i] == 0 && !(moveResultFlags & MOVE_RESULT_NO_EFFECT))

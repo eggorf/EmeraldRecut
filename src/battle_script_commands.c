@@ -1322,12 +1322,6 @@ static void Cmd_damagecalc(void)
                                             gBattleStruct->dynamicMoveType, gBattlerAttacker, gBattlerTarget);
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
 
-    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
-        gBattleMoveDamage *= 2;
-        gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
-    if (gProtectStructs[gBattlerAttacker].helpingHand)
-        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-
     gBattlescriptCurrInstr++;
 }
 
@@ -1339,12 +1333,6 @@ void AI_CalcDmg(u8 attacker, u8 defender)
                                             gBattleStruct->dynamicMoveType, attacker, defender);
     gDynamicBasePower = 0;
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
-
-    if (gStatuses3[attacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
-        gBattleMoveDamage *= 2;
-        gStatuses3[attacker] &= ~STATUS3_CHARGED_UP;
-    if (gProtectStructs[attacker].helpingHand)
-        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 }
 
 static void ModulateDmgByType(u8 multiplier)
