@@ -991,18 +991,13 @@ static void Cmd_attackcanceler(void)
         }
     }
 
-    if (gSpecialStatuses[gBattlerTarget].lightningRodRedirected)
+    if (gSpecialStatuses[gBattlerTarget].Redirected)
     {
-        gSpecialStatuses[gBattlerTarget].lightningRodRedirected = FALSE;
-        gLastUsedAbility = ABILITY_LIGHTNING_ROD;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_TookAttack;
-        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
-    }
-    else if (gSpecialStatuses[gBattlerTarget].stormDrainRedirected)
-    {
-        gSpecialStatuses[gBattlerTarget].stormDrainRedirected = FALSE;
-        gLastUsedAbility = ABILITY_STORM_DRAIN;
+        gSpecialStatuses[gBattlerTarget].Redirected = FALSE;
+        if (gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+            gLastUsedAbility = ABILITY_LIGHTNING_ROD;
+        else
+            gLastUsedAbility = ABILITY_STORM_DRAIN;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_TookAttack;
         RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
@@ -1109,6 +1104,13 @@ static bool8 AccuracyCalcHelper(u16 move)
             (((gBattleWeather & B_WEATHER_RAIN) && gBattleMoves[move].effect == EFFECT_THUNDER) ||
             ((gBattleWeather & B_WEATHER_SNOW) && gBattleMoves[move].effect == EFFECT_BLIZZARD))) 
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW))
+    {
+        JumpIfMoveFailed(7, move);
+        return TRUE;
+    }
+
+    if ((gBattleMoves[move].type == TYPE_ELECTRIC && gBattleMons[gBattlerTarget].ability == ABILITY_LIGHTNING_ROD)
+        || (gBattleMoves[move].type == TYPE_WATER && gBattleMons[gBattlerTarget].ability == ABILITY_STORM_DRAIN))
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -1413,11 +1415,11 @@ static void Cmd_typecalc(void)
             {
                 // check type1
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[0])
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i), gCurrentMove, &gMoveResultFlags);
                 // check type2
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[1] &&
                     gBattleMons[gBattlerTarget].types[0] != gBattleMons[gBattlerTarget].types[1])
-                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
+                    ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i), gCurrentMove, &gMoveResultFlags);
             }
             i += 3;
         }

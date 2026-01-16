@@ -4056,10 +4056,25 @@ BattleScript_SpeedBoostActivates::
 	printstring STRINGID_PKMNRAISEDSPEED
 	waitmessage B_WAIT_TIME_LONG
 	end3
-
-BattleScript_AbsorbBuffAbilityActivates::
-	setstatchanger STAT_SPATK, 1, FALSE
-	goto BattleScript_EffectStatUpAfterAtkCanceler
+	
+BattleScript_MonMadeMoveUseless::
+	attackstring
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXMADEYINEFFECTIVE
+	waitmessage B_WAIT_TIME_LONG
+	end3
+@storm drain / lightning rod
+BattleScript_StatDrainActivates_PPLoss::
+	ppreduce
+BattleScript_StatDrainActivates::
+	attackstring
+	pause B_WAIT_TIME_SHORT
+	goto BattleScript_MoveEnd
+BattleScript_StatDrainBoost::
+	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printstring STRINGID_PKMNRAISEDSPATK
+	waitmessage B_WAIT_TIME_LONG
+	end3
 
 BattleScript_TraceActivates::
 	pause B_WAIT_TIME_SHORT
@@ -4187,29 +4202,6 @@ BattleScript_MoveHPDrain::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	printstring STRINGID_PKMNRESTOREDHPUSING
-	waitmessage B_WAIT_TIME_LONG
-	orbyte gMoveResultFlags, MOVE_RESULT_DOESNT_AFFECT_FOE
-	goto BattleScript_MoveEnd
-
-BattleScript_MoveStatDrain_PPLoss::
-	ppreduce
-BattleScript_MoveStatDrain::
-	attackstring
-	pause B_WAIT_TIME_SHORT
-	statbuffchange BS_TARGET | STAT_CHANGE_ALLOW_PTR, BattleScript_MoveStatDrain_Cont
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
-
-BattleScript_MoveStatDrain_Cont:
-	clearsemiinvulnerablebit
-	goto BattleScript_MoveEnd
-
-BattleScript_MonMadeMoveUseless_PPLoss::
-	ppreduce
-BattleScript_MonMadeMoveUseless::
-	attackstring
-	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNSXMADEYUSELESS
 	waitmessage B_WAIT_TIME_LONG
 	orbyte gMoveResultFlags, MOVE_RESULT_DOESNT_AFFECT_FOE
 	goto BattleScript_MoveEnd

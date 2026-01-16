@@ -78,8 +78,8 @@ static const u8 sGoNearCounterToEscapeFactor[] = {4, 4, 4, 4};
 void HandleAction_UseMove(void)
 {
     u8 side;
-    u8 var = 4;
-    u8 absorbingAbility = 0;
+    u8 redirectOrderNum = MAX_BATTLERS_COUNT;
+    u8 redirectAbility = 0;
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
 
@@ -171,36 +171,34 @@ void HandleAction_UseMove(void)
     {
         gBattlerTarget = gSideTimers[side].followmeTarget;
     }
-    //lightning rod
-    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-             && gSideTimers[side].followmeTimer == 0
-             && gBattleMoves[gCurrentMove].target != MOVE_TARGET_USER)
+    //lightning rod  / Storm drain
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) //double
+             && gSideTimers[side].followmeTimer == 0 //follow
+             && gBattleMoves[gCurrentMove].target != MOVE_TARGET_USER 
+             && gBattleMoves[gCurrentMove].target != MOVE_TARGET_FOES_AND_ALLY) //doesnt target self or all(discharge)
     {
-        if (gBattleMons[*(gBattleStruct->moveTarget + gBattlerAttacker)].ability != ABILITY_LIGHTNING_ROD
-             && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
-                absorbingAbility = ABILITY_LIGHTNING_ROD;
-        else if (gBattleMons[*(gBattleStruct->moveTarget + gBattlerAttacker)].ability != ABILITY_STORM_DRAIN
-             && gBattleMoves[gCurrentMove].type == TYPE_WATER)
-            absorbingAbility = ABILITY_STORM_DRAIN;
+        if (gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+            redirectAbility = ABILITY_LIGHTNING_ROD;
+        else if (gBattleMoves[gCurrentMove].type == TYPE_WATER)
+            redirectAbility = ABILITY_STORM_DRAIN;
 
-        if (absorbingAbility != 0)
+        if (redirectAbility != 0)
         {
-            side = GetBattlerSide(gBattlerAttacker);
             for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
             {
-                if (side != GetBattlerSide(gActiveBattler)
-                    && *(gBattleStruct->moveTarget + gBattlerAttacker) != gActiveBattler
-                    && gBattleMons[gActiveBattler].ability == absorbingAbility
-                    && GetBattlerTurnOrderNum(gActiveBattler) < var)
+                if (gActiveBattler != gBattlerAttacker //do not target self
+                    && gBattleMons[gActiveBattler].ability == redirectAbility //set target to mon with rod
+                    && GetBattlerTurnOrderNum(gActiveBattler) < redirectOrderNum) //set target to fastest rod user
                 {
-                    var = GetBattlerTurnOrderNum(gActiveBattler);
+                    redirectOrderNum = GetBattlerTurnOrderNum(gActiveBattler);
                 }
             }
-            if (var != 4)
+            if (redirectOrderNum != MAX_BATTLERS_COUNT && redirectOrderNum != GetBattlerTurnOrderNum(gBattlerTarget))
             {
-                gActiveBattler = gBattlerByTurnOrder[var];
+                gActiveBattler = gBattlerByTurnOrder[redirectOrderNum];
                 RecordAbilityBattle(gActiveBattler, gBattleMons[gActiveBattler].ability);
-                gSpecialStatuses[gActiveBattler].lightningRodRedirected = 1;
+                if (gBattleMons[gActiveBattler].ability == redirectAbility)
+                    gSpecialStatuses[gActiveBattler].Redirected = TRUE;
                 gBattlerTarget = gActiveBattler;
             }
         }
@@ -2615,48 +2613,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
             {
                 switch (gLastUsedAbility)
                 {
-                case ABILITY_STORM_DRAIN:
-                    
-                case ABILITY_LIGHTNING_ROD:
-                    if (moveType == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].target != (MOVE_TARGET_BOTH || MOVE_TARGET_FOES_AND_ALLY))
-                    {
-                        /*if (gBattleMons[battler].statStages[STAT_SPATK] < MAX_STAT_STAGE)
-                        BattleScriptPushCursorAndCallback(BattleScript_AbsorbBuffAbilityActivates);
-                        gBattleScripting.battler = battler;
-                        effect++;*/
-
-                        if (!gBattleMons[battler].statStages[STAT_SPATK] == MAX_STAT_STAGE)
-                        {
-                           if ((gProtectStructs[gBattlerAttacker].notFirstStrike))
-                               BattleScriptPushCursorAndCallback(BattleScript_MonMadeMoveUseless);
-                           else
-                               BattleScriptPushCursorAndCallback(BattleScript_MonMadeMoveUseless_PPLoss);
-                       }
-                       else
-                       {
-                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
-                                BattleScriptPushCursorAndCallback(BattleScript_MoveStatDrain);
-                            else
-                                BattleScriptPushCursorAndCallback(BattleScript_MoveStatDrain_PPLoss);
-
-                            SET_STATCHANGER(STAT_SPATK, 1, FALSE);
-                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_SPATK);
-                       }
-                       break;
-                    }
                 case ABILITY_VOLT_ABSORB:
-                    if (moveType == TYPE_ELECTRIC)
-                    {
-                        if (gProtectStructs[gBattlerAttacker].ppDeducted)
-                            gBattlescriptCurrInstr = BattleScript_MoveHPDrain;
-                        else
-                            gBattlescriptCurrInstr = BattleScript_MoveHPDrain_PPLoss;
-
-                        effect = 1;
-                    }
-                    break;
                 case ABILITY_WATER_ABSORB:
-                    if (moveType == TYPE_WATER)
+                    if (((gLastUsedAbility == ABILITY_WATER_ABSORB && moveType == TYPE_WATER) || (gLastUsedAbility == ABILITY_VOLT_ABSORB && moveType == TYPE_ELECTRIC))
+                        && gBattleMoves[gCurrentMove].target != (MOVE_TARGET_USER || MOVE_TARGET_FOES_AND_ALLY))
                     {
                         if (gProtectStructs[gBattlerAttacker].ppDeducted)
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain;
@@ -2669,52 +2629,66 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 case ABILITY_FLASH_FIRE:
                     if (moveType == TYPE_FIRE && !(gBattleMons[battler].status1 & STATUS1_FREEZE))
                     {
-                        if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
+                        if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE)) //if not boosted, assign
                         {
                             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_BOOST;
-                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
-                            else
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
-
                             gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_FLASH_FIRE;
-                            effect = 2;
+                            gBattleMons[battler].statStages[STAT_SPEED]++; //properly raises stat, no anim
                         }
-                        else
+                        else //attack always nullified, boost never removed. if already boosted, continue
                         {
                             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FLASH_FIRE_NO_BOOST;
-                            if (gProtectStructs[gBattlerAttacker].notFirstStrike)
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
-                            else
-                                gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
-
-                            effect = 2;
                         }
+                        if (gProtectStructs[gBattlerAttacker].ppDeducted)
+                            gBattlescriptCurrInstr = BattleScript_FlashFireBoost;
+                        else
+                            gBattlescriptCurrInstr = BattleScript_FlashFireBoost_PPLoss;
+                        effect = 2;
                     }
                     break;
-                }
-                if (effect == 1)
-                {
-                    if (gBattleMons[battler].maxHP == gBattleMons[battler].hp)
+                case ABILITY_LIGHTNING_ROD:
+                case ABILITY_STORM_DRAIN:
+                    if (((gLastUsedAbility == ABILITY_STORM_DRAIN && moveType == TYPE_WATER) || (gLastUsedAbility == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC))
+                        && (gBattleMoves[gCurrentMove].target != MOVE_TARGET_USER) 
+                        && (gBattleMoves[gCurrentMove].target != MOVE_TARGET_FOES_AND_ALLY))
                     {
-                        if ((gProtectStructs[gBattlerAttacker].ppDeducted))
-                            gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless;
+                        if (gProtectStructs[gBattlerAttacker].ppDeducted)
+                            gBattlescriptCurrInstr = BattleScript_StatDrainActivates;
                         else
-                            gBattlescriptCurrInstr = BattleScript_MonMadeMoveUseless_PPLoss;
+                            gBattlescriptCurrInstr = BattleScript_StatDrainActivates_PPLoss;
+                        effect = 1;
                     }
-                    else
-                    {
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
-                        gBattleMoveDamage *= -1;
-                    }
+                    break;
                 }
             }
             break;
         case ABILITYEFFECT_ON_DAMAGE: // Contact abilities and Color Change
             switch (gLastUsedAbility)
             {
+            case ABILITY_LIGHTNING_ROD:
+            case ABILITY_STORM_DRAIN:
+                if (((gLastUsedAbility == ABILITY_STORM_DRAIN && moveType == TYPE_WATER) || (gLastUsedAbility == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)) 
+                && (gBattleMoves[gCurrentMove].target != MOVE_TARGET_USER) 
+                && (gBattleMoves[gCurrentMove].target != MOVE_TARGET_FOES_AND_ALLY))
+                {
+                    if (gBattleMons[battler].statStages[STAT_SPATK] < MAX_STAT_STAGE)
+                    {
+                        gBattleMons[battler].statStages[STAT_SPATK]++;
+                        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPATK;
+                        gBattleScripting.animArg2 = 0;
+
+                        BattleScriptPushCursorAndCallback(BattleScript_StatDrainBoost);
+                        gBattleScripting.battler = battler;
+                        effect++;
+                    }
+                    else
+                    {
+                        BattleScriptPushCursorAndCallback(BattleScript_MonMadeMoveUseless);
+                        gBattleScripting.battler = battler;
+                        effect++;
+                    }
+                }
+                break;
             case ABILITY_COLOR_CHANGE:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                  && move != MOVE_STRUGGLE
@@ -3788,6 +3762,8 @@ u8 GetMoveTarget(u16 move, u8 setTarget)
     u8 targetBattler = 0;
     u8 moveTarget;
     u8 side;
+    u16 redirectAbililty;
+    u16 battlerAbilityOnField;
 
     if (setTarget != NO_TARGET_OVERRIDE)
         moveTarget = setTarget - 1;
@@ -3809,13 +3785,20 @@ u8 GetMoveTarget(u16 move, u8 setTarget)
             {
                 targetBattler = Random() % gBattlersCount;
             } while (targetBattler == gBattlerAttacker || side == GetBattlerSide(targetBattler) || gAbsentBattlerFlags & gBitTable[targetBattler]);
-            if (gBattleMoves[move].type == TYPE_ELECTRIC
-                && AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_LIGHTNING_ROD, 0, 0)
-                && gBattleMons[targetBattler].ability != ABILITY_LIGHTNING_ROD)
-            {
-                targetBattler ^= BIT_FLANK;
+            
+            battlerAbilityOnField = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gBattlerAttacker, ABILITY_LIGHTNING_ROD, 0, 0);
+            if (gBattleMoves[move].type == TYPE_ELECTRIC && battlerAbilityOnField > 0)
+                redirectAbililty = ABILITY_LIGHTNING_ROD;
+
+            battlerAbilityOnField = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gBattlerAttacker, ABILITY_STORM_DRAIN, 0, 0);
+            if (gBattleMoves[move].type == TYPE_WATER && battlerAbilityOnField > 0)
+                redirectAbililty = ABILITY_STORM_DRAIN;
+
+            if (gBattleMons[targetBattler].ability != redirectAbililty)
+            {    
+                targetBattler = battlerAbilityOnField - 1;
                 RecordAbilityBattle(targetBattler, gBattleMons[targetBattler].ability);
-                gSpecialStatuses[targetBattler].lightningRodRedirected = 1;
+                gSpecialStatuses[targetBattler].Redirected = TRUE;
             }
         }
         break;

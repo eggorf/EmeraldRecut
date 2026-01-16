@@ -129,8 +129,7 @@ struct ProtectStruct
 struct SpecialStatus
 {
     u32 statLowered:1;
-    u32 lightningRodRedirected:1;
-    u32 stormDrainRedirected:1;
+    u32 Redirected:1;
     u32 restoredBattlerSprite: 1;
     u32 intimidatedMon:1;
     u32 traced:1;
