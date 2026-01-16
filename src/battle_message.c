@@ -411,10 +411,6 @@ static const u8 sText_WildPkmnPrefix[] = _("Wild ");
 static const u8 sText_FoePkmnPrefix[] = _("Foe ");
 static const u8 sText_FoePkmnPrefix2[] = _("Foe");
 static const u8 sText_AllyPkmnPrefix[] = _("Ally");
-static const u8 sText_FoePkmnPrefix3[] = _("Foe");
-static const u8 sText_AllyPkmnPrefix2[] = _("Ally");
-static const u8 sText_FoePkmnPrefix4[] = _("Foe");
-static const u8 sText_AllyPkmnPrefix3[] = _("Ally");
 static const u8 sText_AttackerUsedX[] = _("{B_ATK_NAME_WITH_PREFIX} used\n{B_BUFF2}");
 static const u8 sText_ExclamationMark[] = _("!");
 static const u8 sText_ExclamationMark2[] = _("!");
@@ -2622,41 +2618,21 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 else
                     toCpy = sText_Someones;
                 break;
-            case B_TXT_ATK_PREFIX2:
-                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-                    toCpy = sText_AllyPkmnPrefix2;
-                else
-                    toCpy = sText_FoePkmnPrefix3;
-                break;
-            case B_TXT_DEF_PREFIX2:
-                if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
-                    toCpy = sText_AllyPkmnPrefix2;
-                else
-                    toCpy = sText_FoePkmnPrefix3;
-                break;
             case B_TXT_ATK_PREFIX1:
+            case B_TXT_ATK_PREFIX2:
+            case B_TXT_ATK_PREFIX3:
                 if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
                     toCpy = sText_AllyPkmnPrefix;
                 else
                     toCpy = sText_FoePkmnPrefix2;
                 break;
             case B_TXT_DEF_PREFIX1:
+            case B_TXT_DEF_PREFIX2:
+            case B_TXT_DEF_PREFIX3:
                 if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
                     toCpy = sText_AllyPkmnPrefix;
                 else
                     toCpy = sText_FoePkmnPrefix2;
-                break;
-            case B_TXT_ATK_PREFIX3:
-                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-                    toCpy = sText_AllyPkmnPrefix3;
-                else
-                    toCpy = sText_FoePkmnPrefix4;
-                break;
-            case B_TXT_DEF_PREFIX3:
-                if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
-                    toCpy = sText_AllyPkmnPrefix3;
-                else
-                    toCpy = sText_FoePkmnPrefix4;
                 break;
             case B_TXT_TRAINER2_CLASS:
                 if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)

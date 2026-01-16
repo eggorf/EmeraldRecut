@@ -1580,7 +1580,7 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     if (gBattlerAttacker != gBattlersCount)
                     {
-                        effect = 2;  // a Pokémon was awaken
+                        effect = 2;  // a Pokémon was awoken
                         break;
                     }
                     else
@@ -1678,11 +1678,6 @@ u8 DoBattlerEndTurnEffects(void)
                     gStatuses3[gActiveBattler] -= STATUS3_ALWAYS_HITS_TURN(1);
                 gBattleStruct->turnEffectsTracker++;
                 break;
-            /*case ENDTURN_CHARGE:  // charge effect removed after applying damage bonus
-                if (gStatuses3[gActiveBattler] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC && gBattleMoves[gCurrentMove].power > 0)
-                    gStatuses3[gActiveBattler] &= ~STATUS3_CHARGED_UP;
-                gBattleStruct->turnEffectsTracker++;
-                break;*/
             case ENDTURN_TAUNT:  // taunt
                 if (gDisableStructs[gActiveBattler].tauntTimer)
                     gDisableStructs[gActiveBattler].tauntTimer--;
@@ -3782,7 +3777,7 @@ void ClearFuryCutterDestinyBondGrudge(u8 battlerId)
     gStatuses3[battlerId] &= ~STATUS3_GRUDGE;
 }
 
-void HandleAction_RunBattleScript(void) // identical to RunBattleScriptCommands
+void HandleAction_RunBattleScript(void)
 {
     if (gBattleControllerExecFlags == 0)
         gBattleScriptingCommandsTable[*gBattlescriptCurrInstr]();
