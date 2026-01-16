@@ -3855,6 +3855,7 @@ static void TryDoEventsBeforeFirstTurn(void)
     s32 i;
     s32 j;
     u8 effect = 0;
+    u16 OrderBattler;
 
     if (gBattleControllerExecFlags)
         return;
@@ -3881,14 +3882,29 @@ static void TryDoEventsBeforeFirstTurn(void)
     // Check all switch in abilities happening from the fastest mon to slowest.
     while (gBattleStruct->switchInAbilitiesCounter < gBattlersCount)
     {
-        if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gBattlerByTurnOrder[gBattleStruct->switchInAbilitiesCounter], 0, 0, 0) != 0)
+        OrderBattler = gBattlerByTurnOrder[gBattleStruct->switchInAbilitiesCounter];
+       
+        if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, OrderBattler, 0, 0, 0) != 0) //if switch in ability
+            //gBattleScripting.battler = battler;    
             effect++;
-
+        if ((AbilityBattleEffects(ABILITYEFFECT_IMMUNITY, OrderBattler, 0, 0, 0) != 0) //immunity and currently statused
+            && ((gBattleMons[OrderBattler].status1 & STATUS1_ANY)
+                || gBattleMons[OrderBattler].status2 & (STATUS2_CONFUSION || STATUS2_INFATUATION)))
+        {
+            //BattleScriptPushCursorAndCallback(BattleScript_AbilityCuredStatus);
+            //BattleScriptExecute(BattleScript_AbilityCuredStatus);
+            effect++;
+        }
+        //gBattleScripting.battler++;
+        //gActiveBattler--;
+        
         gBattleStruct->switchInAbilitiesCounter++;
 
         if (effect != 0)
             return;
     }
+    //if (AbilityBattleEffects(ABILITYEFFECT_IMMUNITY, 0, 0, 0, 0) != 0)
+        //return;
     if (AbilityBattleEffects(ABILITYEFFECT_INTIMIDATE1, 0, 0, 0, 0) != 0)
         return;
     if (AbilityBattleEffects(ABILITYEFFECT_TRACE, 0, 0, 0, 0) != 0)
