@@ -50,8 +50,6 @@ enum {
 static u16 FeebasRandom(void);
 static void FeebasSeedRng(u16 seed);
 static bool8 IsWildLevelAllowedByRepel(u8 level);
-static void ApplyFluteEncounterRateMod(u32 *encRate);
-static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
 static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildMon, u8 type, u8 ability, u8 *monIndex, u32 size);
 static bool8 IsAbilityAllowingEncounter(u8 level);
 
@@ -497,21 +495,23 @@ static bool8 WildEncounterCheck(u32 encounterRate, bool8 ignoreAbility)
     encounterRate *= 16;
     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
         encounterRate = encounterRate * 80 / 100;
-    ApplyFluteEncounterRateMod(&encounterRate);
-    ApplyCleanseTagEncounterRateMod(&encounterRate);
+    if (FlagGet(FLAG_SYS_ENC_UP_ITEM) == TRUE) //was ApplyFluteEncounterRateMod
+        encounterRate += encounterRate / 2;
+    else if (FlagGet(FLAG_SYS_ENC_DOWN_ITEM) == TRUE)
+        encounterRate = encounterRate / 2;
+    if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG) //was ApplyCleanseTagEncounterRateMod
+        encounterRate = encounterRate * 2 / 3;
+
     if (!ignoreAbility && !GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
     {
         u32 ability = GetMonAbility(&gPlayerParty[0]);
 
-        if (ability == ABILITY_STENCH && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
-            encounterRate = encounterRate * 3 / 4;
-        else if (ability == ABILITY_STENCH)
-            encounterRate /= 2;
-        else if (ability == ABILITY_ILLUMINATE)
-            encounterRate *= 2;
-        else if (ability == ABILITY_WHITE_SMOKE)
-            encounterRate /= 2;
-        else if (ability == ABILITY_ARENA_TRAP)
+        if (ability == (ABILITY_STENCH | ABILITY_WHITE_SMOKE))
+            if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+                encounterRate = encounterRate * 3 / 4;
+            else
+                encounterRate /= 2;
+        else if (ability == (ABILITY_ILLUMINATE | ABILITY_ARENA_TRAP))
             encounterRate *= 2;
         else if (ability == ABILITY_SAND_VEIL && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
             encounterRate /= 2;
@@ -935,20 +935,6 @@ static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildM
     else if (Random() % 2 != 0)
         return FALSE;
     return TryGetRandomWildMonIndexByType(wildMon, type, size, monIndex);
-}
-
-static void ApplyFluteEncounterRateMod(u32 *encRate)
-{
-    if (FlagGet(FLAG_SYS_ENC_UP_ITEM) == TRUE)
-        *encRate += *encRate / 2;
-    else if (FlagGet(FLAG_SYS_ENC_DOWN_ITEM) == TRUE)
-        *encRate = *encRate / 2;
-}
-
-static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
-{
-    if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG)
-        *encRate = *encRate * 2 / 3;
 }
 
 bool8 StandardWildEncounter_Debug(void)
