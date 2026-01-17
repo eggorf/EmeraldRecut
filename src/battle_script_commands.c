@@ -2367,7 +2367,7 @@ void SetMoveEffect(bool8 primary, u8 certain)
             statusChanged = TRUE;
             break;
         case STATUS1_BURN:
-            if (gBattleMons[gEffectBattler].ability == (ABILITY_WATER_VEIL || ABILITY_DAMP)
+            if (gBattleMons[gEffectBattler].ability == (ABILITY_DAMP)
                 && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 gLastUsedAbility = gBattleMons[gEffectBattler].ability;
@@ -2398,7 +2398,7 @@ void SetMoveEffect(bool8 primary, u8 certain)
             }
             if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_FIRE))
                 break;
-            if (gBattleMons[gEffectBattler].ability == (ABILITY_WATER_VEIL || ABILITY_DAMP))
+            if (gBattleMons[gEffectBattler].ability == (ABILITY_DAMP))
                 break;
             if (gBattleMons[gEffectBattler].status1)
                 break;
@@ -9230,7 +9230,7 @@ static void Cmd_tryswapitems(void)
 static void Cmd_trycopyability(void)
 {
     if (gBattleMons[gBattlerTarget].ability != ABILITY_NONE
-        && gBattleMons[gBattlerTarget].ability != ABILITY_WONDER_GUARD)
+        && gBattleMons[gBattlerTarget].ability != (ABILITY_WONDER_GUARD || ABILITY_IMPOSTER))
     {
         gBattleMons[gBattlerAttacker].ability = gBattleMons[gBattlerTarget].ability;
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;

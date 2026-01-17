@@ -3158,7 +3158,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             defenderHoldEffectParam = ItemId_GetHoldEffectParam(defender->item);
         }*/
         
-        if (gBattleMoves[gCurrentMove].effect == EFFECT_KNOCK_OFF) //knock off 1.5x on success
+        if (gBattleMoves[gCurrentMove].effect == EFFECT_KNOCK_OFF) //knock off 1.5x when holding item
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
         if (defender->item == ITEM_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))

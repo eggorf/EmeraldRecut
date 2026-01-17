@@ -4,7 +4,7 @@ static const u8 sDrizzleDescription[] = _("Summons rain in battle.");
 static const u8 sSpeedBoostDescription[] = _("Gradually boosts SPEED.");
 static const u8 sBattleArmorDescription[] = _("Blocks critical hits.");
 static const u8 sSturdyDescription[] = _("Negates 1-hit KO attacks.");
-static const u8 sDampDescription[] = _("Prevents self-destruction.");
+static const u8 sDampDescription[] = _("Prevents burns & explosions.");
 static const u8 sLimberDescription[] = _("Prevents paralysis.");
 static const u8 sSandVeilDescription[] = _("Ups evasion in a sandstorm.");
 static const u8 sStaticDescription[] = _("Paralyzes on contact.");
@@ -74,8 +74,9 @@ static const u8 sVitalSpiritDescription[] = _("Prevents sleep.");
 static const u8 sWhiteSmokeDescription[] = _("Prevents ability reduction.");
 static const u8 sPurePowerDescription[] = _("Raises ATTACK.");
 static const u8 sShellArmorDescription[] = _("Blocks critical hits.");
-static const u8 sCacophonyDescription[] = _("Avoids sound-based moves.");
+static const u8 sCacophonyDescription[] = _("Avoids sound-based moves."); //unused
 static const u8 sAirLockDescription[] = _("Negates weather effects.");
+static const u8 sImposterDescription[] = _("Transforms on switch in.");
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
@@ -155,8 +156,9 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_WHITE_SMOKE] = _("WHITE SMOKE"),
     [ABILITY_PURE_POWER] = _("PURE POWER"),
     [ABILITY_SHELL_ARMOR] = _("SHELL ARMOR"),
-    [ABILITY_CACOPHONY] = _("CACOPHONY"),
+    [ABILITY_CACOPHONY] = _("CACOPHONY"), //unused
     [ABILITY_AIR_LOCK] = _("AIR LOCK"),
+    [ABILITY_IMPOSTER] = _("IMPOSTER"),
 };
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
@@ -237,6 +239,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_WHITE_SMOKE] = sWhiteSmokeDescription,
     [ABILITY_PURE_POWER] = sPurePowerDescription,
     [ABILITY_SHELL_ARMOR] = sShellArmorDescription,
-    [ABILITY_CACOPHONY] = sCacophonyDescription,
+    [ABILITY_CACOPHONY] = sCacophonyDescription,//unused
     [ABILITY_AIR_LOCK] = sAirLockDescription,
+    [ABILITY_IMPOSTER] = sImposterDescription,
 };

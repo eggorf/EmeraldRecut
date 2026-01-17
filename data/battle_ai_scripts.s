@@ -572,7 +572,7 @@ AI_CBM_Torment:
 
 AI_CBM_WillOWisp:
 	get_ability AI_TARGET
-	if_equal ABILITY_WATER_VEIL, Score_Minus30
+	if_equal ABILITY_DAMP, Score_Minus30
 	if_status AI_TARGET, STATUS1_ANY, Score_Minus30
 	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus30
 	if_side_affecting AI_TARGET, SIDE_STATUS_SAFEGUARD, Score_Minus30
@@ -2640,8 +2640,6 @@ AI_DoubleBattle:
 	get_curr_move_type
 	if_move MOVE_EARTHQUAKE, AI_DoubleBattleAllHittingGroundMove
 	if_move MOVE_MAGNITUDE, AI_DoubleBattleAllHittingGroundMove
-	if_equal TYPE_ELECTRIC, AI_DoubleBattleElectricMove
-	if_equal TYPE_FIRE, AI_DoubleBattleFireMove
 	get_ability AI_USER
 	if_not_equal ABILITY_GUTS, AI_DoubleBattleCheckUserStatus
 	if_has_move AI_USER_PARTNER, MOVE_HELPING_HAND, AI_DoubleBattlePartnerHasHelpingHand
@@ -2679,25 +2677,6 @@ AI_DoubleBattleSkillSwap:
 	if_equal ABILITY_SHADOW_TAG, Score_Plus2
 	if_equal ABILITY_PURE_POWER, Score_Plus2
 	end
-
-AI_DoubleBattleElectricMove:
-	if_no_ability AI_TARGET_PARTNER, ABILITY_LIGHTNING_ROD, AI_DoubleBattleElectricMoveEnd
-	score -10
-	if_no_type AI_TARGET_PARTNER, TYPE_GROUND, AI_DoubleBattleElectricMoveEnd
-	score -8
-AI_DoubleBattleElectricMoveEnd:
-	end
-
-AI_DoubleBattleWaterMove:
-	if_no_ability AI_TARGET_PARTNER, ABILITY_STORM_DRAIN, AI_DoubleBattleElectricMoveEnd
-	score -10
-
-AI_DoubleBattleFireMove:
-	if_flash_fired AI_USER, AI_DoubleBattleFireMove2
-	end
-
-AI_DoubleBattleFireMove2:
-	goto Score_Plus1
 
 AI_TryOnAlly:
 	get_how_powerful_move_is
