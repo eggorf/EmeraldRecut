@@ -3123,6 +3123,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u16 atkCategory;
     u16 defCategory;
 
+    u16 plusCount;
+    u16 minusCount;
+
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
     else
@@ -3273,7 +3276,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //Abilities
         if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
             spAttack /= 2;
-        if (attacker->ability == (ABILITY_PLUS || ABILITY_MINUS) && (AbilityBattleEffects(ABILITYEFFECT_COUNT_BATTLER_SIDE, attacker, ABILITY_PLUS, 0, 0) + AbilityBattleEffects(ABILITYEFFECT_COUNT_BATTLER_SIDE, attacker, ABILITY_MINUS, 0, 0) == 2))
+        if ((attacker->ability == ABILITY_POLARITY) && (AbilityBattleEffects(ABILITYEFFECT_COUNT_BATTLER_SIDE, battlerIdAtk, ABILITY_POLARITY, 0, 0) > 1))
             spAttack = (150 * spAttack) / 100;
         if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
             spAttack = (150 * spAttack) / 100;
