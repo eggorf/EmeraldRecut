@@ -3123,9 +3123,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u16 atkCategory;
     u16 defCategory;
 
-    u16 plusCount;
-    u16 minusCount;
-
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
     else
