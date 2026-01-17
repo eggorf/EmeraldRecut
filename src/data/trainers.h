@@ -558,7 +558,7 @@ const struct Trainer gTrainers[] = {
         .party = NO_ITEM_CUSTOM_MOVES(sParty_Dusty1),
     },
 
-    [TRAINER_CHIP] =
+    [TRAINER_CHIP] = //debug test
     {
         .trainerClass = TRAINER_CLASS_RUIN_MANIAC,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_HIKER,
