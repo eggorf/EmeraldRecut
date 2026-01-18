@@ -1116,6 +1116,12 @@ static bool8 AccuracyCalcHelper(u16 move)
         return TRUE;
     }
 
+    if (gBattleMoves[move].effect == EFFECT_TOXIC &&  IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_POISON))
+    {
+        JumpIfMoveFailed(7, move);
+        return TRUE;
+    }
+
     return FALSE;
 }
 

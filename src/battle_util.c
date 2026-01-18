@@ -3178,10 +3178,12 @@ enum
 };
 
 #define TRY_EAT_CONFUSE_BERRY(flavor)                                                       \
-    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / 4 && !moveTurn)         \
+    if (gBattleMons[battlerId].ability == ABILITY_GLUTTONY)                                 \
+                    battlerHoldEffectParam = 2;                                             \
+    if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam && !moveTurn)         \
     {                                                                                       \
         PREPARE_FLAVOR_BUFFER(gBattleTextBuff1, flavor);                                    \
-        gBattleMoveDamage = gBattleMons[battlerId].maxHP / battlerHoldEffectParam;          \
+        gBattleMoveDamage = gBattleMons[battlerId].maxHP / 3;                               \
         if (gBattleMoveDamage == 0)                                                         \
             gBattleMoveDamage = 1;                                                          \
         if (gBattleMons[battlerId].hp + gBattleMoveDamage > gBattleMons[battlerId].maxHP)   \
@@ -3195,6 +3197,8 @@ enum
     }
 
 #define TRY_EAT_STAT_UP_BERRY(stat)                                                         \
+    if (gBattleMons[battlerId].ability == ABILITY_GLUTTONY)                                 \
+                    battlerHoldEffectParam = 2;                                             \
     if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam  \
     && !moveTurn && gBattleMons[battlerId].statStages[stat] < MAX_STAT_STAGE)               \
     {                                                                                       \
@@ -3289,7 +3293,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
             case HOLD_EFFECT_RESTORE_HP:
                 if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / 2 && !moveTurn)
                 {
-                    if (gLastUsedItem != ITEM_SITRUS_BERRY)
+                    if (gLastUsedItem != ITEM_SITRUS_BERRY) //oran
                         gBattleMoveDamage = battlerHoldEffectParam;
                     else //sitrus 25%
                         gBattleMoveDamage = gBattleMons[battlerId].maxHP / battlerHoldEffectParam;
@@ -3409,6 +3413,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 TRY_EAT_STAT_UP_BERRY(STAT_SPDEF);
                 break;
             case HOLD_EFFECT_CRITICAL_UP:
+                if (gBattleMons[battlerId].ability == ABILITY_GLUTTONY)
+                    battlerHoldEffectParam = 2;
                 if (gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam && !moveTurn
                     && !(gBattleMons[battlerId].status2 & STATUS2_FOCUS_ENERGY))
                 {
@@ -3418,6 +3424,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 }
                 break;
             case HOLD_EFFECT_RANDOM_STAT_UP:
+                if (gBattleMons[battlerId].ability == ABILITY_GLUTTONY)
+                    battlerHoldEffectParam = 2;
                 if (!moveTurn && gBattleMons[battlerId].hp <= gBattleMons[battlerId].maxHP / battlerHoldEffectParam)
                 {
                     for (i = 0; i < NUM_STATS - 1; i++)
