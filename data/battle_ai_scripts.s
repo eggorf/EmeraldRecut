@@ -208,7 +208,7 @@ AI_CheckBadMove_CheckEffect:
 	if_effect EFFECT_STOCKPILE, AI_CBM_Stockpile
 	if_effect EFFECT_SPIT_UP, AI_CBM_SpitUpAndSwallow
 	if_effect EFFECT_SWALLOW, AI_CBM_SpitUpAndSwallow
-	if_effect EFFECT_SNOW, AI_CBM_Snow
+	if_effect EFFECT_SNOWSCAPE, AI_CBM_Snow
 	if_effect EFFECT_TORMENT, AI_CBM_Torment
 	if_effect EFFECT_FLATTER, AI_CBM_Confuse
 	if_effect EFFECT_WILL_O_WISP, AI_CBM_WillOWisp
@@ -773,7 +773,7 @@ AI_CheckViability:
 	if_effect EFFECT_FAKE_OUT, AI_CV_FakeOut
 	if_effect EFFECT_SPIT_UP, AI_CV_SpitUp
 	if_effect EFFECT_SWALLOW, AI_CV_Heal
-	if_effect EFFECT_SNOW, AI_CV_Snow
+	if_effect EFFECT_SNOWSCAPE, AI_CV_Snow
 	if_effect EFFECT_FLATTER, AI_CV_Flatter
 	if_effect EFFECT_MEMENTO, AI_CV_SelfKO
 	if_effect EFFECT_FACADE, AI_CV_Facade
@@ -1694,7 +1694,7 @@ AI_CV_Encore_EncouragedMovesToEncore:
 	.byte EFFECT_STOCKPILE
 	.byte EFFECT_SPIT_UP
 	.byte EFFECT_SWALLOW
-	.byte EFFECT_SNOW
+	.byte EFFECT_SNOWSCAPE
 	.byte EFFECT_TORMENT
 	.byte EFFECT_WILL_O_WISP
 	.byte EFFECT_FOLLOW_ME

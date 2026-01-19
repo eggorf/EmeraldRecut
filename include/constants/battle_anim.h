@@ -270,7 +270,7 @@
 #define ANIM_TAG_METAL_SOUND_WAVES          (ANIM_SPRITES_START + 260)
 #define ANIM_TAG_FLYING_DIRT                (ANIM_SPRITES_START + 261)
 #define ANIM_TAG_ICICLE_SPEAR               (ANIM_SPRITES_START + 262)
-#define ANIM_TAG_HAIL                       (ANIM_SPRITES_START + 263)
+#define ANIM_TAG_SNOW                       (ANIM_SPRITES_START + 263)
 #define ANIM_TAG_GLOWY_RED_ORB              (ANIM_SPRITES_START + 264)
 #define ANIM_TAG_GLOWY_GREEN_ORB            (ANIM_SPRITES_START + 265)
 #define ANIM_TAG_GREEN_SPIKE                (ANIM_SPRITES_START + 266)
@@ -367,7 +367,7 @@
 #define B_ANIM_RAIN_CONTINUES           10
 #define B_ANIM_SUN_CONTINUES            11
 #define B_ANIM_SANDSTORM_CONTINUES      12
-#define B_ANIM_HAIL_CONTINUES           13
+#define B_ANIM_SNOW_CONTINUES           13
 #define B_ANIM_LEECH_SEED_DRAIN         14
 #define B_ANIM_MON_HIT                  15
 #define B_ANIM_ITEM_STEAL               16

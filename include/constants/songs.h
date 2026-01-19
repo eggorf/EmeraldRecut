@@ -246,7 +246,7 @@
 #define SE_M_STAT_INCREASE          239 // SE_W287
 #define SE_M_HEAT_WAVE              240 // SE_W257
 #define SE_M_UPROAR                 241 // SE_W253
-#define SE_M_HAIL                   242 // SE_W258
+#define SE_M_SNOW                   242 // SE_W258
 #define SE_M_COSMIC_POWER           243 // SE_W322
 #define SE_M_TEETER_DANCE           244 // SE_W298
 #define SE_M_STAT_DECREASE          245 // SE_W287B

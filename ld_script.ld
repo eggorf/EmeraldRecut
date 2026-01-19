@@ -953,7 +953,7 @@ SECTIONS {
         sound/songs/se_m_stat_increase.o(.rodata);
         sound/songs/se_m_heat_wave.o(.rodata);
         sound/songs/se_m_uproar.o(.rodata);
-        sound/songs/se_m_hail.o(.rodata);
+        sound/songs/se_m_snow.o(.rodata);
         sound/songs/se_m_cosmic_power.o(.rodata);
         sound/songs/se_m_teeter_dance.o(.rodata);
         sound/songs/se_m_stat_decrease.o(.rodata);

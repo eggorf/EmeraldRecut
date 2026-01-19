@@ -1358,7 +1358,7 @@ u8 DoFieldEndTurnEffects(void)
                     gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
                 }
 
-                gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
+                gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SNOW;
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 effect++;
@@ -2456,7 +2456,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
 						if (!(gBattleWeather & B_WEATHER_SNOW))
 						{
 							gBattleWeather = B_WEATHER_SNOW;
-							gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
+							gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
 							gBattleScripting.battler = battler;
 							effect++;
 						}
@@ -2492,6 +2492,15 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 {
                     gBattleWeather = B_WEATHER_SUN;
                     BattleScriptPushCursorAndCallback(BattleScript_DroughtActivates);
+                    gBattleScripting.battler = battler;
+                    effect++;
+                }
+                break;
+            case ABILITY_SNOW_WARNING:
+                if (!(gBattleWeather & B_WEATHER_SNOW_TEMPORARY))
+                {
+                    gBattleWeather = B_WEATHER_SNOW;
+                    BattleScriptPushCursorAndCallback(BattleScript_SnowWarningActivates);
                     gBattleScripting.battler = battler;
                     effect++;
                 }

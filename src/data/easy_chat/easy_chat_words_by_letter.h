@@ -659,7 +659,7 @@ const u16 gEasyChatWordsByLetter_H[] = {
     EC_WORD_HABIT,
     EC_WORD_HAH,
     EC_WORD_HAHAHA,
-    EC_MOVE(SNOW),
+    EC_MOVE(SNOWSCAPE),
     EC_WORD_HALL_OF_FAME,
     EC_WORD_HAPPENING,
     EC_WORD_HAPPILY,

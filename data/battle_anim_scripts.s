@@ -400,7 +400,7 @@ gBattleAnims_General::
 	.4byte General_Rain                     @ B_ANIM_RAIN_CONTINUES
 	.4byte General_Sun                      @ B_ANIM_SUN_CONTINUES
 	.4byte General_Sandstorm                @ B_ANIM_SANDSTORM_CONTINUES
-	.4byte General_Hail                     @ B_ANIM_HAIL_CONTINUES
+	.4byte General_Snow                     @ B_ANIM_SNOW_CONTINUES
 	.4byte General_LeechSeedDrain           @ B_ANIM_LEECH_SEED_DRAIN
 	.4byte General_MonHit                   @ B_ANIM_MON_HIT
 	.4byte General_ItemSteal                @ B_ANIM_ITEM_STEAL
@@ -3480,14 +3480,14 @@ Move_HEAT_WAVE:
 	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 60, 2560, 96, 1
 	end
 
-@ Also used by Hail weather
+@ Also used by Snow weather
 Move_SNOW:
-	loadspritegfx ANIM_TAG_HAIL
+	loadspritegfx ANIM_TAG_SNOW
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 3, 0, 6, RGB_BLACK
 	waitforvisualfinish
-	createvisualtask AnimTask_Hail, 5
-	loopsewithpan SE_M_HAIL, 0, 8, 10
+	createvisualtask AnimTask_Snow, 5
+	loopsewithpan SE_M_SNOW, 0, 8, 10
 	waitforvisualfinish
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 3, 6, 0, RGB_BLACK
 	end
@@ -8502,7 +8502,7 @@ Move_SHEER_COLD:
 	splitbgprio ANIM_TARGET
 	setalpha 12, 8
 	createvisualtask AnimTask_FrozenIceCube, 2
-	waitplaysewithpan SE_M_HAIL, SOUND_PAN_TARGET, 17
+	waitplaysewithpan SE_M_SNOW, SOUND_PAN_TARGET, 17
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
 	blendoff
@@ -9849,16 +9849,16 @@ WeatherBallSandstorm:
 	waitforvisualfinish
 	end
 WeatherBallIce:
-	loadspritegfx ANIM_TAG_HAIL
+	loadspritegfx ANIM_TAG_SNOW
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	createsprite gWeatherBallIceDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 25, -40, 20
-	playsewithpan SE_M_HAIL, SOUND_PAN_TARGET
+	playsewithpan SE_M_SNOW, SOUND_PAN_TARGET
 	delay 10
 	createsprite gWeatherBallIceDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 25, 40, 0
-	playsewithpan SE_M_HAIL, SOUND_PAN_TARGET
+	playsewithpan SE_M_SNOW, SOUND_PAN_TARGET
 	delay 10
 	createsprite gWeatherBallIceDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 25, 0, 0
-	playsewithpan SE_M_HAIL, SOUND_PAN_TARGET
+	playsewithpan SE_M_SNOW, SOUND_PAN_TARGET
 	waitforvisualfinish
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 8, 1
 	playsewithpan SE_M_ICY_WIND, SOUND_PAN_TARGET
@@ -10215,7 +10215,7 @@ Status_Freeze:
 	loadspritegfx ANIM_TAG_ICE_CUBE
 	monbg ANIM_DEF_PARTNER
 	splitbgprio ANIM_TARGET
-	waitplaysewithpan SE_M_HAIL, SOUND_PAN_TARGET, 17
+	waitplaysewithpan SE_M_SNOW, SOUND_PAN_TARGET, 17
 	createvisualtask AnimTask_FrozenIceCube, 2
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
@@ -10466,7 +10466,7 @@ General_Sun:
 General_Sandstorm:
 	goto Move_SANDSTORM
 
-General_Hail:
+General_Snow:
 	goto Move_SNOW
 
 General_LeechSeedDrain:

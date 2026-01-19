@@ -13,7 +13,7 @@
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
 
-struct HailStruct {
+struct SnowStruct {
     s32 x:10;
     s32 y:10;
     s32 bPosition:8;
@@ -38,16 +38,16 @@ static void AnimSwirlingFogAnim(struct Sprite *);
 static void AnimThrowMistBall(struct Sprite *);
 static void InitPoisonGasCloudAnim(struct Sprite *);
 static void MovePoisonGasCloud(struct Sprite *);
-static void AnimHailBegin(struct Sprite *);
-static void AnimHailContinue(struct Sprite *);
+static void AnimSnowBegin(struct Sprite *);
+static void AnimSnowContinue(struct Sprite *);
 static void InitIceBallAnim(struct Sprite *);
 static void AnimThrowIceBall(struct Sprite *);
 static void InitIceBallParticle(struct Sprite *);
 static void AnimIceBallParticle(struct Sprite *);
 static void AnimTask_HazeScrollingFog_Step(u8);
 static void AnimTask_MistBallFog_Step(u8);
-static void AnimTask_Hail2(u8);
-static bool8 GenerateHailParticle(u8 hailStructId, u8 affineAnimNum, u8 taskId, u8 c);
+static void AnimTask_Snow2(u8);
+static bool8 GenerateSnowParticle(u8 snowStructId, u8 affineAnimNum, u8 taskId, u8 c);
 
 static const union AnimCmd sAnim_Unused[] =
 {
@@ -369,7 +369,7 @@ const struct SpriteTemplate gPoisonGasCloudSpriteTemplate =
     .callback = InitPoisonGasCloudAnim,
 };
 
-static const struct HailStruct sHailCoordData[] =
+static const struct SnowStruct sSnowCoordData[] =
 {
     {.x = 100, .y = 120, .bPosition = B_POSITION_PLAYER_LEFT,    .unk3 = 2},
     {.x = 85,  .y = 120, .bPosition = B_POSITION_PLAYER_LEFT,    .unk3 = 0},
@@ -383,19 +383,19 @@ static const struct HailStruct sHailCoordData[] =
     {.x = 38,  .y = 120, .bPosition = B_POSITION_PLAYER_RIGHT,   .unk3 = 0},
 };
 
-static const union AffineAnimCmd sAffineAnim_HailParticle_0[] =
+static const union AffineAnimCmd sAffineAnim_SnowParticle_0[] =
 {
     AFFINEANIMCMD_FRAME(0x100, 0x100, 0, 0),
     AFFINEANIMCMD_END,
 };
 
-static const union AffineAnimCmd sAffineAnim_HailParticle_1[] =
+static const union AffineAnimCmd sAffineAnim_SnowParticle_1[] =
 {
     AFFINEANIMCMD_FRAME(0xF0, 0xF0, 0, 0),
     AFFINEANIMCMD_END,
 };
 
-static const union AffineAnimCmd sAffineAnim_HailParticle_2[] =
+static const union AffineAnimCmd sAffineAnim_SnowParticle_2[] =
 {
     AFFINEANIMCMD_FRAME(0xE0, 0xE0, 0, 0),
     AFFINEANIMCMD_END,
@@ -407,11 +407,11 @@ static const union AffineAnimCmd sAffineAnim_WeatherBallIceDown[] =
     AFFINEANIMCMD_END,
 };
 
-static const union AffineAnimCmd *const sAffineAnims_HailParticle[] =
+static const union AffineAnimCmd *const sAffineAnims_SnowParticle[] =
 {
-    sAffineAnim_HailParticle_0,
-    sAffineAnim_HailParticle_1,
-    sAffineAnim_HailParticle_2,
+    sAffineAnim_SnowParticle_0,
+    sAffineAnim_SnowParticle_1,
+    sAffineAnim_SnowParticle_2,
 };
 
 static const union AffineAnimCmd *const sAffineAnims_WeatherBallIceDown[] =
@@ -419,21 +419,21 @@ static const union AffineAnimCmd *const sAffineAnims_WeatherBallIceDown[] =
     sAffineAnim_WeatherBallIceDown,
 };
 
-const struct SpriteTemplate gHailParticleSpriteTemplate =
+const struct SpriteTemplate gSnowParticleSpriteTemplate =
 {
-    .tileTag = ANIM_TAG_HAIL,
-    .paletteTag = ANIM_TAG_HAIL,
+    .tileTag = ANIM_TAG_SNOW,
+    .paletteTag = ANIM_TAG_SNOW,
     .oam = &gOamData_AffineNormal_ObjNormal_16x16,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
-    .affineAnims = sAffineAnims_HailParticle,
-    .callback = AnimHailBegin,
+    .affineAnims = sAffineAnims_SnowParticle,
+    .callback = AnimSnowBegin,
 };
 
 const struct SpriteTemplate gWeatherBallIceDownSpriteTemplate =
 {
-    .tileTag = ANIM_TAG_HAIL,
-    .paletteTag = ANIM_TAG_HAIL,
+    .tileTag = ANIM_TAG_SNOW,
+    .paletteTag = ANIM_TAG_SNOW,
     .oam = &gOamData_AffineNormal_ObjNormal_16x16,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -619,7 +619,7 @@ static void AnimIceBeamParticle(struct Sprite *sprite)
 }
 
 // Animates the ice crystals at the end of Ice Punch, Ice Beam, Tri Attack,
-// Weather Ball (Hail), Blizzard, and Powder Snow.
+// Weather Ball (Snow), Blizzard, and Powder Snow.
 // arg 0: target x offset
 // arg 1: target y offset
 // arg 2: ??? unknown boolean
@@ -1332,14 +1332,14 @@ static void MovePoisonGasCloud(struct Sprite *sprite)
     }
 }
 
-void AnimTask_Hail(u8 taskId)
+void AnimTask_Snow(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
-    task->func = AnimTask_Hail2;
+    task->func = AnimTask_Snow2;
 }
 
-static void AnimTask_Hail2(u8 taskId)
+static void AnimTask_Snow2(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
     switch (task->data[0])
@@ -1356,7 +1356,7 @@ static void AnimTask_Hail2(u8 taskId)
     case 1:
         if (task->data[5] == 0)
         {
-            if (GenerateHailParticle(task->data[3], task->data[2], taskId, 1))
+            if (GenerateSnowParticle(task->data[3], task->data[2], taskId, 1))
                 task->data[1]++;
 
             if (++task->data[2] == 3)
@@ -1384,17 +1384,17 @@ static void AnimTask_Hail2(u8 taskId)
     }
 }
 
-static bool8 GenerateHailParticle(u8 hailStructId, u8 affineAnimNum, u8 taskId, u8 c)
+static bool8 GenerateSnowParticle(u8 snowStructId, u8 affineAnimNum, u8 taskId, u8 c)
 {
     u8 id;
     s16 battlerX, battlerY;
     s16 spriteX;
     bool8 possibleBool = FALSE;
-    s8 unk = sHailCoordData[hailStructId].unk3;
+    s8 unk = sSnowCoordData[snowStructId].unk3;
 
     if (unk != 2)
     {
-        id = GetBattlerAtPosition(sHailCoordData[hailStructId].bPosition);
+        id = GetBattlerAtPosition(sSnowCoordData[snowStructId].bPosition);
         if (IsBattlerSpriteVisible(id))
         {
             possibleBool = TRUE;
@@ -1414,17 +1414,17 @@ static bool8 GenerateHailParticle(u8 hailStructId, u8 affineAnimNum, u8 taskId, 
         }
         else
         {
-            battlerX = sHailCoordData[hailStructId].x;
-            battlerY = sHailCoordData[hailStructId].y;
+            battlerX = sSnowCoordData[snowStructId].x;
+            battlerY = sSnowCoordData[snowStructId].y;
         }
     }
     else
     {
-        battlerX = sHailCoordData[hailStructId].x;
-        battlerY = sHailCoordData[hailStructId].y;
+        battlerX = sSnowCoordData[snowStructId].x;
+        battlerY = sSnowCoordData[snowStructId].y;
     }
     spriteX = battlerX - ((battlerY + 8) / 2);
-    id = CreateSprite(&gHailParticleSpriteTemplate, spriteX, -8, 18);
+    id = CreateSprite(&gSnowParticleSpriteTemplate, spriteX, -8, 18);
     if (id == MAX_SPRITES)
     {
         return FALSE;
@@ -1442,7 +1442,7 @@ static bool8 GenerateHailParticle(u8 hailStructId, u8 affineAnimNum, u8 taskId, 
     }
 }
 
-static void AnimHailBegin(struct Sprite *sprite)
+static void AnimSnowBegin(struct Sprite *sprite)
 {
     u8 spriteId;
 
@@ -1460,7 +1460,7 @@ static void AnimHailBegin(struct Sprite *sprite)
         sprite->data[0] = spriteId;
         if (spriteId != MAX_SPRITES)
         {
-            gSprites[sprite->data[0]].callback = AnimHailContinue;
+            gSprites[sprite->data[0]].callback = AnimSnowContinue;
             gSprites[sprite->data[0]].data[6] = sprite->data[6];
             gSprites[sprite->data[0]].data[7] = sprite->data[7];
         }
@@ -1476,7 +1476,7 @@ static void AnimHailBegin(struct Sprite *sprite)
     }
 }
 
-static void AnimHailContinue(struct Sprite *sprite)
+static void AnimSnowContinue(struct Sprite *sprite)
 {
     if (++sprite->data[0] == 20)
     {

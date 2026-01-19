@@ -594,7 +594,7 @@ static const struct PyramidWildMon sOpenLevelWildMons_Round12[] =
         .species = SPECIES_LAPRAS,
         .lvl = 8,
         .abilityNum = ABILITY_RANDOM,
-        .moves = {MOVE_SNOW, MOVE_ICE_BEAM, MOVE_NONE, MOVE_NONE}
+        .moves = {MOVE_SNOWSCAPE, MOVE_ICE_BEAM, MOVE_NONE, MOVE_NONE}
     },
     {
         .species = SPECIES_CACTURNE,
@@ -612,7 +612,7 @@ static const struct PyramidWildMon sOpenLevelWildMons_Round12[] =
         .species = SPECIES_WALREIN,
         .lvl = 5,
         .abilityNum = ABILITY_RANDOM,
-        .moves = {MOVE_SNOW, MOVE_ICE_BEAM, MOVE_NONE, MOVE_NONE}
+        .moves = {MOVE_SNOWSCAPE, MOVE_ICE_BEAM, MOVE_NONE, MOVE_NONE}
     },
     {
         .species = SPECIES_GYARADOS,

@@ -558,8 +558,8 @@ ShoalCave_LowTideStairsRoom_EventScript_ItemIceHeal::
 	finditem ITEM_ICE_HEAL
 	end
 
-ShoalCave_LowTideIceRoom_EventScript_ItemTMSnow::
-	finditem ITEM_TM_SNOW
+ShoalCave_LowTideIceRoom_EventScript_ItemTMSnowscape::
+	finditem ITEM_TM_SNOWSCAPE
 	end
 
 ShoalCave_LowTideIceRoom_EventScript_ItemNeverMeltIce::

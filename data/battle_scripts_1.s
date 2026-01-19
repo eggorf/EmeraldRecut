@@ -182,7 +182,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectSpitUp                 @ EFFECT_SPIT_UP
 	.4byte BattleScript_EffectSwallow                @ EFFECT_SWALLOW
 	.4byte BattleScript_EffectHit                    @ EFFECT_UNUSED_A3
-	.4byte BattleScript_EffectSnow                   @ EFFECT_SNOW
+	.4byte BattleScript_EffectSnowscape                   @ EFFECT_SNOWSCAPE
 	.4byte BattleScript_EffectTorment                @ EFFECT_TORMENT
 	.4byte BattleScript_EffectFlatter                @ EFFECT_FLATTER
 	.4byte BattleScript_EffectWillOWisp              @ EFFECT_WILL_O_WISP
@@ -2228,7 +2228,7 @@ BattleScript_SwallowFail::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectSnow::
+BattleScript_EffectSnowscape::
 	attackcanceler
 	attackstring
 	ppreduce
@@ -4049,14 +4049,6 @@ BattleScript_ItemSteal::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
-BattleScript_DrizzleActivates::
-	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNMADEITRAIN
-	waitstate
-	playanimation BS_BATTLER_0, B_ANIM_RAIN_CONTINUES
-	call BattleScript_WeatherFormChanges
-	end3
-
 BattleScript_SpeedBoostActivates::
 	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	printstring STRINGID_PKMNRAISEDSPEED
@@ -4096,13 +4088,6 @@ BattleScript_RainDishActivates::
 	datahpupdate BS_ATTACKER
 	end3
 
-BattleScript_SandstreamActivates::
-	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNSXWHIPPEDUPSANDSTORM
-	waitstate
-	playanimation BS_BATTLER_0, B_ANIM_SANDSTORM_CONTINUES
-	call BattleScript_WeatherFormChanges
-	end3
 //hydration
 BattleScript_ShedSkinActivates::
 	printstring STRINGID_PKMNSXCUREDYPROBLEM
@@ -4164,11 +4149,35 @@ BattleScript_IntimidatePrevented:
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_IntimidateActivatesLoopIncrement
 
+BattleScript_DrizzleActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNMADEITRAIN
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_RAIN_CONTINUES
+	call BattleScript_WeatherFormChanges
+	end3
+
 BattleScript_DroughtActivates::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNSXINTENSIFIEDSUN
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_SUN_CONTINUES
+	call BattleScript_WeatherFormChanges
+	end3
+
+BattleScript_SandstreamActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXWHIPPEDUPSANDSTORM
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_SANDSTORM_CONTINUES
+	call BattleScript_WeatherFormChanges
+	end3
+
+BattleScript_SnowWarningActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXSTARTEDSNOWSTORM
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_SNOW_CONTINUES
 	call BattleScript_WeatherFormChanges
 	end3
 

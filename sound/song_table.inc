@@ -243,7 +243,7 @@ gSongTable::
 	song se_m_stat_increase, 1, 1
 	song se_m_heat_wave, 1, 1
 	song se_m_uproar, 1, 1
-	song se_m_hail, 1, 1
+	song se_m_snow, 1, 1
 	song se_m_cosmic_power, 2, 2
 	song se_m_teeter_dance, 1, 1
 	song se_m_stat_decrease, 1, 1
