@@ -3225,7 +3225,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (IS_TYPE_PHYSICAL(type))
     {
         //Abilities
-        if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
+        if (attacker->ability == ABILITY_HUGE_POWER)
             attack *= 2;
         if (attacker->ability == ABILITY_HUSTLE)
             attack = (150 * attack) / 100;

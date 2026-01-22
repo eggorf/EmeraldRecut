@@ -2249,7 +2249,6 @@ AI_CV_ChangeSelfAbility_AbilitiesToEncourage:
 	.byte ABILITY_CUTE_CHARM
 	.byte ABILITY_SHED_SKIN
 	.byte ABILITY_MARVEL_SCALE
-	.byte ABILITY_PURE_POWER
 	.byte ABILITY_CHLOROPHYLL
 	.byte ABILITY_SHIELD_DUST
 	.byte -1
@@ -2675,7 +2674,7 @@ AI_DoubleBattleSkillSwap:
 	if_equal ABILITY_TRUANT, Score_Plus5
 	get_ability AI_TARGET
 	if_equal ABILITY_SHADOW_TAG, Score_Plus2
-	if_equal ABILITY_PURE_POWER, Score_Plus2
+	if_equal ABILITY_HUGE_POWER, Score_Plus2
 	end
 
 AI_TryOnAlly:

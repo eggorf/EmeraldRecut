@@ -3294,7 +3294,7 @@ static const struct TrainerMonItemCustomMoves sParty_Glacia[] = {
     .lvl = 50,
     .species = SPECIES_SEALEO,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_ENCORE, MOVE_BODY_SLAM, MOVE_SNOW, MOVE_ICE_BALL}
+    .moves = {MOVE_ENCORE, MOVE_BODY_SLAM, MOVE_SNOWSCAPE, MOVE_ICE_BALL}
     },
     {
     .iv = 250,
@@ -3308,14 +3308,14 @@ static const struct TrainerMonItemCustomMoves sParty_Glacia[] = {
     .lvl = 52,
     .species = SPECIES_SEALEO,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_ATTRACT, MOVE_DOUBLE_EDGE, MOVE_SNOW, MOVE_BLIZZARD}
+    .moves = {MOVE_ATTRACT, MOVE_DOUBLE_EDGE, MOVE_SNOWSCAPE, MOVE_BLIZZARD}
     },
     {
     .iv = 250,
     .lvl = 52,
     .species = SPECIES_GLALIE,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_SHADOW_BALL, MOVE_EXPLOSION, MOVE_SNOW, MOVE_ICE_BEAM}
+    .moves = {MOVE_SHADOW_BALL, MOVE_EXPLOSION, MOVE_SNOWSCAPE, MOVE_ICE_BEAM}
     },
     {
     .iv = 255,
