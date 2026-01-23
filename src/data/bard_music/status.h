@@ -769,7 +769,7 @@ static const struct BardSoundTemplate sBardSoundTemplates_Status[][MAX_BARD_SOUN
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
-    [EC_INDEX(EC_WORD_WATER_VEIL)] = {
+    [EC_INDEX(EC_WORD_ANALYTIC)] = {
         { .songId = PHONEME_ID(PH_CLOTH_BLEND) },
         { .songId = PHONEME_ID(PH_NURSE_BLEND) },
         { .songId = PHONEME_ID(PH_FACE_HELD) },

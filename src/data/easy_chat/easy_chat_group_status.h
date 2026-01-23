@@ -94,7 +94,7 @@ const u8 gEasyChatWord_Minus[] = _("MINUS");
 const u8 gEasyChatWord_OwnTempo[] = _("OWN TEMPO");
 const u8 gEasyChatWord_MagmaArmor[] = _("MAGMA ARMOR");
 const u8 gEasyChatWord_Water[] = _("WATER");
-const u8 gEasyChatWord_WaterVeil[] = _("WATER VEIL");
+const u8 gEasyChatWord_Analytic[] = _("ANALYTIC");
 const u8 gEasyChatWord_Bug[] = _("BUG");
 const u8 gEasyChatWord_Swarm[] = _("SWARM");
 const u8 gEasyChatWord_CuteCharm[] = _("CUTE CHARM");
@@ -685,9 +685,9 @@ const struct EasyChatWordInfo gEasyChatGroup_Status[] = {
         .alphabeticalOrder = EC_INDEX(EC_WORD_THICK_FAT),
         .enabled = TRUE,
     },
-    [EC_INDEX(EC_WORD_WATER_VEIL)] =
+    [EC_INDEX(EC_WORD_ANALYTIC)] =
     {
-        .text = gEasyChatWord_WaterVeil,
+        .text = gEasyChatWord_Analytic,
         .alphabeticalOrder = EC_INDEX(EC_WORD_TORRENT),
         .enabled = TRUE,
     },
@@ -748,7 +748,7 @@ const struct EasyChatWordInfo gEasyChatGroup_Status[] = {
     [EC_INDEX(EC_WORD_CHLOROPHYLL)] =
     {
         .text = gEasyChatWord_Chlorophyll,
-        .alphabeticalOrder = EC_INDEX(EC_WORD_WATER_VEIL),
+        .alphabeticalOrder = EC_INDEX(EC_WORD_ANALYTIC),
         .enabled = TRUE,
     },
     [EC_INDEX(EC_WORD_PURE_POWER)] =
