@@ -134,7 +134,6 @@
 // values that don't appear in the Pokédex. NATIONAL_DEX_COUNT does not include these values.
 #define NUM_DEX_FLAG_BYTES ROUND_BITS_TO_BYTES(NUM_SPECIES)
 #define NUM_FLAG_BYTES ROUND_BITS_TO_BYTES(FLAGS_COUNT)
-#define NUM_TRENDY_SAYING_BYTES ROUND_BITS_TO_BYTES(NUM_TRENDY_SAYINGS)
 
 // This returns the number of arguments passed to it (up to 8).
 #define NARG_8(...) NARG_8_(_, ##__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0)
@@ -641,50 +640,6 @@ struct MauvilleManCommon
     u8 id;
 };
 
-struct MauvilleManBard
-{
-    /*0x00*/ u8 id;
-    /*0x01*/ //u8 padding1;
-    /*0x02*/ u16 songLyrics[NUM_BARD_SONG_WORDS];
-    /*0x0E*/ u16 newSongLyrics[NUM_BARD_SONG_WORDS];
-    /*0x1A*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
-    /*0x22*/ u8 filler_2DB6[0x3];
-    /*0x25*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
-    /*0x29*/ bool8 hasChangedSong;
-    /*0x2A*/ u8 language;
-    /*0x2B*/ //u8 padding2;
-}; /*size = 0x2C*/
-
-struct MauvilleManStoryteller
-{
-    u8 id;
-    bool8 alreadyRecorded;
-    u8 filler2[2];
-    u8 gameStatIDs[NUM_STORYTELLER_TALES];
-    u8 trainerNames[NUM_STORYTELLER_TALES][PLAYER_NAME_LENGTH];
-    u8 statValues[NUM_STORYTELLER_TALES][4];
-    u8 language[NUM_STORYTELLER_TALES];
-};
-
-struct MauvilleManGiddy
-{
-    /*0x00*/ u8 id;
-    /*0x01*/ u8 taleCounter;
-    /*0x02*/ u8 questionNum;
-    /*0x03*/ //u8 padding1;
-    /*0x04*/ u16 randomWords[GIDDY_MAX_TALES];
-    /*0x18*/ u8 questionList[GIDDY_MAX_QUESTIONS];
-    /*0x20*/ u8 language;
-    /*0x21*/ //u8 padding2;
-}; /*size = 0x2C*/
-
-struct MauvilleManHipster
-{
-    u8 id;
-    bool8 taughtWord;
-    u8 language;
-};
-
 struct MauvilleOldManTrader
 {
     u8 id;
@@ -697,11 +652,7 @@ struct MauvilleOldManTrader
 typedef union OldMan
 {
     struct MauvilleManCommon common;
-    struct MauvilleManBard bard;
-    struct MauvilleManGiddy giddy;
-    struct MauvilleManHipster hipster;
     struct MauvilleOldManTrader trader;
-    struct MauvilleManStoryteller storyteller;
     u8 filler[0x40];
 } OldMan;
 
@@ -1039,31 +990,30 @@ struct SaveBlock1
     /*0x2BC8*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
     /*0x2BD4*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT];
     /*0x2BE0*/ struct Mail mail[MAIL_COUNT];
-    /*0x2E20*/ u8 unlockedTrendySayings[NUM_TRENDY_SAYING_BYTES]; // Bitfield for unlockable Easy Chat words in EC_GROUP_TRENDY_SAYING
-    /*0x2E25*/ //u8 padding5[3];
-    /*0x2E28*/ OldMan oldMan;
-    /*0x2e64*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT];
-    /*0x2e90*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
-    /*0x3030*/ struct DayCare daycare;
-    /*0x3150*/ struct LinkBattleRecords linkBattleRecords;
-    /*0x31A8*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
-    /*0x31B3*/ struct ExternalEventData externalEventData;
-    /*0x31C7*/ struct ExternalEventFlags externalEventFlags;
-    /*0x31DC*/ struct Roamer roamer;
-    /*0x31F8*/ struct EnigmaBerry enigmaBerry;
-    /*0x322C*/ struct MysteryGiftSave mysteryGift;
-    /*0x3598*/ u8 unused_3598[0x180];
-    /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
-    /*0x3728*/ struct RamScript ramScript;
-    /*0x3B14*/ struct RecordMixingGift recordMixingGift;
-    /*0x3B24*/ u8 seen2[NUM_DEX_FLAG_BYTES];
-    /*0x3B58*/ LilycoveLady lilycoveLady;
-    /*0x3B98*/ struct TrainerNameRecord trainerNameRecords[20];
-    /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
-    /*0x3D5A*/ u8 unused_3D5A[10];
-    /*0x3D64*/ struct TrainerHillSave trainerHill;
-    /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-    // sizeof: 0x3D88
+    /*0x2E20*/ //u8 padding5[3];
+    /*0x2E23*/ OldMan oldMan;
+    /*0x2e5F*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT];
+    /*0x2e8B*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
+    /*0x302B*/ struct DayCare daycare;
+    /*0x314B*/ struct LinkBattleRecords linkBattleRecords;
+    /*0x31A3*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
+    /*0x31AE*/ struct ExternalEventData externalEventData;
+    /*0x31C2*/ struct ExternalEventFlags externalEventFlags;
+    /*0x31D7*/ struct Roamer roamer;
+    /*0x31F3*/ struct EnigmaBerry enigmaBerry;
+    /*0x3227*/ struct MysteryGiftSave mysteryGift;
+    /*0x3593*/ u8 unused_3598[0x180];
+    /*0x3713*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
+    /*0x3723*/ struct RamScript ramScript;
+    /*0x3B0F*/ struct RecordMixingGift recordMixingGift;
+    /*0x3B1F*/ u8 seen2[NUM_DEX_FLAG_BYTES];
+    /*0x3B53*/ LilycoveLady lilycoveLady;
+    /*0x3B93*/ struct TrainerNameRecord trainerNameRecords[20];
+    /*0x3C83*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
+    /*0x3D55*/ u8 unused_3D5A[10];
+    /*0x3D5F*/ struct TrainerHillSave trainerHill;
+    /*0x3D6B*/ struct WaldaPhrase waldaPhrase;
+    // sizeof: 0x3D83
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;

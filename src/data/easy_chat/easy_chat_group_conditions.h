@@ -67,6 +67,12 @@ const u8 gEasyChatWord_Weakened[] = _("WEAKENED");
 const u8 gEasyChatWord_Simple[] = _("SIMPLE");
 const u8 gEasyChatWord_Seems[] = _("SEEMS");
 const u8 gEasyChatWord_Badly[] = _("BADLY");
+const u8 gEasyChatWord_Ugly[] = _("UGLY");
+const u8 gEasyChatWord_Shady[] = _("SHADY");
+const u8 gEasyChatWord_Upbeat[] = _("UPBEAT");
+const u8 gEasyChatWord_Mega[] = _("MEGA");
+const u8 gEasyChatWord_Modern[] = _("MODERN");
+const u8 gEasyChatWord_Wannabe[] = _("WANNABE");
 
 const struct EasyChatWordInfo gEasyChatGroup_Conditions[] = {
     [EC_INDEX(EC_WORD_HOT)] =
@@ -481,6 +487,42 @@ const struct EasyChatWordInfo gEasyChatGroup_Conditions[] = {
     {
         .text = gEasyChatWord_Badly,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WELL),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_MEGA)] =
+    {
+        .text = gEasyChatWord_Mega,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_DESTINY),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_SHADY)] =
+    {
+        .text = gEasyChatWord_Shady,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_MEGA),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_UPBEAT)] =
+    {
+        .text = gEasyChatWord_Upbeat,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_MODERN),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_MODERN)] =
+    {
+        .text = gEasyChatWord_Modern,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_MUCH_OBLIGED),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_WANNABE)] =
+    {
+        .text = gEasyChatWord_Wannabe,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_UPBEAT),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_UGLY)] =
+    {
+        .text = gEasyChatWord_Ugly,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_YOUNG),
         .enabled = TRUE,
     },
 };

@@ -67,6 +67,7 @@ const u8 gEasyChatWord_Romantic[] = _("ROMANTIC");
 const u8 gEasyChatWord_Question[] = _("QUESTION");
 const u8 gEasyChatWord_Understand[] = _("UNDERSTAND");
 const u8 gEasyChatWord_Understands[] = _("UNDERSTANDS");
+const u8 gEasyChatWord_Hassle[] = _("HASSLE");
 
 const struct EasyChatWordInfo gEasyChatGroup_Feelings[] = {
     [EC_INDEX(EC_WORD_MEET)] =
@@ -481,6 +482,12 @@ const struct EasyChatWordInfo gEasyChatGroup_Feelings[] = {
     {
         .text = gEasyChatWord_Understands,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WANTS),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_HASSLE)] =
+    {
+        .text = gEasyChatWord_Hassle,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_SHAKE),
         .enabled = TRUE,
     },
 };

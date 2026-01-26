@@ -72,10 +72,6 @@ static void PlayerHandleTwoReturnValues(void);
 static void PlayerHandleChosenMonReturnValue(void);
 static void PlayerHandleOneReturnValue(void);
 static void PlayerHandleOneReturnValue_Duplicate(void);
-static void PlayerHandleClearUnkVar(void);
-static void PlayerHandleSetUnkVar(void);
-static void PlayerHandleClearUnkFlag(void);
-static void PlayerHandleToggleUnkFlag(void);
 static void PlayerHandleHitAnimation(void);
 static void PlayerHandleCantSwitch(void);
 static void PlayerHandlePlaySE(void);
@@ -159,10 +155,6 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_CHOSENMONRETURNVALUE]     = PlayerHandleChosenMonReturnValue,
     [CONTROLLER_ONERETURNVALUE]           = PlayerHandleOneReturnValue,
     [CONTROLLER_ONERETURNVALUE_DUPLICATE] = PlayerHandleOneReturnValue_Duplicate,
-    [CONTROLLER_CLEARUNKVAR]              = PlayerHandleClearUnkVar,
-    [CONTROLLER_SETUNKVAR]                = PlayerHandleSetUnkVar,
-    [CONTROLLER_CLEARUNKFLAG]             = PlayerHandleClearUnkFlag,
-    [CONTROLLER_TOGGLEUNKFLAG]            = PlayerHandleToggleUnkFlag,
     [CONTROLLER_HITANIMATION]             = PlayerHandleHitAnimation,
     [CONTROLLER_CANTSWITCH]               = PlayerHandleCantSwitch,
     [CONTROLLER_PLAYSE]                   = PlayerHandlePlaySE,
@@ -2864,29 +2856,6 @@ static void PlayerHandleOneReturnValue_Duplicate(void)
     PlayerBufferExecCompleted();
 }
 
-static void PlayerHandleClearUnkVar(void)
-{
-    gUnusedControllerStruct.unk = 0;
-    PlayerBufferExecCompleted();
-}
-
-static void PlayerHandleSetUnkVar(void)
-{
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
-    PlayerBufferExecCompleted();
-}
-
-static void PlayerHandleClearUnkFlag(void)
-{
-    gUnusedControllerStruct.flag = 0;
-    PlayerBufferExecCompleted();
-}
-
-static void PlayerHandleToggleUnkFlag(void)
-{
-    gUnusedControllerStruct.flag ^= 1;
-    PlayerBufferExecCompleted();
-}
 
 static void PlayerHandleHitAnimation(void)
 {

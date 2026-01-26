@@ -1,6 +1,5 @@
 #include "global.h"
 #include "malloc.h"
-#include "bard_music.h"
 #include "bg.h"
 #include "data.h"
 #include "decompress.h"
@@ -499,18 +498,6 @@ static const struct EasyChatScreenTemplate sEasyChatScreenTemplates[] = {
         .confirmText2 = gText_IsAsShownOkay,
     },
     {
-        .type = EASY_CHAT_TYPE_BARD_SONG,
-        .numColumns = 2,
-        .numRows = 3,
-        .frameId = FRAMEID_GENERAL_2x3,
-        .fourFooterOptions = FALSE,
-        .titleText = gText_TheBardsSong,
-        .instructionsText1 = gText_ChangeJustOneWordOrPhrase,
-        .instructionsText2 = gText_AndImproveTheBardsSong,
-        .confirmText1 = gText_TheBardsSong2,
-        .confirmText2 = gText_IsAsShownOkay,
-    },
-    {
         .type = EASY_CHAT_TYPE_FAN_CLUB,
         .numColumns = 1,
         .numRows = 1,
@@ -581,18 +568,6 @@ static const struct EasyChatScreenTemplate sEasyChatScreenTemplates[] = {
         .instructionsText2 = gText_SetTheQuizAnswer,
         .confirmText1 = gText_IsThisQuizOK,
         .confirmText2 = NULL,
-    },
-    {
-        .type = EASY_CHAT_TYPE_BARD_SONG,
-        .numColumns = 2,
-        .numRows = 3,
-        .frameId = FRAMEID_GENERAL_2x3,
-        .fourFooterOptions = FALSE,
-        .titleText = gText_TheBardsSong,
-        .instructionsText1 = gText_ChangeJustOneWordOrPhrase,
-        .instructionsText2 = gText_AndImproveTheBardsSong,
-        .confirmText1 = gText_TheBardsSong2,
-        .confirmText2 = gText_IsAsShownOkay,
     },
     {
         .type = EASY_CHAT_TYPE_APPRENTICE,
@@ -1233,7 +1208,6 @@ static const u8 *const sEasyChatGroupNamePointers[EC_NUM_GROUPS] = {
     [EC_GROUP_EVENTS]           = gEasyChatGroupName_Events,
     [EC_GROUP_MOVE_1]           = gEasyChatGroupName_Move1,
     [EC_GROUP_MOVE_2]           = gEasyChatGroupName_Move2,
-    [EC_GROUP_TRENDY_SAYING]    = gEasyChatGroupName_TrendySaying,
     [EC_GROUP_POKEMON_NATIONAL] = gEasyChatGroupName_Pokemon2,
 };
 
@@ -1457,7 +1431,6 @@ void ShowEasyChatScreen(void)
 {
     int i;
     u16 *words;
-    struct MauvilleManBard *bard;
     u8 displayedPersonType = EASY_CHAT_PERSON_DISPLAY_NONE;
     switch (gSpecialVar_0x8004)
     {
@@ -1475,13 +1448,6 @@ void ShowEasyChatScreen(void)
         break;
     case EASY_CHAT_TYPE_MAIL:
         words = gSaveBlock1Ptr->mail[gSpecialVar_0x8005].words;
-        break;
-    case EASY_CHAT_TYPE_BARD_SONG:
-        bard = &gSaveBlock1Ptr->oldMan.bard;
-        for (i = 0; i < NUM_BARD_SONG_WORDS; i ++)
-            bard->newSongLyrics[i] = bard->songLyrics[i];
-
-        words = bard->newSongLyrics;
         break;
     case EASY_CHAT_TYPE_INTERVIEW:
         words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].bravoTrainer.words;
@@ -2087,19 +2053,9 @@ static u16 StartConfirmExitPrompt(void)
 static int DoDeleteAllButton(void)
 {
     sEasyChatScreen->inputStateBackup = sEasyChatScreen->inputState;
-    if (sEasyChatScreen->type != EASY_CHAT_TYPE_BARD_SONG)
-    {
-        // Show Delete yes/no
-        sEasyChatScreen->inputState = INPUTSTATE_DELETE_ALL_YES_NO;
-        return ECFUNC_PROMPT_DELETE_ALL;
-    }
-    else
-    {
-        // Cannot delete lyrics when setting Bard's song
-        sEasyChatScreen->inputStateBackup = sEasyChatScreen->inputState;
-        sEasyChatScreen->inputState = INPUTSTATE_WAIT_FOR_MSG;
-        return ECFUNC_MSG_CANT_DELETE_LYRICS;
-    }
+    // Show Delete yes/no
+    sEasyChatScreen->inputState = INPUTSTATE_DELETE_ALL_YES_NO;
+    return ECFUNC_PROMPT_DELETE_ALL;
 }
 
 static u16 TryConfirmWords(void)
@@ -2251,16 +2207,8 @@ static int StartSwitchKeyboardMode(void)
 
 static int DeleteSelectedWord(void)
 {
-    if (sEasyChatScreen->type == EASY_CHAT_TYPE_BARD_SONG)
-    {
-        PlaySE(SE_FAILURE);
-        return ECFUNC_NONE;
-    }
-    else
-    {
-        SetSelectedWord(EC_EMPTY_WORD);
-        return ECFUNC_REPRINT_PHRASE;
-    }
+    SetSelectedWord(EC_EMPTY_WORD);
+    return ECFUNC_REPRINT_PHRASE;
 }
 
 static int SelectNewWord(void)
@@ -2275,16 +2223,8 @@ static int SelectNewWord(void)
     else
     {
         SetSelectedWord(easyChatWord);
-        if (sEasyChatScreen->type != EASY_CHAT_TYPE_BARD_SONG)
-        {
-            sEasyChatScreen->inputState = INPUTSTATE_PHRASE;
-            return ECFUNC_CLOSE_WORD_SELECT;
-        }
-        else
-        {
-            sEasyChatScreen->inputState = INPUTSTATE_START_CONFIRM_LYRICS;
-            return ECFUNC_PROMPT_CONFIRM_LYRICS;
-        }
+        sEasyChatScreen->inputState = INPUTSTATE_PHRASE;
+        return ECFUNC_CLOSE_WORD_SELECT;
     }
 }
 
@@ -5108,8 +5048,6 @@ static bool8 IsEasyChatGroupUnlocked(u8 groupId)
 {
     switch (groupId)
     {
-    case EC_GROUP_TRENDY_SAYING:
-        return FlagGet(FLAG_UNLOCKED_TRENDY_SAYINGS);
     case EC_GROUP_EVENTS:
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
@@ -5164,35 +5102,6 @@ static bool8 IsEasyChatWordInvalid(u16 easyChatWord)
     }
 
     if (index >= numWords)
-        return TRUE;
-    else
-        return FALSE;
-}
-
-bool8 IsBardWordInvalid(u16 easyChatWord)
-{
-    int numWordsInGroup;
-    u8 groupId = EC_GROUP(easyChatWord);
-    u32 index = EC_INDEX(easyChatWord);
-    if (groupId >= EC_NUM_GROUPS)
-        return TRUE;
-
-    switch (groupId)
-    {
-    case EC_GROUP_POKEMON:
-    case EC_GROUP_POKEMON_NATIONAL:
-        numWordsInGroup = gNumBardWords_Species;
-        break;
-    case EC_GROUP_MOVE_1:
-    case EC_GROUP_MOVE_2:
-        numWordsInGroup = gNumBardWords_Moves;
-        break;
-    default:
-        numWordsInGroup = gEasyChatGroups[groupId].numWords;
-        break;
-    }
-
-    if (numWordsInGroup <= index)
         return TRUE;
     else
         return FALSE;
@@ -5425,106 +5334,6 @@ void BufferDeepLinkPhrase(void)
     CopyEasyChatWord(gStringVar2, easyChatWord);
 }
 
-/*
-    ### Trendy Sayings
-
-    Not to be confused with Dewford Town's "trendy phrase".
-
-    This is a group of easy chat words (EC_GROUP_TRENDY_SAYING) that are normally inaccessible.
-    They can be unlocked either through Mystery Event (where they're referred to as "rare" words)
-    or from the "Hipster" variety of the Mauville Old Man. The Hipster can unlock one word each
-    time he is received via record mixing (and once if he is the player's default Old Man).
-
-    Which words have been unlocked is saved in the unlockedTrendySayings bitfield in SaveBlock1
-
-    Unlocked trendy saying words are only accessible if the flag FLAG_UNLOCKED_TRENDY_SAYINGS is set.
-    It's set any time the player talks to the Hipster, but is not apparently set by Mystery Event,
-    meaning trendy saying words unlocked via Mystery Event may not be available until the player has
-    talked to the Hipster.
-*/
-static bool8 IsTrendySayingUnlocked(u8 wordIndex)
-{
-    int byteOffset = wordIndex / 8;
-    int shift = wordIndex % 8;
-    return (gSaveBlock1Ptr->unlockedTrendySayings[byteOffset] >> shift) & 1;
-}
-
-void UnlockTrendySaying(u8 wordIndex)
-{
-    if (wordIndex < NUM_TRENDY_SAYINGS)
-    {
-        int byteOffset = wordIndex / 8;
-        int shift = wordIndex % 8;
-        gSaveBlock1Ptr->unlockedTrendySayings[byteOffset] |= 1 << shift;
-    }
-}
-
-static u8 GetNumTrendySayingsUnlocked(void)
-{
-    u8 i;
-    u8 numUnlocked;
-
-    for (i = 0, numUnlocked = 0; i < NUM_TRENDY_SAYINGS; i++)
-    {
-        if (IsTrendySayingUnlocked(i))
-            numUnlocked++;
-    }
-
-    return numUnlocked;
-}
-
-u16 UnlockRandomTrendySaying(void)
-{
-    u16 i;
-    u16 numToSkip;
-    u8 numUnlocked = GetNumTrendySayingsUnlocked();
-    if (numUnlocked == NUM_TRENDY_SAYINGS)
-        return EC_EMPTY_WORD;
-
-    numToSkip = Random() % (NUM_TRENDY_SAYINGS - numUnlocked);
-    for (i = 0; i < NUM_TRENDY_SAYINGS; i++)
-    {
-        if (!IsTrendySayingUnlocked(i))
-        {
-            if (numToSkip)
-            {
-                // Skip the first n locked words, as determined by the Random call above.
-                numToSkip--;
-            }
-            else
-            {
-                UnlockTrendySaying(i);
-                return EC_WORD(EC_GROUP_TRENDY_SAYING, i);
-            }
-        }
-    }
-
-    // Would only be reached if there are no new words to teach, which is handled at the start.
-    return EC_EMPTY_WORD;
-}
-
-static u16 UNUSED GetRandomUnlockedTrendySaying(void)
-{
-    u16 i;
-    u16 n = GetNumTrendySayingsUnlocked();
-    if (n == 0)
-        return EC_EMPTY_WORD;
-
-    n = Random() % n;
-    for (i = 0; i < NUM_TRENDY_SAYINGS; i++)
-    {
-        if (IsTrendySayingUnlocked(i))
-        {
-            if (n)
-                n--;
-            else
-                return EC_WORD(EC_GROUP_TRENDY_SAYING, i);
-        }
-    }
-
-    return EC_EMPTY_WORD;
-}
-
 static bool8 EasyChatIsNationalPokedexEnabled(void)
 {
     return IsNationalPokedexEnabled();
@@ -5580,9 +5389,6 @@ void InitEasyChatPhrases(void)
         for (j = 0; j < MAIL_WORDS_COUNT; j++)
             gSaveBlock1Ptr->mail[i].words[j] = EC_EMPTY_WORD;
     }
-
-    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->unlockedTrendySayings); i++)
-        gSaveBlock1Ptr->unlockedTrendySayings[i] = 0;
 }
 
 static bool8 InitEasyChatScreenWordData(void)
@@ -5619,9 +5425,6 @@ static void SetUnlockedEasyChatGroups(void)
         sWordData->unlockedGroupIds[sWordData->numUnlockedGroups++] = EC_GROUP_MOVE_1;
         sWordData->unlockedGroupIds[sWordData->numUnlockedGroups++] = EC_GROUP_MOVE_2;
     }
-
-    if (FlagGet(FLAG_UNLOCKED_TRENDY_SAYINGS))
-        sWordData->unlockedGroupIds[sWordData->numUnlockedGroups++] = EC_GROUP_TRENDY_SAYING;
 
     if (IsNationalPokedexEnabled())
         sWordData->unlockedGroupIds[sWordData->numUnlockedGroups++] = EC_GROUP_POKEMON_NATIONAL;
@@ -5807,8 +5610,6 @@ static bool8 IsEasyChatIndexAndGroupUnlocked(u16 wordIndex, u8 groupId)
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
         return TRUE;
-    case EC_GROUP_TRENDY_SAYING:
-        return IsTrendySayingUnlocked(wordIndex);
     default:
         return gEasyChatGroups[groupId].wordData.words[wordIndex].enabled;
     }

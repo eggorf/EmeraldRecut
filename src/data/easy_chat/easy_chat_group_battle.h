@@ -61,6 +61,11 @@ const u8 gEasyChatWord_Pushover[] = _("PUSHOVER");
 const u8 gEasyChatWord_Leader[] = _("LEADER");
 const u8 gEasyChatWord_Rule[] = _("RULE");
 const u8 gEasyChatWord_Move[] = _("MOVE");
+const u8 gEasyChatWord_1HitKOExcl[] = _("1-HIT KO!");
+const u8 gEasyChatWord_Loser[] = _("LOSER");
+const u8 gEasyChatWord_Losing[] = _("LOSING");
+const u8 gEasyChatWord_Knockout[] = _("KNOCKOUT");
+const u8 gEasyChatWord_Winner[] = _("WINNER");
 
 const struct EasyChatWordInfo gEasyChatGroup_Battle[] = {
     [EC_INDEX(EC_WORD_MATCH_UP)] =
@@ -439,6 +444,36 @@ const struct EasyChatWordInfo gEasyChatGroup_Battle[] = {
     {
         .text = gEasyChatWord_Move,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WON),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_1_HIT_KO_EXCL)] =
+    {
+        .text = gEasyChatWord_1HitKOExcl,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_FEVER),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_LOSER)] =
+    {
+        .text = gEasyChatWord_Loser,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_KIDDING),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_LOSING)] =
+    {
+        .text = gEasyChatWord_Losing,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_KNOCKOUT),
+        .enabled = TRUE,
+    },
+            [EC_INDEX(EC_WORD_KNOCKOUT)] =
+    {
+        .text = gEasyChatWord_Knockout,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_SHADY),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_WINNER)] =
+    {
+        .text = gEasyChatWord_Winner,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_SMELL_YA),
         .enabled = TRUE,
     },
 };

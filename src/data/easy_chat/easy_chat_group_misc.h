@@ -40,6 +40,12 @@ const u8 gEasyChatWord_Confused[] = _("CONFUSED");
 const u8 gEasyChatWord_Opposite[] = _("OPPOSITE");
 const u8 gEasyChatWord_Left[] = _("LEFT");
 const u8 gEasyChatWord_Right[] = _("RIGHT");
+const u8 gEasyChatWord_AvantGarde[] = _("AVANT GARDE");
+const u8 gEasyChatWord_Happening[] = _("HAPPENING");
+const u8 gEasyChatWord_HipAnd[] = _("HIP AND");
+const u8 gEasyChatWord_SmellYa[] = _("SMELL YA");
+const u8 gEasyChatWord_Heart[] = _("HEART");
+const u8 gEasyChatWord_Fever[] = _("FEVER");
 
 const struct EasyChatWordInfo gEasyChatGroup_Misc[] = {
     [EC_INDEX(EC_WORD_HIGHS)] =
@@ -292,6 +298,42 @@ const struct EasyChatWordInfo gEasyChatGroup_Misc[] = {
     {
         .text = gEasyChatWord_Right,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WHY),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_AVANT_GARDE)] =
+    {
+        .text = gEasyChatWord_AvantGarde,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_BABY),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_HAPPENING)] =
+    {
+        .text = gEasyChatWord_Happening,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_KTHX_BYE),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_HIP_AND)] =
+    {
+        .text = gEasyChatWord_HipAnd,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_LOSER),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_SMELL_YA)] =
+    {
+        .text = gEasyChatWord_SmellYa,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_NEW),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_HEART)] =
+    {
+        .text = gEasyChatWord_Heart,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_WINNER),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_FEVER)] =
+    {
+        .text = gEasyChatWord_Fever,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_UGLY),
         .enabled = TRUE,
     },
 };
