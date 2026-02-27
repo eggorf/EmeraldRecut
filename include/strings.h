@@ -599,9 +599,9 @@ extern const u8 gText_MoveVar1Where[];
 extern const u8 gText_ColorLightShadowDarkGray[];
 extern const u8 gText_ColorBlue[];
 extern const u8 gText_Friend[];
-extern const u8 gText_Tristan[];
+extern const u8 gText_Lisia[];
 extern const u8 gText_Philip[];
-extern const u8 gText_Dennis[];
+extern const u8 gText_Amelia[];
 extern const u8 gText_Roberto[];
 extern const u8 gText_FiveMarks[];
 
@@ -2627,10 +2627,6 @@ extern const u8 gText_TheMailMessage[];
 extern const u8 gText_Interview[];
 extern const u8 gText_LetsReplyToTheInterview[];
 extern const u8 gText_TheAnswer[];
-extern const u8 gText_TheBardsSong[];
-extern const u8 gText_ChangeJustOneWordOrPhrase[];
-extern const u8 gText_AndImproveTheBardsSong[];
-extern const u8 gText_TheBardsSong2[];
 extern const u8 gText_FindWordsThatDescribeYour[];
 extern const u8 gText_FeelingsRightNow[];
 extern const u8 gText_WhatsHipAndHappening[];
@@ -2683,7 +2679,6 @@ extern const u8 gEasyChatGroupName_Adjectives[];
 extern const u8 gEasyChatGroupName_Events[];
 extern const u8 gEasyChatGroupName_Move1[];
 extern const u8 gEasyChatGroupName_Move2[];
-extern const u8 gEasyChatGroupName_TrendySaying[];
 extern const u8 gEasyChatGroupName_Pokemon2[];
 
 // Text Input Strings

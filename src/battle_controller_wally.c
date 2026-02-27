@@ -70,10 +70,6 @@ static void WallyHandleTwoReturnValues(void);
 static void WallyHandleChosenMonReturnValue(void);
 static void WallyHandleOneReturnValue(void);
 static void WallyHandleOneReturnValue_Duplicate(void);
-static void WallyHandleClearUnkVar(void);
-static void WallyHandleSetUnkVar(void);
-static void WallyHandleClearUnkFlag(void);
-static void WallyHandleToggleUnkFlag(void);
 static void WallyHandleHitAnimation(void);
 static void WallyHandleCantSwitch(void);
 static void WallyHandlePlaySE(void);
@@ -139,10 +135,6 @@ static void (*const sWallyBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_CHOSENMONRETURNVALUE]     = WallyHandleChosenMonReturnValue,
     [CONTROLLER_ONERETURNVALUE]           = WallyHandleOneReturnValue,
     [CONTROLLER_ONERETURNVALUE_DUPLICATE] = WallyHandleOneReturnValue_Duplicate,
-    [CONTROLLER_CLEARUNKVAR]              = WallyHandleClearUnkVar,
-    [CONTROLLER_SETUNKVAR]                = WallyHandleSetUnkVar,
-    [CONTROLLER_CLEARUNKFLAG]             = WallyHandleClearUnkFlag,
-    [CONTROLLER_TOGGLEUNKFLAG]            = WallyHandleToggleUnkFlag,
     [CONTROLLER_HITANIMATION]             = WallyHandleHitAnimation,
     [CONTROLLER_CANTSWITCH]               = WallyHandleCantSwitch,
     [CONTROLLER_PLAYSE]                   = WallyHandlePlaySE,
@@ -1346,26 +1338,6 @@ static void WallyHandleOneReturnValue(void)
 }
 
 static void WallyHandleOneReturnValue_Duplicate(void)
-{
-    WallyBufferExecCompleted();
-}
-
-static void WallyHandleClearUnkVar(void)
-{
-    WallyBufferExecCompleted();
-}
-
-static void WallyHandleSetUnkVar(void)
-{
-    WallyBufferExecCompleted();
-}
-
-static void WallyHandleClearUnkFlag(void)
-{
-    WallyBufferExecCompleted();
-}
-
-static void WallyHandleToggleUnkFlag(void)
 {
     WallyBufferExecCompleted();
 }

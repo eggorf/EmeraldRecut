@@ -40,6 +40,9 @@ const u8 gEasyChatWord_Yahoo[] = _("YAHOO");
 const u8 gEasyChatWord_Yo[] = _("YO");
 const u8 gEasyChatWord_ComeOver[] = _("COME OVER");
 const u8 gEasyChatWord_CountOn[] = _("COUNT ON");
+const u8 gEasyChatWord_KthxBye[] = _("KTHX, BYE.");
+const u8 gEasyChatWord_YesSirExcl[] = _("YES, SIR!");
+const u8 gEasyChatWord_MuchObliged[] = _("MUCH OBLIGED");
 
 const struct EasyChatWordInfo gEasyChatGroup_Greetings[] = {
     [EC_INDEX(EC_WORD_THANKS)] =
@@ -292,6 +295,24 @@ const struct EasyChatWordInfo gEasyChatGroup_Greetings[] = {
     {
         .text = gEasyChatWord_CountOn,
         .alphabeticalOrder = EC_INDEX(EC_WORD_YO),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_KTHX_BYE)] =
+    {
+        .text = gEasyChatWord_KthxBye,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_1_HIT_KO_EXCL),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_YES_SIR_EXCL)] =
+    {
+        .text = gEasyChatWord_YesSirExcl,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_AVANT_GARDE),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_MUCH_OBLIGED)] =
+    {
+        .text = gEasyChatWord_MuchObliged,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_CANCEL),
         .enabled = TRUE,
     },
 };

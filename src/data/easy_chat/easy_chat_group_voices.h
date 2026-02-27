@@ -61,6 +61,8 @@ const u8 gEasyChatWord_Aww[] = _("AWW");
 const u8 gEasyChatWord_Wowee[] = _("WOWEE");
 const u8 gEasyChatWord_Gwah[] = _("GWAH");
 const u8 gEasyChatWord_Wahahaha[] = _("WAHAHAHA");
+const u8 gEasyChatWord_YeehawExcl[] = _("YEEHAW!");
+const u8 gEasyChatWord_Bang[] = _("BANG");
 
 const struct EasyChatWordInfo gEasyChatGroup_Voices[] = {
     [EC_INDEX(EC_WORD_EXCL)] =
@@ -439,6 +441,18 @@ const struct EasyChatWordInfo gEasyChatGroup_Voices[] = {
     {
         .text = gEasyChatWord_Wahahaha,
         .alphabeticalOrder = EC_INDEX(EC_WORD_YUP),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_YEEHAW_EXCL)] =
+    {
+        .text = gEasyChatWord_YeehawExcl,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_COUPLE),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_BANG)] =
+    {
+        .text = gEasyChatWord_Bang,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_OLD),
         .enabled = TRUE,
     },
 };

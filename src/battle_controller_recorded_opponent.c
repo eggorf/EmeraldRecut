@@ -66,10 +66,6 @@ static void RecordedOpponentHandleTwoReturnValues(void);
 static void RecordedOpponentHandleChosenMonReturnValue(void);
 static void RecordedOpponentHandleOneReturnValue(void);
 static void RecordedOpponentHandleOneReturnValue_Duplicate(void);
-static void RecordedOpponentHandleClearUnkVar(void);
-static void RecordedOpponentHandleSetUnkVar(void);
-static void RecordedOpponentHandleClearUnkFlag(void);
-static void RecordedOpponentHandleToggleUnkFlag(void);
 static void RecordedOpponentHandleHitAnimation(void);
 static void RecordedOpponentHandleCantSwitch(void);
 static void RecordedOpponentHandlePlaySE(void);
@@ -138,10 +134,6 @@ static void (*const sRecordedOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(void
     [CONTROLLER_CHOSENMONRETURNVALUE]     = RecordedOpponentHandleChosenMonReturnValue,
     [CONTROLLER_ONERETURNVALUE]           = RecordedOpponentHandleOneReturnValue,
     [CONTROLLER_ONERETURNVALUE_DUPLICATE] = RecordedOpponentHandleOneReturnValue_Duplicate,
-    [CONTROLLER_CLEARUNKVAR]              = RecordedOpponentHandleClearUnkVar,
-    [CONTROLLER_SETUNKVAR]                = RecordedOpponentHandleSetUnkVar,
-    [CONTROLLER_CLEARUNKFLAG]             = RecordedOpponentHandleClearUnkFlag,
-    [CONTROLLER_TOGGLEUNKFLAG]            = RecordedOpponentHandleToggleUnkFlag,
     [CONTROLLER_HITANIMATION]             = RecordedOpponentHandleHitAnimation,
     [CONTROLLER_CANTSWITCH]               = RecordedOpponentHandleCantSwitch,
     [CONTROLLER_PLAYSE]                   = RecordedOpponentHandlePlaySE,
@@ -1538,30 +1530,6 @@ static void RecordedOpponentHandleOneReturnValue(void)
 
 static void RecordedOpponentHandleOneReturnValue_Duplicate(void)
 {
-    RecordedOpponentBufferExecCompleted();
-}
-
-static void RecordedOpponentHandleClearUnkVar(void)
-{
-    gUnusedControllerStruct.unk = 0;
-    RecordedOpponentBufferExecCompleted();
-}
-
-static void RecordedOpponentHandleSetUnkVar(void)
-{
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
-    RecordedOpponentBufferExecCompleted();
-}
-
-static void RecordedOpponentHandleClearUnkFlag(void)
-{
-    gUnusedControllerStruct.flag = 0;
-    RecordedOpponentBufferExecCompleted();
-}
-
-static void RecordedOpponentHandleToggleUnkFlag(void)
-{
-    gUnusedControllerStruct.flag ^= 1;
     RecordedOpponentBufferExecCompleted();
 }
 

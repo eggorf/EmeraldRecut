@@ -112,7 +112,6 @@ static void *LoadPtrFromTaskData(const u16 *);
 static void StorePtrInTaskData(void *, u16 *);
 static u8 GetMultiplayerId_(void);
 static void *GetPlayerRecvBuffer(u8);
-static void ReceiveOldManData(OldMan *, size_t, u8);
 static void ReceiveBattleTowerData(void *, size_t, u8);
 static void ReceiveLilycoveLadyData(LilycoveLady *, size_t, u8);
 static void CalculateDaycareMailRandSum(const u8 *);
@@ -206,7 +205,6 @@ static void PrepareExchangePacketForRubySapphire(struct PlayerRecordRS *dest)
     SanitizeTVShowsForRuby(dest->tvShows);
     memcpy(dest->pokeNews, sPokeNewsSave, sizeof(dest->pokeNews));
     memcpy(&dest->oldMan, sOldManSave, sizeof(dest->oldMan));
-    SanitizeMauvilleOldManForRuby(&dest->oldMan);
     memcpy(dest->dewfordTrends, sDewfordTrendsSave, sizeof(dest->dewfordTrends));
     GetRecordMixingDaycareMail(&dest->daycareMail);
     SanitizeDaycareMailForRuby(&dest->daycareMail);
@@ -261,7 +259,6 @@ static void ReceiveExchangePacket(u32 multiplayerId)
         ReceiveBattleTowerData(&sReceivedRecords->ruby.battleTowerRecord, sizeof(sReceivedRecords->ruby), multiplayerId);
         ReceiveTvShowsData(sReceivedRecords->ruby.tvShows, sizeof(sReceivedRecords->ruby), multiplayerId);
         ReceivePokeNewsData(sReceivedRecords->ruby.pokeNews, sizeof(sReceivedRecords->ruby), multiplayerId);
-        ReceiveOldManData(&sReceivedRecords->ruby.oldMan, sizeof(sReceivedRecords->ruby), multiplayerId);
         ReceiveDewfordTrendData(sReceivedRecords->ruby.dewfordTrends, sizeof(sReceivedRecords->ruby), multiplayerId);
         ReceiveGiftItem(&sReceivedRecords->ruby.giftItem, multiplayerId);
     }
@@ -272,7 +269,6 @@ static void ReceiveExchangePacket(u32 multiplayerId)
         ReceiveSecretBasesData(sReceivedRecords->emerald.secretBases, sizeof(sReceivedRecords->emerald), multiplayerId);
         ReceiveTvShowsData(sReceivedRecords->emerald.tvShows, sizeof(sReceivedRecords->emerald), multiplayerId);
         ReceivePokeNewsData(sReceivedRecords->emerald.pokeNews, sizeof(sReceivedRecords->emerald), multiplayerId);
-        ReceiveOldManData(&sReceivedRecords->emerald.oldMan, sizeof(sReceivedRecords->emerald), multiplayerId);
         ReceiveDewfordTrendData(sReceivedRecords->emerald.dewfordTrends, sizeof(sReceivedRecords->emerald), multiplayerId);
         ReceiveDaycareMailData(&sReceivedRecords->emerald.daycareMail, sizeof(sReceivedRecords->emerald), multiplayerId, sReceivedRecords->emerald.tvShows);
         ReceiveBattleTowerData(&sReceivedRecords->emerald.battleTowerRecord, sizeof(sReceivedRecords->emerald), multiplayerId);
@@ -624,27 +620,6 @@ static void ShufflePlayerIndices(u32 *data)
             data[i] = sPlayerIdxOrders_4Player[linkTrainerId][i];
         break;
     }
-}
-
-static void ReceiveOldManData(OldMan *records, size_t recordSize, u8 multiplayerId)
-{
-    u8 version;
-    u16 language;
-    OldMan *oldMan;
-    u32 mixIndices[MAX_LINK_PLAYERS];
-
-    ShufflePlayerIndices(mixIndices);
-    oldMan = (void *)records + recordSize * mixIndices[multiplayerId];
-    version = gLinkPlayers[mixIndices[multiplayerId]].version;
-    language = gLinkPlayers[mixIndices[multiplayerId]].language;
-
-    if (Link_AnyPartnersPlayingRubyOrSapphire())
-        SanitizeReceivedRubyOldMan(oldMan, version, language);
-    else
-        SanitizeReceivedEmeraldOldMan(oldMan, version, language);
-
-    memcpy(sOldManSave, (void *)records + recordSize * mixIndices[multiplayerId], sizeof(OldMan));
-    ResetMauvilleOldManFlag();
 }
 
 static void ReceiveBattleTowerData(void *records, size_t recordSize, u8 multiplayerId)

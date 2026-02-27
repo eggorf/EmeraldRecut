@@ -34,11 +34,11 @@
 // this file was known as evobjmv.c in Game Freak's original source
 
 enum {
-    MOVE_SPEED_NORMAL, // walking
-    MOVE_SPEED_FAST_1, // running / surfing / sliding (ice tile)
-    MOVE_SPEED_FAST_2, // water current / acro bike
-    MOVE_SPEED_FASTER, // mach bike's max speed
-    MOVE_SPEED_FASTEST,
+    MOVE_SPEED_NORMAL, // walking - sStep1
+    MOVE_SPEED_FAST_1, // running / surfing / sliding (ice tile) - sStep2
+    MOVE_SPEED_FAST_2, // water current / acro bike - sStep3
+    MOVE_SPEED_FASTER, // mach bike's max speed - sStep4
+    MOVE_SPEED_FASTEST, //sStep8
 };
 
 enum {

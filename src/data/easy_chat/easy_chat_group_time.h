@@ -43,6 +43,9 @@ const u8 gEasyChatWord_Thursday[] = _("THURSDAY");
 const u8 gEasyChatWord_Nighttime[] = _("NIGHTTIME");
 const u8 gEasyChatWord_Night[] = _("NIGHT");
 const u8 gEasyChatWord_Week[] = _("WEEK");
+const u8 gEasyChatWord_Destiny[] = _("DESTINY");
+const u8 gEasyChatWord_Cancel[] = _("CANCEL");
+const u8 gEasyChatWord_New[] = _("NEW");
 
 const struct EasyChatWordInfo gEasyChatGroup_Time[] = {
     [EC_INDEX(EC_WORD_FALL)] =
@@ -313,6 +316,24 @@ const struct EasyChatWordInfo gEasyChatGroup_Time[] = {
     {
         .text = gEasyChatWord_Week,
         .alphabeticalOrder = EC_INDEX(EC_WORD_YESTERDAY),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_DESTINY)] =
+    {
+        .text = gEasyChatWord_Destiny,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_FLATTEN),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_CANCEL)] =
+    {
+        .text = gEasyChatWord_Cancel,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_HAPPENING),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_NEW)] =
+    {
+        .text = gEasyChatWord_New,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_HASSLE),
         .enabled = TRUE,
     },
 };

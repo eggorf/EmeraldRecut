@@ -6,7 +6,6 @@ extern const u8 gText_MysteryEventBerryTransform[];
 extern const u8 gText_MysteryEventBerryObtained[];
 extern const u8 gText_MysteryEventSpecialRibbon[];
 extern const u8 gText_MysteryEventNationalDex[];
-extern const u8 gText_MysteryEventRareWord[];
 extern const u8 gText_MysteryEventSentOver[];
 extern const u8 gText_MysteryEventFullParty[];
 extern const u8 gText_MysteryEventNewTrainer[];

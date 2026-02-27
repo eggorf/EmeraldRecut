@@ -76,6 +76,8 @@ const u8 gEasyChatWord_Forgets[] = _("FORGETS");
 const u8 gEasyChatWord_Appears[] = _("APPEARS");
 const u8 gEasyChatWord_Faint[] = _("FAINT");
 const u8 gEasyChatWord_Fainted[] = _("FAINTED");
+const u8 gEasyChatWord_Shake[] = _("SHAKE");
+const u8 gEasyChatWord_Flatten[] = _("FLATTEN");
 
 const struct EasyChatWordInfo gEasyChatGroup_Actions[] = {
     [EC_INDEX(EC_WORD_MEETS)] =
@@ -544,6 +546,18 @@ const struct EasyChatWordInfo gEasyChatGroup_Actions[] = {
     {
         .text = gEasyChatWord_Fainted,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WORRY),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_SHAKE)] =
+    {
+        .text = gEasyChatWord_Shake,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_LOSING),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_FLATTEN)] =
+    {
+        .text = gEasyChatWord_Flatten,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_HEART),
         .enabled = TRUE,
     },
 };

@@ -62,10 +62,6 @@ static void RecordedPlayerHandleTwoReturnValues(void);
 static void RecordedPlayerHandleChosenMonReturnValue(void);
 static void RecordedPlayerHandleOneReturnValue(void);
 static void RecordedPlayerHandleOneReturnValue_Duplicate(void);
-static void RecordedPlayerHandleClearUnkVar(void);
-static void RecordedPlayerHandleSetUnkVar(void);
-static void RecordedPlayerHandleClearUnkFlag(void);
-static void RecordedPlayerHandleToggleUnkFlag(void);
 static void RecordedPlayerHandleHitAnimation(void);
 static void RecordedPlayerHandleCantSwitch(void);
 static void RecordedPlayerHandlePlaySE(void);
@@ -133,10 +129,6 @@ static void (*const sRecordedPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) 
     [CONTROLLER_CHOSENMONRETURNVALUE]     = RecordedPlayerHandleChosenMonReturnValue,
     [CONTROLLER_ONERETURNVALUE]           = RecordedPlayerHandleOneReturnValue,
     [CONTROLLER_ONERETURNVALUE_DUPLICATE] = RecordedPlayerHandleOneReturnValue_Duplicate,
-    [CONTROLLER_CLEARUNKVAR]              = RecordedPlayerHandleClearUnkVar,
-    [CONTROLLER_SETUNKVAR]                = RecordedPlayerHandleSetUnkVar,
-    [CONTROLLER_CLEARUNKFLAG]             = RecordedPlayerHandleClearUnkFlag,
-    [CONTROLLER_TOGGLEUNKFLAG]            = RecordedPlayerHandleToggleUnkFlag,
     [CONTROLLER_HITANIMATION]             = RecordedPlayerHandleHitAnimation,
     [CONTROLLER_CANTSWITCH]               = RecordedPlayerHandleCantSwitch,
     [CONTROLLER_PLAYSE]                   = RecordedPlayerHandlePlaySE,
@@ -1565,30 +1557,6 @@ static void RecordedPlayerHandleOneReturnValue(void)
 
 static void RecordedPlayerHandleOneReturnValue_Duplicate(void)
 {
-    RecordedPlayerBufferExecCompleted();
-}
-
-static void RecordedPlayerHandleClearUnkVar(void)
-{
-    gUnusedControllerStruct.unk = 0;
-    RecordedPlayerBufferExecCompleted();
-}
-
-static void RecordedPlayerHandleSetUnkVar(void)
-{
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
-    RecordedPlayerBufferExecCompleted();
-}
-
-static void RecordedPlayerHandleClearUnkFlag(void)
-{
-    gUnusedControllerStruct.flag = 0;
-    RecordedPlayerBufferExecCompleted();
-}
-
-static void RecordedPlayerHandleToggleUnkFlag(void)
-{
-    gUnusedControllerStruct.flag ^= 1;
     RecordedPlayerBufferExecCompleted();
 }
 

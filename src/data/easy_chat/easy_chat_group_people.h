@@ -73,6 +73,10 @@ const u8 gEasyChatWord_ToHer[] = _("TO HER");
 const u8 gEasyChatWord_Hers[] = _("HERS");
 const u8 gEasyChatWord_SheIs[] = _("SHE IS");
 const u8 gEasyChatWord_Some[] = _("SOME");
+const u8 gEasyChatWord_Couple[] = _("COUPLE");
+const u8 gEasyChatWord_Baby[] = _("BABY");
+const u8 gEasyChatWord_Old[] = _("OLD");
+const u8 gEasyChatWord_Young[] = _("YOUNG");
 
 const struct EasyChatWordInfo gEasyChatGroup_People[] = {
     [EC_INDEX(EC_WORD_OPPONENT)] =
@@ -523,6 +527,30 @@ const struct EasyChatWordInfo gEasyChatGroup_People[] = {
     {
         .text = gEasyChatWord_Some,
         .alphabeticalOrder = EC_INDEX(EC_WORD_YOURS),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_BABY)] =
+    {
+        .text = gEasyChatWord_Baby,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_WANNABE),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_OLD)] =
+    {
+        .text = gEasyChatWord_Old,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_YEEHAW_EXCL),
+        .enabled = TRUE,
+    },
+    [EC_INDEX(EC_WORD_YOUNG)] =
+    {
+        .text = gEasyChatWord_Young,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_YES_SIR_EXCL),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_COUPLE)] =
+    {
+        .text = gEasyChatWord_Couple,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_BANG),
         .enabled = TRUE,
     },
 };

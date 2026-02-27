@@ -71,10 +71,6 @@ static void OpponentHandleTwoReturnValues(void);
 static void OpponentHandleChosenMonReturnValue(void);
 static void OpponentHandleOneReturnValue(void);
 static void OpponentHandleOneReturnValue_Duplicate(void);
-static void OpponentHandleClearUnkVar(void);
-static void OpponentHandleSetUnkVar(void);
-static void OpponentHandleClearUnkFlag(void);
-static void OpponentHandleToggleUnkFlag(void);
 static void OpponentHandleHitAnimation(void);
 static void OpponentHandleCantSwitch(void);
 static void OpponentHandlePlaySE(void);
@@ -143,10 +139,6 @@ static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_CHOSENMONRETURNVALUE]     = OpponentHandleChosenMonReturnValue,
     [CONTROLLER_ONERETURNVALUE]           = OpponentHandleOneReturnValue,
     [CONTROLLER_ONERETURNVALUE_DUPLICATE] = OpponentHandleOneReturnValue_Duplicate,
-    [CONTROLLER_CLEARUNKVAR]              = OpponentHandleClearUnkVar,
-    [CONTROLLER_SETUNKVAR]                = OpponentHandleSetUnkVar,
-    [CONTROLLER_CLEARUNKFLAG]             = OpponentHandleClearUnkFlag,
-    [CONTROLLER_TOGGLEUNKFLAG]            = OpponentHandleToggleUnkFlag,
     [CONTROLLER_HITANIMATION]             = OpponentHandleHitAnimation,
     [CONTROLLER_CANTSWITCH]               = OpponentHandleCantSwitch,
     [CONTROLLER_PLAYSE]                   = OpponentHandlePlaySE,
@@ -1774,30 +1766,6 @@ static void OpponentHandleOneReturnValue(void)
 
 static void OpponentHandleOneReturnValue_Duplicate(void)
 {
-    OpponentBufferExecCompleted();
-}
-
-static void OpponentHandleClearUnkVar(void)
-{
-    gUnusedControllerStruct.unk = 0;
-    OpponentBufferExecCompleted();
-}
-
-static void OpponentHandleSetUnkVar(void)
-{
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
-    OpponentBufferExecCompleted();
-}
-
-static void OpponentHandleClearUnkFlag(void)
-{
-    gUnusedControllerStruct.flag = 0;
-    OpponentBufferExecCompleted();
-}
-
-static void OpponentHandleToggleUnkFlag(void)
-{
-    gUnusedControllerStruct.flag ^= 1;
     OpponentBufferExecCompleted();
 }
 

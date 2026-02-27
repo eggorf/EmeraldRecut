@@ -58,6 +58,7 @@ const u8 gEasyChatWord_Finally[] = _("FINALLY");
 const u8 gEasyChatWord_Any[] = _("ANY");
 const u8 gEasyChatWord_Instead[] = _("INSTEAD");
 const u8 gEasyChatWord_Fantastic[] = _("FANTASTIC");
+const u8 gEasyChatWord_Kidding[] = _("KIDDING");
 
 const struct EasyChatWordInfo gEasyChatGroup_Speech[] = {
     [EC_INDEX(EC_WORD_LISTEN)] =
@@ -418,6 +419,12 @@ const struct EasyChatWordInfo gEasyChatGroup_Speech[] = {
     {
         .text = gEasyChatWord_Fantastic,
         .alphabeticalOrder = EC_INDEX(EC_WORD_WILD),
+        .enabled = TRUE,
+    },
+        [EC_INDEX(EC_WORD_KIDDING)] =
+    {
+        .text = gEasyChatWord_Kidding,
+        .alphabeticalOrder = EC_INDEX(EC_WORD_HIP_AND),
         .enabled = TRUE,
     },
 };
