@@ -2,52 +2,6 @@ MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan::
 	special Script_GetCurrentMauvilleMan
 	switch VAR_RESULT
 	case MAUVILLE_MAN_TRADER, MauvilleCity_PokemonCenter_1F_EventScript_Trader
-	case MAUVILLE_MAN_STORYTELLER, MauvilleCity_PokemonCenter_1F_EventScript_Storyteller
-	case MAUVILLE_MAN_GIDDY, MauvilleCity_PokemonCenter_1F_EventScript_Giddy
-	end
-
-@ Bard
-MauvilleCity_PokemonCenter_1F_EventScript_Bard::
-	lock
-	faceplayer
-	msgbox MauvilleCity_PokemonCenter_1F_Text_WouldYouLikeToHearMySong, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, MauvilleCity_PokemonCenter_1F_EventScript_DeclineSong
-	goto_if_eq VAR_RESULT, NO, MauvilleCity_PokemonCenter_1F_EventScript_DeclineSong
-	end
-
-MauvilleCity_PokemonCenter_1F_EventScript_DeclineSong::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_BardFeelingTheBlues1, MSGBOX_DEFAULT
-	release
-	end
-
-MauvilleCity_PokemonCenter_1F_EventScript_DeclineWritingLyrics::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_BardFeelingTheBlues2, MSGBOX_DEFAULT
-	release
-	end
-
-@ Hipster
-MauvilleCity_PokemonCenter_1F_EventScript_Hipster::
-	lock
-	faceplayer
-	setflag FLAG_UNLOCKED_TRENDY_SAYINGS
-	msgbox MauvilleCity_PokemonCenter_1F_Text_TeachWhatsHipAndHappening, MSGBOX_DEFAULT
-	special HasHipsterTaughtWord
-	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_PokemonCenter_1F_EventScript_TryTeachWord
-	msgbox MauvilleCity_PokemonCenter_1F_Text_IAlreadyTaughtYou, MSGBOX_DEFAULT
-	release
-	end
-
-MauvilleCity_PokemonCenter_1F_EventScript_TryTeachWord::
-	special HipsterTryTeachWord
-	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_PokemonCenter_1F_EventScript_TeachWord
-	msgbox MauvilleCity_PokemonCenter_1F_Text_IveGotNothingNewToTeach, MSGBOX_DEFAULT
-	release
-	end
-
-MauvilleCity_PokemonCenter_1F_EventScript_TeachWord::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_HaveYouHeardOfWord, MSGBOX_DEFAULT
-	special SetHipsterTaughtWord
-	release
 	end
 
 @ Trader

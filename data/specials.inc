@@ -109,9 +109,6 @@ gSpecials::
 	def_special ShowEasyChatScreen
 	def_special ShowEasyChatProfile
 	def_special Script_GetCurrentMauvilleMan
-	def_special HasHipsterTaughtWord
-	def_special SetHipsterTaughtWord
-	def_special HipsterTryTeachWord
 	def_special SetMauvilleOldManObjEventGfx
 	def_special TraderMenuGetDecoration
 	def_special GetTraderTradedFlag
