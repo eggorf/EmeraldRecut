@@ -22,6 +22,10 @@
 #include "m4a.h"
 #include "constants/mauville_old_man.h"
 
+static void InitGiddyTaleList(void);
+static void StorytellerSetup(void);
+static void Storyteller_ResetFlag(void);
+
 static u8 sSelectedStory;
 
 static void SetupTrader(void)
