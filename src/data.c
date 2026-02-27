@@ -320,7 +320,6 @@ const union AnimCmd *const gAnims_MonPic[MAX_MON_PIC_FRAMES] =
 #include "data/pokemon_graphics/front_pic_anims.h"
 #include "data/pokemon_graphics/front_pic_table.h"
 //#include "data/pokemon_graphics/footprint_table.h"
-#include "data/pokemon_graphics/unknown_table.h"
 
 #include "data/trainer_parties.h"
 #include "data/text/trainer_class_names.h"
